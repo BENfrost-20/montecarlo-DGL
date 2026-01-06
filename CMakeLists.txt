@@ -22,6 +22,9 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 add_executable(montecarlo_1
         src/apps/main.cpp
         src/apps/benchmarks.cpp
+        src/montecarlo/optimizers/optimizer.hpp
+        src/montecarlo/optimizers/PSO.cpp
+        src/montecarlo/optimizers/PSO.hpp
 )
 
 # Ora si può fare include <montecarlo/...>

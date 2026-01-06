@@ -46,6 +46,7 @@ int main() {
     std::cout << "1. Use function from file (function.txt) - Uses Parser (Slower)" << std::endl;
     std::cout << "2. Use hardcoded function - Uses C++ Lambda (Faster)" << std::endl;
     std::cout << "3. Do you want to use a polytope con covex hull (IT: Inviluppo Convesso)" << std::endl;
+    std::cout << "4. Run Optimizer Benchmarks (PSO)" << std::endl;
     std::cout << "Choice: ";
 
     int choice;
@@ -56,14 +57,14 @@ int main() {
     // Clears buffer until next line
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-    // Choice of visualizing with gnuPlot
-    std::cout << "Enable Gnuplot visualization for results? (y/n): ";
-    char gpChoice;
-    std::cin >> gpChoice;
-    // Clears buffer
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-    bool useGnuplot = (gpChoice == 'y' || gpChoice == 'Y');
+    bool useGnuplot = false;
+    if (choice >= 1 && choice <= 3) {
+        std::cout << "Enable Gnuplot visualization for results? (y/n): ";
+        char gpChoice;
+        std::cin >> gpChoice;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        useGnuplot = (gpChoice == 'y' || gpChoice == 'Y');
+    }
 
     if (choice == 1) {
         try {
@@ -136,6 +137,9 @@ int main() {
         std::cout << "Integral f=1   ≈ " << I_const << "  (exact: " << 3*std::sqrt(3)/2 << ")\n";
         std::cout << "Integral f=x   ≈ " << I_x     << "  (exact: 0)\n";
         std::cout << "Integral f=y   ≈ " << I_y     << "  (exact: 0)\n";
+
+    } else if (choice == 4) {
+        runOptimizationBenchmarks();
 
     }else {
         std::cerr << "Invalid choice selected." << std::endl;
