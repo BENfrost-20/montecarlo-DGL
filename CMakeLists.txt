@@ -15,16 +15,13 @@ set(MUPARSERX_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(src/external/muparserx EXCLUDE_FROM_ALL)
 include_directories(src/external/muparserx/parser)
 
-# --- Project sources ---
-# Collect all .cpp files in src/ and subfolders
-file(GLOB_RECURSE SOURCES src/*.cpp)
-
 add_executable(montecarlo_1
         src/apps/main.cpp
         src/apps/benchmarks.cpp
-        src/montecarlo/optimizers/optimizer.hpp
+)
+
+add_library(montecarlo_optimizers
         src/montecarlo/optimizers/PSO.cpp
-        src/montecarlo/optimizers/PSO.hpp
 )
 
 # Ora si può fare include <montecarlo/...>
@@ -36,8 +33,8 @@ target_include_directories(montecarlo_1 PRIVATE
 find_package(Boost REQUIRED COMPONENTS iostreams filesystem system)
 
 # --- Link libraries ---
-target_link_libraries(montecarlo_1
-        PRIVATE
+target_link_libraries(montecarlo_1 PRIVATE
+        montecarlo_optimizers
         Boost::iostreams
         Boost::filesystem
         Boost::system
