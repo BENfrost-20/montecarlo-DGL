@@ -39,4 +39,5 @@ target_link_libraries(montecarlo_1 PRIVATE
         Boost::iostreams
         Boost::filesystem
         Boost::system
+        muparserx
 )
