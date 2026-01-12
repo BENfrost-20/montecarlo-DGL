@@ -232,10 +232,10 @@ void runBenchmarksMH(bool useGnuplot) {
         return domain.isInside(x) ? 1.0 : 0.0;
     };
 
-    const double deviation = 0.20;
+    const double deviation = 0.15;
     const std::size_t burn_in = 20'000;
     const std::size_t thinning = 10;
-    const std::size_t n_samples = 200'000;
+    const std::size_t n_samples = 1'000'000;
     const std::size_t n_samples_volume = 200'000;
 
     geom::Point<2> x0;

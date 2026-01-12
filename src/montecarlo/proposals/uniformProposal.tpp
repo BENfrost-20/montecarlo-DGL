@@ -11,7 +11,7 @@ UniformProposal<dim>::UniformProposal(const IntegrationDomain<dim>& d)
             bounds[i].first, bounds[i].second
         );
     }
-    vol_box = domain.getBoxVolume();
+    //vol_box = domain.getBoxVolume();
 }
 
 template <size_t dim>

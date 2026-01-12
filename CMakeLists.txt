@@ -33,8 +33,11 @@ target_include_directories(montecarlo_1 PRIVATE
 # --- Find Boost libraries ---
 find_package(Boost REQUIRED COMPONENTS iostreams filesystem system)
 
+find_package(OpenMP REQUIRED)
+
 # --- Link libraries ---
 target_link_libraries(montecarlo_1 PRIVATE
+        OpenMP::OpenMP_CXX
         montecarlo_optimizers
         Boost::iostreams
         Boost::filesystem
