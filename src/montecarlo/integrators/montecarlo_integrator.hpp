@@ -4,7 +4,8 @@
 #include "../domains/integration_domain.hpp"
 #include "../proposals/proposal.hpp"
 #include "../mcmc/metropolisHastingsSampler.hpp"
-#include "../volumeEstimator/VolumeEstimatorMC.hpp"
+#include "../estimators/VolumeEstimatorMC.hpp"
+#include "../estimators/ISMeanEstimator.hpp"
 #include "../geometry.hpp"
 #include "integrator.hpp"
 #include <functional>

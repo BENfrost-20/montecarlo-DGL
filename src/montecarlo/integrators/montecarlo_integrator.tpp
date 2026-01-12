@@ -44,33 +44,9 @@ double MontecarloIntegrator<dim>::integrate_importance(
     const Proposal<dim>& proposal,
     uint32_t seed)
 {
-    if (n_samples <= 0) throw std::invalid_argument("n_samples must be > 0");
-
-    const int T = omp_get_max_threads();
-
-    const int base = n_samples / T;
-    const int rem  = n_samples % T;
-
-    double sum = 0.0;
-    RngManager rngs(seed);
-
-    #pragma omp parallel for reduction(+:sum)
-    for (int tid = 0; tid < T; ++tid){
-
-        //Tutti base sample tranne i primi che ne hanno uno in più
-        const int n_local = base + (tid < rem ? 1 : 0);
-        //Un rng per thread
-        auto rng = rngs.make_rng(tid);
-
-        for (int i=0; i< n_local; ++i) {
-            Point<dim> p = proposal.sample(rng);
-            if (this->domain.isInside(p)) {
-                double q = proposal.pdf(p);
-                if (q > 0.0) sum += f(p)/q;
-            }
-        }
-    }
-    return sum / n_samples * this->domain.getBoxVolume();
+    ISMeanEstimator<dim> mean_estimator;
+    ImportanceEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
+    return mean_estimate.mean * this->domain.getBoxVolume();
 }
 
 template <size_t dim>
