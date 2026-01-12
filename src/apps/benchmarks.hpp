@@ -29,6 +29,10 @@
 // Global seed for all random number generation
 extern uint32_t GLOBAL_SEED;
 
+// Global benchmark configuration
+extern const std::vector<size_t> n_samples_vector;
+extern unsigned int n_threads;
+
 // Struct used to write through the save results function the results in a file of name file_name
 struct results {
     size_t n_samples;
@@ -50,17 +54,19 @@ void fourDimIntegration();
 void eightDimIntegration();
 void twelveDimIntegration();
 
-// Function to run optimization benchmarks
-void runOptimizationBenchmarksPSO();
-void runOptimizationBenchmarksGA();
-
-// Function that call all the others
+// --- Monte Carlo Integration Benchmarks ---
+// (Implemented in benchmarks/integration_benchmarks.cpp)
 void runBenchmarks(bool useGnuplot);
-
-// executes all benchmarks on parsed function.txt's function
 void runBenchmarks(const std::string& expression, bool useGnuplot);
-
 void runBenchmarksMH(bool useGnuplot);
+
+// --- PSO Optimization Benchmarks ---
+// (Implemented in benchmarks/pso_benchmarks.cpp)
+void runOptimizationBenchmarksPSO();
+
+// --- GA Optimization Benchmarks ---
+// (Implemented in benchmarks/ga_benchmarks.cpp)
+void runOptimizationBenchmarksGA();
 
 
 #endif //MONTECARLO_1_BENCHMARKS_HPP

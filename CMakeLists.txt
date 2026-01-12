@@ -18,6 +18,9 @@ include_directories(src/external/muparserx/parser)
 add_executable(montecarlo_1
         src/apps/main.cpp
         src/apps/benchmarks.cpp
+        src/apps/benchmarks/integration_benchmarks.cpp
+        src/apps/benchmarks/pso_benchmarks.cpp
+        src/apps/benchmarks/ga_benchmarks.cpp
 )
 
 add_library(montecarlo_optimizers
