@@ -367,7 +367,7 @@ inline void createPSOAnimationScript3D(const std::string& scriptName,
     gp << "set title '" << title << "'\n";
 
     // View from the "open" side of the cube towards the back walls
-    gp << "set view 60, 30\n";
+    gp << "set view 60, 120\n";
 
     gp << "set grid\n";
     gp << "set xtics\n";
