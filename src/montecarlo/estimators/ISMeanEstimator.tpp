@@ -2,7 +2,7 @@
 // Created by Giacomo Merlo on 12/01/26.
 //
 #include <omp.h>
-#include "../rngManager.hpp"
+#include "../RngManager.hpp"
 
 template <std::size_t dim>
 ImportanceEstimate<dim> ISMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& domain,
