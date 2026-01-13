@@ -19,8 +19,13 @@
 #include <functional>
 
 /**
+ * @namespace montecarlo
+ * @brief Core library namespace containing integrators, domains, samplers, and estimators.
+ */
+
+/**
  * @brief Primary Monte Carlo integration class supporting multiple sampling strategies
- * @tparam dim Dimensionality of the integration domain
+ * @tparam dim Dimensionality of the integration domain; must match the domain type
  * 
  * Provides three integration methods:
  * 1. Classic uniform Monte Carlo (integrate)

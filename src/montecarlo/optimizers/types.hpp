@@ -5,6 +5,12 @@
 #include <iostream>
 
 /**
+ * @file types.hpp
+ * @brief Core optimizer type definitions for the Monte Carlo toolkit.
+ * @details Collects shared aliases and data structures used by PSO and GA implementations.
+ */
+
+/**
  * @namespace optimizers
  * @brief Optimization framework with PSO, GA, and extensible Optimizer interface.
  * Contains type definitions, abstract optimizer base class, and concrete implementations

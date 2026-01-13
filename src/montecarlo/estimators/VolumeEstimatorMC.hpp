@@ -5,7 +5,9 @@
  * @date 12/01/26
  * 
  * Estimates the volume of complex domains using acceptance-rejection sampling:
- * V ≈ V_box * (# hits) / (# total samples)
+ * \f[
+ * V_{\text{est}} = V_{\text{box}} \cdot \frac{N_{\text{hits}}}{N_{\text{total}}}
+ * \f]
  */
 
 #ifndef MONTECARLO_DGL_VOLUMEESTIMATORMC_HPP
