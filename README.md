@@ -1,6 +1,21 @@
 # Montecarlo Integration
 This project implements a Monte Carlo integration algorithm in C++ to calculate definite integrals over N-dimensional hyperspheres and hyperrectangles. The software can use the **muParserX** library to parse mathematical functions at runtime.
 
+## 📚 Documentation
+
+Full API documentation is available via Doxygen:
+
+```bash
+# Generate documentation (requires doxygen and graphviz)
+doxygen Doxyfile
+
+# Open in browser
+open docs/html/index.html  # macOS
+xdg-open docs/html/index.html  # Linux
+```
+
+See [DOXYGEN_GUIDE.md](DOXYGEN_GUIDE.md) for detailed instructions.
+
 ## ⚙️ Run Modes
 
 The project offers several run modes, divided into two main executables (`montecarlo_1` for benchmarks/tests and `drone_optimization` for the specific application):

@@ -1,0 +1,91 @@
+# Simplified Doxyfile for Monte Carlo Integration Library
+# Minimal configuration focused on clean, working HTML output
+
+PROJECT_NAME           = "Monte Carlo Integration Library"
+PROJECT_NUMBER         = 1.0
+PROJECT_BRIEF          = "High-performance Monte Carlo methods for numerical integration and optimization"
+OUTPUT_DIRECTORY       = docs
+BRIEF_MEMBER_DESC      = YES
+JAVADOC_AUTOBRIEF      = YES
+INHERIT_DOCS           = YES
+
+# Input configuration
+INPUT                  = src/montecarlo \
+                         src/apps \
+                         README.md
+INPUT_ENCODING         = UTF-8
+FILE_PATTERNS          = *.cpp \
+                         *.hpp \
+                         *.h \
+                         *.tpp \
+                         *.md
+RECURSIVE              = YES
+EXTRACT_LOCAL_CLASSES  = YES
+EXCLUDE                = src/external
+EXCLUDE_PATTERNS       = */build/* \
+                         */.git/* \
+                         */external/*
+USE_MDFILE_AS_MAINPAGE = README.md
+IMAGE_PATH             = drone_assets
+
+# Build options
+EXTRACT_ALL            = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+SHOW_FILES             = YES
+SHOW_NAMESPACES        = YES
+
+# Source browser
+SOURCE_BROWSER         = YES
+STRIP_CODE_COMMENTS    = YES
+VERBATIM_HEADERS       = YES
+
+# HTML output - MINIMAL AND CLEAN FOR LOCAL FILE ACCESS
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+GENERATE_TREEVIEW      = NO
+TREEVIEW_WIDTH         = 250
+HTML_DYNAMIC_SECTIONS  = NO
+DISABLE_INDEX          = NO
+
+# Disable JavaScript-heavy features for local file:// access
+HTML_TIMESTAMP         = NO
+SEARCHENGINE           = NO
+GENERATE_QHP           = NO
+GENERATE_HTMLHELP      = NO
+
+# Color scheme (simple)
+HTML_COLORSTYLE_HUE    = 220
+HTML_COLORSTYLE_SAT    = 100
+HTML_COLORSTYLE_GAMMA  = 80
+
+# Math
+USE_MATHJAX            = YES
+MATHJAX_FORMAT         = HTML-CSS
+MATHJAX_RELPATH        = https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/
+
+# Graphs and diagrams
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+CLASS_DIAGRAMS         = YES
+COLLABORATION_GRAPH    = YES
+TEMPLATE_RELATIONS     = YES
+INCLUDE_GRAPH          = YES
+INCLUDED_BY_GRAPH      = YES
+DIRECTORY_GRAPH        = YES
+CALL_GRAPH             = YES
+UML_LOOK               = YES
+
+# Warnings
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+
+# Disable other formats
+GENERATE_LATEX         = NO
+GENERATE_RTF           = NO
+GENERATE_MAN           = NO
+GENERATE_XML           = NO

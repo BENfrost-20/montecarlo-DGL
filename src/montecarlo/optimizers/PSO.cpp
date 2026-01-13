@@ -1,3 +1,11 @@
+/**
+ * @file PSO.cpp
+ * @brief Particle Swarm Optimization implementation
+ * 
+ * Implements the core PSO algorithm with velocity/position updates,
+ * boundary enforcement, and parallel evaluation support.
+ */
+
 #include "PSO.hpp"
 #include <stdexcept>
 #include <iostream>

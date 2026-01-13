@@ -1,4 +1,12 @@
 // GA.cpp
+/**
+ * @file GA.cpp
+ * @brief Genetic Algorithm optimization implementation
+ * 
+ * Implements genetic algorithm with tournament selection, uniform crossover,
+ * and Gaussian mutation for non-smooth optimization problems.
+ */
+
 #include "GA.hpp"
 #include <algorithm>
 #include <cmath>

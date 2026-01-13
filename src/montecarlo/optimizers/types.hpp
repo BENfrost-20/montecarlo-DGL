@@ -4,6 +4,12 @@
 #include <limits>
 #include <iostream>
 
+/**
+ * @namespace optimizers
+ * @brief Optimization framework with PSO, GA, and extensible Optimizer interface.
+ * Contains type definitions, abstract optimizer base class, and concrete implementations
+ * for particle swarm and genetic algorithm optimization.
+ */
 namespace optimizers {
 
     // Define the precision used across the library.

@@ -42,3 +42,5 @@
 
 hull.txt
 points.txt
+# Doxygen documentation
+docs/

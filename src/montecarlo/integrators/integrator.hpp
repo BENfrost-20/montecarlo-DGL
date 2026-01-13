@@ -1,3 +1,11 @@
+/**
+ * @file integrator.hpp
+ * @brief Abstract base class for numerical integration in N-dimensional spaces.
+ * @details Provides infrastructure for random number generation and
+ * domain-based sampling initialization. Serves as the parent for concrete
+ * integration strategies (uniform Monte Carlo, importance sampling, MCMC).
+ */
+
 #ifndef MONTECARLO_1_INTEGRATOR_HPP
 #define MONTECARLO_1_INTEGRATOR_HPP
 
@@ -15,27 +23,43 @@
 using namespace std;
 using namespace geom;
 
+/**
+ * @class Integrator
+ * @brief Abstract base class for Monte Carlo integration in N dimensions.
+ * @tparam dim The dimensionality of the integration domain.
+ * @details Manages random number generation and provides utilities for
+ * initializing sample points within the integration domain. Subclasses
+ * implement specific integration algorithms (uniform sampling, importance sampling, MCMC).
+ */
 template <size_t dim>
 class Integrator
 {
 protected:
-    const IntegrationDomain<dim> &domain;
+    const IntegrationDomain<dim> &domain; ///< Reference to the integration domain.
+    vector<mt19937> randomizer; ///< Per-thread random number generators.
 
-    vector<mt19937> randomizer;
-
+    /**
+     * @brief Initializes random samples uniformly distributed in the domain.
+     * @param numbers The number of sample points to generate.
+     * @return Vector of randomly sampled points within the domain bounds.
+     * @details Generates points uniformly in the bounding box, writes to file
+     * for visualization (hsphere_samples.dat, cylinder_samples.dat, etc.),
+     * and returns as vector of Point<dim>.
+     * @note This helper was used in earlier development; modern code uses RngManager.
+     */
     vector<Point<dim>> initializeRandomizer(int numbers)
     {
-        // Inizializzo i seed per i generatori di numeri casuali
+        // Initialize seed sequence for random number generators
         seed_seq seq{1, 2, 3, 4, 5};
         vector<uint32_t> seeds(dim);
         seq.generate(seeds.begin(), seeds.end());
 
-        // Creo 'dim' generatori indipendenti (uno per ogni dimensione)
+        // Create 'dim' independent random engines (one per dimension)
         array<mt19937, dim> engines;
         for (size_t i = 0; i < dim; ++i)
             engines[i].seed(seeds[i]);
 
-        // Creo un array di distribuzioni uniformi (una per ogni dimensione)
+        // Create uniform distributions for each dimension
         array<uniform_real_distribution<double>, dim> distributions;
         for (size_t i = 0; i < dim; ++i)
         {
@@ -44,11 +68,11 @@ protected:
                                                                  bounds[i].second);
         }
 
-        // Array di vettori: per ogni dimensione, un vettore di 'numbers' valori
+        // Reserve storage for samples
         vector<Point<dim>> random_numbers;
         random_numbers.reserve(numbers);
 
-        // Apro file di output
+        // Open output file based on domain type for visualization
         std::ofstream outfile;
         if (typeid(domain) == typeid(Hypersphere<dim>))
         {
@@ -67,7 +91,7 @@ protected:
             outfile.open("generic_samples.dat");
         }
 
-        // Genero 'numbers' punti nel dominio, uno per riga
+        // Generate 'numbers' sample points, one per line in output file
         for (int j = 0; j < numbers; ++j)
         {
             Point<dim> x;
@@ -86,8 +110,15 @@ protected:
     }
 
 public:
+    /**
+     * @brief Constructs an integrator for a specific domain.
+     * @param d Reference to the integration domain.
+     */
     explicit Integrator(const IntegrationDomain<dim> &d) : domain(d) {}
 
+    /**
+     * @brief Virtual destructor for proper polymorphic cleanup.
+     */
     virtual ~Integrator() = default;
 };
 

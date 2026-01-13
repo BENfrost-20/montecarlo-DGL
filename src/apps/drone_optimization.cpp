@@ -1,5 +1,36 @@
-// src/apps/drone_optimization.cpp
-// Drone arm center of mass optimization using PSO with high-precision verification
+/**
+ * @file drone_optimization.cpp
+ * @brief Drone arm center of mass optimization using PSO with high-precision verification
+ * 
+ * @details This application demonstrates the use of Particle Swarm Optimization (PSO)
+ * combined with Monte Carlo integration to solve a geometric optimization problem:
+ * finding the optimal spherical hole placement in a drone arm to achieve a target
+ * center of mass position.
+ * 
+ * **Problem Setup:**
+ * - Complex 3D domain: rectangular arm + cylindrical motor + optional polytope cabin
+ * - Optimization variables: hole position [x,y,z] and radius r
+ * - Objective: minimize distance between current CM and target (1.0, 0.0, 0.0)
+ * 
+ * **Implementation Highlights:**
+ * - Deterministic RNG seeding for reproducible results across thread counts
+ * - Ghost-hole penalty to prevent infeasible solutions
+ * - Fast PSO with 20k samples per evaluation
+ * - High-precision verification with 1M correlated samples
+ * - Hybrid ground truth combining MC baseline and analytic hole subtraction
+ * 
+ * **Performance:**
+ * - OpenMP parallelization for multi-core PSO
+ * - Thread-safe objective function with parameter-based seeding
+ * - Typical convergence: <0.1% error in ~50 iterations
+ * 
+ * **Outputs:**
+ * - Optimal hole configuration printed to console
+ * - Geometry export to drone_frames/drone_domain.txt
+ * - Auto-generated gnuplot visualization script
+ * 
+ * @see PSO, MontecarloIntegrator, DroneArmDomain
+ */
 
 #include <iostream>
 #include <vector>
@@ -28,10 +59,10 @@
 using namespace geom;
 using namespace optimizers;
 
-// Default seed for stochastic components used inside the optimizer
+/// Global seed for deterministic RNG across all stochastic components
 uint32_t GLOBAL_SEED = 12345;
 
-// Working in 3 dimensions
+/// Dimensionality of the problem space (3D geometry)
 constexpr size_t DIM = 3;
 
 // =================================================================================

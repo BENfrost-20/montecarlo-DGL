@@ -1,3 +1,18 @@
+/**
+ * @file main.cpp
+ * @brief Command-line interface for Monte Carlo integration and benchmarking
+ * 
+ * Provides interactive access to six operational modes:
+ * - Mode 1: Parser-based integration (muParserX)
+ * - Mode 2: Hardcoded uniform Monte Carlo
+ * - Mode 3: Metropolis-Hastings MCMC integration
+ * - Mode 4: Polytope integration (Qhull)
+ * - Mode 5: PSO optimization
+ * - Mode 6: Genetic Algorithm
+ * 
+ * Supports seed control and OpenMP parallelization.
+ */
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -13,12 +28,13 @@
 #include <montecarlo/domains/polytope.hpp>
 #include <montecarlo/geometry.hpp>
 
-// Path to the file containing the function.
+/// Path to user-defined integrand function
 #define FUNCTION_FILE "../function.txt"
 
+/// Default dimensionality for integration
 constexpr int dim = 2;
 
-// Global seed for all random number generation (can be overridden via CLI)
+/// Global seed for reproducible RNG
 uint32_t GLOBAL_SEED = 12345;
 
 
