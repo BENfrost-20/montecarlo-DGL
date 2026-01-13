@@ -1,6 +1,6 @@
 #include "integrator.hpp"
 #include "../geometry.hpp"
-#include "../rngManager.hpp"
+#include "../RngManager.hpp"
 #include <vector>
 #include <fstream>
 #include <iostream>
