@@ -169,9 +169,9 @@ int main(int argc, char* argv[]) {
             return p[1];
         };
 
-        double I_const = integrator.integrate(f_const, 1000000);
-        double I_x     = integrator.integrate(f_x,     1000000);
-        double I_y     = integrator.integrate(f_y,     1000000);
+        double I_const = integrator.OLDintegrate(f_const, 1000000);
+        double I_x     = integrator.OLDintegrate(f_x,     1000000);
+        double I_y     = integrator.OLDintegrate(f_y,     1000000);
 
         std::cout << "Integral f=1   ≈ " << I_const << "  (exact: " << 3*std::sqrt(3)/2 << ")\n";
         std::cout << "Integral f=x   ≈ " << I_x     << "  (exact: 0)\n";

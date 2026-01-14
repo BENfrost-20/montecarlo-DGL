@@ -116,6 +116,8 @@ public:
      */
     explicit Integrator(const IntegrationDomain<dim> &d) : domain(d) {}
 
+    virtual double integrate(const function<double(const Point<dim>&)>& f, int n_samples, const Proposal<dim>& proposal, uint32_t seed) = 0;
+
     /**
      * @brief Virtual destructor for proper polymorphic cleanup.
      */

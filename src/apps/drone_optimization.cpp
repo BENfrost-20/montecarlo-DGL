@@ -471,10 +471,10 @@ int main(int argc, char* argv[]) {
     auto f_my   = [](const Point<DIM>& p) { return p[1]; };
     auto f_mz   = [](const Point<DIM>& p) { return p[2]; };
 
-    double base_mass = static_integrator.integrate(f_mass, n_baseline);
-    double base_mx   = static_integrator.integrate(f_mx, n_baseline);
-    double base_my   = static_integrator.integrate(f_my, n_baseline);
-    double base_mz   = static_integrator.integrate(f_mz, n_baseline);
+    double base_mass = static_integrator.OLDintegrate(f_mass, n_baseline);
+    double base_mx   = static_integrator.OLDintegrate(f_mx, n_baseline);
+    double base_my   = static_integrator.OLDintegrate(f_my, n_baseline);
+    double base_mz   = static_integrator.OLDintegrate(f_mz, n_baseline);
 
     std::cout << std::fixed << std::setprecision(8);
     std::cout << "Baseline Mass (Full Body): " << base_mass << std::endl;

@@ -11,9 +11,11 @@
 
 #include "../domains/integration_domain.hpp"
 #include "../proposals/proposal.hpp"
+#include "../proposals/uniformProposal.hpp"
 #include "../mcmc/metropolisHastingsSampler.hpp"
 #include "../estimators/VolumeEstimatorMC.hpp"
 #include "../estimators/ISMeanEstimator.hpp"
+#include "../estimators/MCMeanEstimator.hpp"
 #include "../geometry.hpp"
 #include "integrator.hpp"
 #include <functional>
@@ -52,7 +54,10 @@ public:
      * Uses Hit-or-Miss sampling within the bounding box. Error scales as O(1/√n).
      */
     // Calcola l'integrale di una funzione 'f' usando Monte Carlo
-    double integrate(const std::function<double(const Point<dim>&)>& f, int n_samples);
+    double OLDintegrate(const std::function<double(const Point<dim>&)>& f, int n_samples);
+
+
+    double integrate(const function<double(const Point<dim>&)>& f, int n_samples, const Proposal<dim>& proposal, uint32_t seed) override;
 
     /**
      * @brief Importance sampling Monte Carlo integration

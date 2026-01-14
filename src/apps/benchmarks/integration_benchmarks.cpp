@@ -33,7 +33,7 @@ void executeBenchmark(const std::string& title,
         auto startTimer = std::chrono::high_resolution_clock::now();
 
         // 1. Integration (Data points are written to rawDataFile by the integrator)
-        double result = integrator.integrate(f, n_i);
+        double result = integrator.OLDintegrate(f, n_i);
 
         auto endTimer = std::chrono::high_resolution_clock::now();
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer - startTimer);
@@ -219,7 +219,7 @@ void runBenchmarksMH(bool useGnuplot) {
 
     std::cout << "Running Benchmarks" << std::endl;
     std::cout << "Metropolis Hastings result: " << integrator.integrate_with_mh(f, indicator, x0, deviation, GLOBAL_SEED, burn_in, n_samples, thinning, n_samples_volume)  << std::endl;
-    std::cout << "Montecarlo result: " << integrator.integrate(f, n_samples) << std::endl;
+    std::cout << "Montecarlo result: " << integrator.OLDintegrate(f, n_samples) << std::endl;
     std::cout << "Exact result: " << 5000 * M_PI << std::endl;
 }
 

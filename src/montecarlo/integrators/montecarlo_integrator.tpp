@@ -15,7 +15,7 @@ MontecarloIntegrator<dim>::MontecarloIntegrator(const IntegrationDomain<dim> &d)
 
 // Funzione di integrazione Monte Carlo
 template <size_t dim>
-double MontecarloIntegrator<dim>::integrate(
+double MontecarloIntegrator<dim>::OLDintegrate(
     const function<double(const Point<dim>&)> &f,
     int n_samples)
 {
@@ -35,6 +35,19 @@ double MontecarloIntegrator<dim>::integrate(
 
     // Restituisco l’integrale stimato
     return (sum / n_samples) * volume;
+
+}
+
+template <size_t dim>
+double MontecarloIntegrator<dim>::integrate(
+    const function<double(const Point<dim>&)>& f,
+    int n_samples,
+    const Proposal<dim>& proposal,
+    uint32_t seed)
+{
+    MCMeanEstimator<dim> mean_estimator;
+    MeanEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
+    return mean_estimate.mean * this->domain.getBoxVolume();
 }
 
 template <size_t dim>
