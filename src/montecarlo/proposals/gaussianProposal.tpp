@@ -2,7 +2,7 @@
 #define MONTECARLO_1_GAUSSIAN_PROPOSAL_TPP
 
 #include <stdexcept>
-#include <cmath>    // std::log, std::exp
+#include <cmath> // std::log, std::exp
 
 template <size_t dim>
 GaussianProposal<dim>::GaussianProposal(const IntegrationDomain<dim>& d,
@@ -10,14 +10,14 @@ GaussianProposal<dim>::GaussianProposal(const IntegrationDomain<dim>& d,
                                         const std::vector<double>& sigma)
     : domain(d), mu(mean), sig(sigma)
 {
-    // Ensure parameter vectors have the expected size.
+    // Validate sizes to avoid out-of-bounds / UB.
     if (mu.size() != dim || sig.size() != dim) {
-        throw std::invalid_argument(
-            "GaussianProposal: mean and sigma vectors must have size = dim."
-        );
+        throw std::invalid_argument("GaussianProposal: mean and sigma must have size = dim.");
     }
 
-    // Validate sigmas and precompute constants.
+    // IMPORTANT: allocate internal storage before using operator[].
+    inv_sig2.resize(dim);
+
     double sum_log_inv_sigma = 0.0;
     for (size_t i = 0; i < dim; ++i) {
         if (sig[i] <= 0.0) {
@@ -29,8 +29,8 @@ GaussianProposal<dim>::GaussianProposal(const IntegrationDomain<dim>& d,
         sum_log_inv_sigma += std::log(1.0 / sig[i]);
     }
 
-    // Log normalization constant for diagonal Gaussian:
-    // phi(x) = (2pi)^(-d/2) * prod_i (1/sigma_i) * exp(-0.5 * sum_i ((x_i-mu_i)^2 / sigma_i^2))
+    // log normalization constant for diagonal Gaussian:
+    // phi(x) = (2pi)^(-d/2) * prod_i (1/sigma_i) * exp(-0.5 * sum_i ((x_i-mu_i)^2/sigma_i^2))
     const double log_2pi = std::log(2.0 * M_PI);
     log_norm_const = -0.5 * static_cast<double>(dim) * log_2pi + sum_log_inv_sigma;
 }
@@ -40,8 +40,7 @@ geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
 {
     geom::Point<dim> x;
 
-    // Rejection sampling to enforce the domain constraint.
-    // If acceptance rate is low, consider a domain-adapted proposal.
+    // Rejection sampling to enforce domain constraint.
     do {
         for (size_t i = 0; i < dim; ++i) {
             x[i] = ndist[i](rng);
@@ -54,7 +53,7 @@ geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
 template <size_t dim>
 double GaussianProposal<dim>::pdf(const geom::Point<dim>& x) const
 {
-    // Outside the domain => density 0.
+    // Outside the domain => 0 (indicator constraint).
     if (!domain.isInside(x)) {
         return 0.0;
     }
@@ -66,8 +65,7 @@ double GaussianProposal<dim>::pdf(const geom::Point<dim>& x) const
         quad += diff * diff * inv_sig2[i];
     }
 
-    const double log_phi = log_norm_const - 0.5 * quad;
-    return std::exp(log_phi);
+    return std::exp(log_norm_const - 0.5 * quad);
 }
 
 #endif // MONTECARLO_1_GAUSSIAN_PROPOSAL_TPP
