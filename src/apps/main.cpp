@@ -91,7 +91,7 @@ int main(int argc, char* argv[]) {
     std::cout << Parser << ". Use function from file (function.txt) - Uses Parser (Slower)" << std::endl;
     std::cout << UnifHard << ". Use hardcoded function with Uniform distribution - Uses C++ Lambda (Faster)" << std::endl;
     std::cout << MeHaHard << ". Use hardcoded function with Metropolis-Hastings distribution - Uses C++ Lambda (Faster)" << std::endl;
-    std::cout << IsingHard << ". Use hardcoded function with Ising integrator and different distributions - Uses C++ Lambda (Faster)" << std::endl;
+    std::cout << ISHard << ". Use hardcoded function with Importance Sampling integrator and different distributions - Uses C++ Lambda (Faster)" << std::endl;
     std::cout << Polytope << ". Do you want to use a polytope con covex hull (IT: Inviluppo Convesso)" << std::endl;
     std::cout << PSO << ". Run Optimizer Benchmarks (PSO)" << std::endl;
     std::cout << GA << ". Run Optimizer Benchmarks (GA)" << std::endl;
@@ -132,9 +132,9 @@ int main(int argc, char* argv[]) {
         std::cout << "\nStarting HARDCODED benchmarks with Metropolis-Hastings distribution..." << std::endl;
         // Sends file to gnuPlot
         runBenchmarksMH(useGnuplot);
-    }else if (choice == IsingHard) {
+    }else if (choice == ISHard) {
 
-        std::cout << "\nStarting HARDCODED benchmarks with Ising integration on different distribution..." << std::endl;
+        std::cout << "\nStarting HARDCODED benchmarks with Importance Sampling integration on different distribution..." << std::endl;
 
     }else if (choice == Polytope) {
         std::cout << "\nReading Points, Normals and Offsets..." << std::endl;
