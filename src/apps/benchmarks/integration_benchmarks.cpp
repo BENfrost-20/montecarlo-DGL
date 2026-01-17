@@ -25,7 +25,8 @@ void executeBenchmark(const std::string& title,
                       bool useGnuplot,
                       const std::string& rawDataFile,
                       const std::string& functionExpr)      // Function string for display/save
-{
+{   
+    std::mt19937 rng(GLOBAL_SEED);
     // --- Helper for console output ---
     auto printLine = [&](std::size_t n,
                      const std::string& label,
@@ -46,7 +47,7 @@ void executeBenchmark(const std::string& title,
 
 	ISMontecarloIntegrator<dim> isIntegrator(domain);
     UniformProposal<dim> uprop(domain);
-    GaussianProposal<dim> gprop(domain, std::vector<double>(dim, 0.0), std::vector<double>(dim, 0.5));
+    GaussianProposal<dim> gprop(domain, f, rng, 5000, std::vector<double>(dim, 0.0), std::vector<double>(dim, 0.5), 1e-6);
     MixtureProposal<dim> mix({&uprop, &gprop}, {0.5, 0.5});
 
     // Header table for console output
