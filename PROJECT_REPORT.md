@@ -1,12 +1,12 @@
 #### MONTECARLO-DGL: Advanced Stochastic Integration and Metaheuristic Optimization Framework
 
-**Project Report — January 2026**
+**Project Report **
 
 ---
 
 ## Executive Summary
 
-Montecarlo-DGL is a production-grade C++20 framework delivering high-performance Monte Carlo integration, Markov Chain Monte Carlo sampling, and metaheuristic optimization (PSO, GA) across arbitrary-dimensional geometric domains. Targeting aerospace design optimization and high-dimensional numerical analysis, the system processes complex CSG geometries (hyperspheres, hyperrectangles, hypercylinders, convex polytopes) with deterministic reproducibility and OpenMP-accelerated parallelism. The framework successfully validates against standard benchmarks (Rastrigin, Rosenbrock) and demonstrates practical applicability through two drone arm center-of-mass optimization case studies achieving sub-0.1% error convergence with million-sample verification. Built with CMake, Boost, and muParserX integration, the platform delivers visualizable results via auto-generated Gnuplot scripts and maintains thread-safe RNG management for production deployment scenarios.
+Montecarlo-DGL is a production-grade C++20 framework delivering high-performance Monte Carlo integration, Markov Chain Monte Carlo sampling, and metaheuristic optimization (PSO, GA) across arbitrary-dimensional geometric domains. Targeting aerospace design optimization and high-dimensional numerical analysis, the system processes complex CSG geometries (hyperspheres, hyperrectangles, hypercylinders, convex polytopes) with deterministic reproducibility and OpenMP-accelerated parallelism. The framework successfully validates against standard benchmarks and demonstrates practical applicability through two drone arm center-of-mass optimization case studies achieving sub-0.1% error convergence with million-sample verification. Built with CMake, Boost, and muParserX integration, the platform delivers visualizable results via auto-generated Gnuplot scripts and maintains thread-safe RNG management for production deployment scenarios.
 
 ---
 
@@ -69,7 +69,7 @@ The architecture follows a **layered modular design** with clear separation of c
 
 ## Technology Stack & Design Rationale
 
-### Core Technologies (2026)
+### Core Technologies 
 
 | Component | Technology | Justification |
 |-----------|-----------|---------------|
@@ -624,37 +624,11 @@ Given time constraints and research-oriented nature, formal unit test framework 
 
 **Analysis**: Near-linear scaling up to physical core count (4). Hyperthreading provides diminishing returns due to memory bandwidth saturation during random sampling.
 
-### AI-Assisted Development (2026 Tooling)
-
-While this project predates widespread AI code review integration, modern 2026 practices would include:
-
-1. **CodeRabbit**: Static analysis for:
-   - Detecting uninitialized variables in RNG setup
-   - Flagging potential race conditions in OpenMP parallel regions
-   - Suggesting `const` qualifiers for immutable parameters
-
-2. **Graphite**: PR management for:
-   - Automated performance regression detection (integration benchmark times)
-   - Visual diff of Gnuplot output changes
-   - Stack-based PR dependencies for feature branches
-
-3. **GitHub Copilot Workspace**: 
-   - Generated boilerplate for new domain types (e.g., torus, cone)
-   - Suggested test cases based on function signatures
-   - Auto-documented parameter ranges from usage patterns
-
-**Retrospective AI Application**: Running CodeRabbit on current codebase flagged 3 minor issues:
-- Unused variable in `GA::crossover()` (cosmetic)
-- Potential division by zero in volume estimator (already protected)
-- Suggestion to use `std::clamp()` instead of manual bounds checking (adopted in GA mutation)
-
----
-
 ## Build System & Deployment
 
 ### CMake Configuration
 
-**Modern CMake Practices (2026)**:
+**Modern CMake Practices **:
 
 ```cmake
 cmake_minimum_required(VERSION 3.20)
@@ -733,7 +707,7 @@ Benefits:
 
 #### The Problem
 
-**Initial Symptom** (December 2025): PSO for drone optimization would oscillate wildly, never converging. The global best position would jump randomly between distant locations in the search space.
+**Initial Symptom**: PSO for drone optimization would oscillate wildly, never converging. The global best position would jump randomly between distant locations in the search space.
 
 **Root Cause Analysis**:
 1. Monte Carlo objective function introduces **sampling noise**
@@ -814,60 +788,6 @@ After fix (100 PSO runs):
 
 4. **Consider surrogate models for expensive objectives**: For production deployment, might build Gaussian Process surrogate trained on deterministic samples, then optimize surrogate (future work).
 
----
-
-## Future Roadmap
-
-### Short-term Enhancements (Q1-Q2 2026)
-
-1. **Automated Benchmark Suite** (2 weeks)
-   - Python script to run integration on 20+ domains × 10 functions
-   - Automatic comparison to analytical solutions
-   - Performance regression detection (flag if >5% slower than baseline)
-
-2. **Variance Reduction Techniques** (4 weeks)
-   - Stratified sampling (divide domain into strata, proportional sampling)
-   - Control variates (use known integral as baseline)
-   - Quasi-Monte Carlo (Sobol/Halton sequences for better coverage)
-
-3. **Parser Performance Study** (1 week)
-   - Benchmark muParserX vs. muParser vs. ExprTk
-   - Measure compilation overhead vs. evaluation speed
-   - Recommendation: ExprTk for complex expressions (JIT compilation)
-
-### Mid-term Goals (Q3-Q4 2026)
-
-4. **GPU Acceleration (CUDA)** (8 weeks)
-   - Port MC kernel to CUDA (inside-test + function evaluation)
-   - Target: 100× speedup for 10M+ samples
-   - Challenge: Irregular CSG geometry (divergent warps)
-
-5. **Non-convex Domain Support** (6 weeks)
-   - Decompose into convex cells via hierarchical BSP trees
-   - Rejection sampling with adaptive bounding volumes
-   - Use case: Drone airframe with internal honeycomb structure
-
-6. **Multi-objective Optimization** (4 weeks)
-   - Implement NSGA-II for Pareto frontier discovery
-   - Visualization: 2D/3D Pareto front plots
-   - Application: CM target + stress + mass retention trade-off
-
-### Long-term Vision (2027+)
-
-7. **Production-grade Testing**
-   - Integrate Google Test for unit/integration coverage
-   - CI/CD with GitHub Actions (build + test on Linux/macOS/Windows)
-   - Fuzzing for geometry edge cases (via libFuzzer)
-
-8. **Web-based Visualization**
-   - Replace Gnuplot with Three.js for interactive 3D
-   - WebAssembly compilation for browser-based demos
-   - Real-time PSO/GA animation with parameter sliders
-
-9. **Machine Learning Integration**
-   - Train neural network surrogates for expensive objectives
-   - Bayesian optimization for hyperparameter tuning (PSO config)
-   - Reinforcement learning for adaptive proposal selection
 
 ---
 
@@ -882,12 +802,8 @@ Montecarlo-DGL demonstrates production-ready stochastic integration and optimiza
 - ✅ Applied case studies demonstrating practical engineering value
 - ✅ Reproducible builds and visualization pipelines
 
-**Repository**: `/home/ubuntu/montecarlo-DGL`  
 **Documentation**: Auto-generated via Doxygen (`doxygen Doxyfile`)  
-**Contact**: [Project maintainer information]
 
 ---
 
-**Document Version**: 1.0  
-**Date**: January 20, 2026  
 **Status**: #### FINAL DRAFT ####
