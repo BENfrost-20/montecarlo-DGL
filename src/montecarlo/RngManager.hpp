@@ -6,6 +6,9 @@
  * 
  * Provides deterministic RNG seeding for parallel Monte Carlo simulations,
  * ensuring reproducibility across different thread counts and run configurations.
+ * 
+ * @note This class is kept for backward compatibility. New code should prefer
+ *       using mc::make_engine() and mc::make_thread_engine() from rng/rng_factory.hpp
  */
 
 #ifndef MONTECARLO_DGL_RNGMANAGER_HPP
@@ -13,6 +16,7 @@
 
 #include <random>
 #include <cstdint>
+#include "rng/rng_global.hpp"
 
 /**
  * @brief Factory for creating deterministically seeded RNG instances
@@ -23,14 +27,19 @@
  * 
  * @note The seed sequence combines master_seed, thread_id, and run_id to guarantee
  *       statistical independence between generators.
+ * 
+ * @deprecated Prefer using mc::make_engine() or mc::make_thread_engine() for new code.
  */
 class RngManager {
 public:
     /**
      * @brief Construct RNG manager with a master seed
      * @param seed Master seed for all derived generators
+     * 
+     * @note If seed == 0, falls back to mc::get_global_seed()
      */
-    explicit RngManager(uint64_t seed) : master_seed(seed) {}
+    explicit RngManager(uint64_t seed = 0) 
+        : master_seed(seed == 0 ? mc::get_global_seed() : seed) {}
 
     /**
      * @brief Create a deterministic RNG for a specific thread/run

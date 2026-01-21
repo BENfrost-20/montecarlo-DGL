@@ -43,7 +43,8 @@
 
 // Library headers
 #include "../montecarlo/geometry.hpp"
-#include "../montecarlo/RngManager.hpp"
+#include "../montecarlo/rng/rng_global.hpp"
+#include "../montecarlo/rng/rng_factory.hpp"
 #include "../montecarlo/domains/integration_domain.hpp"
 #include "../montecarlo/domains/hyperrectangle.hpp"
 #include "../montecarlo/domains/hypercylinder.hpp"
@@ -58,9 +59,6 @@
 
 using namespace geom;
 using namespace optimizers;
-
-/// Global seed for deterministic behavior (also used by optimizers)
-uint32_t GLOBAL_SEED = 12345;
 
 /// Problem geometry dimension
 constexpr size_t DIM = 3;
@@ -797,12 +795,13 @@ static void printSolutionBlock(const std::string& title,
 int main(int argc, char* argv[]) {
     // Parse command line arguments
     int num_threads = omp_get_max_threads();
+    std::uint32_t seed = 12345;  // Default seed
 
     if (argc > 1) {
         std::string seed_arg = argv[1];
         if (seed_arg != "-") {
             try { 
-                GLOBAL_SEED = static_cast<uint32_t>(std::stoul(seed_arg)); 
+                seed = static_cast<uint32_t>(std::stoul(seed_arg)); 
             } catch (...) {}
         }
     }
@@ -813,10 +812,13 @@ int main(int argc, char* argv[]) {
         } catch (...) {}
     }
     omp_set_num_threads(num_threads);
+    
+    // Set global seed for all library components
+    mc::set_global_seed(seed);
 
     std::cout << "\n=== Drone CM + Strength Optimization (Ellipsoid Hole) ===\n";
     std::cout << "=== PSO vs GA Comparison ===\n";
-    std::cout << "Seed: " << GLOBAL_SEED << " | Threads: " << num_threads << "\n";
+    std::cout << "Seed: " << seed << " | Threads: " << num_threads << "\n";
     std::cout << "(Usage: ./drone_ellipsoid [seed|-] [num_threads])\n\n";
 
     // Construct domain once
@@ -848,7 +850,7 @@ int main(int argc, char* argv[]) {
         p[4] = std::max(p[4], 1e-6);
         p[5] = std::max(p[5], 1e-6);
 
-        const uint32_t seed = hashParams(p) + GLOBAL_SEED;
+        const uint32_t seed = hashParams(p) + mc::get_global_seed();
         const EvalMetrics m = evaluateMonteCarlo(domain, p, n_fast, seed, 
                                                   F_vertical, L_arm, arm_h, w_cm, w_sigma);
         return m.objective;
@@ -914,7 +916,7 @@ int main(int argc, char* argv[]) {
     std::cout << std::fixed << std::setprecision(8);
 
     auto evalFast = [&](const Solution& sol) -> EvalMetrics {
-        const uint32_t seed = hashParams(sol.params) + GLOBAL_SEED;
+        const uint32_t seed = hashParams(sol.params) + mc::get_global_seed();
         return evaluateMonteCarlo(domain, sol.params, n_fast, seed, 
                                    F_vertical, L_arm, arm_h, w_cm, w_sigma);
     };
@@ -931,7 +933,7 @@ int main(int argc, char* argv[]) {
     std::cout << "\n--- HIGH-PRECISION VERIFICATION (" << n_verify << " samples) ---\n";
 
     auto evalVerify = [&](const Solution& sol) -> EvalMetrics {
-        const uint32_t seed = hashParams(sol.params) + GLOBAL_SEED;
+        const uint32_t seed = hashParams(sol.params) + mc::get_global_seed();
         return verifyMonteCarlo(domain, sol.params, n_verify, seed,
                                  F_vertical, L_arm, arm_h, w_cm, w_sigma);
     };

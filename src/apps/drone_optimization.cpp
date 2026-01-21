@@ -43,7 +43,8 @@
 #include <random>
 #include <limits>
 #include <functional>
-#include "../montecarlo/RngManager.hpp"
+#include "../montecarlo/rng/rng_global.hpp"
+#include "../montecarlo/rng/rng_factory.hpp"
 
 #include "../montecarlo/geometry.hpp"
 #include "../montecarlo/integrators/MCintegrator.hpp"
@@ -58,9 +59,6 @@
 
 using namespace geom;
 using namespace optimizers;
-
-/// Global seed for deterministic RNG across all stochastic components
-uint32_t GLOBAL_SEED = 12345;
 
 /// Dimensionality of the problem space (3D geometry)
 constexpr size_t DIM = 3;
@@ -354,7 +352,7 @@ double objective_function(const std::vector<double>& params) {
     }
 
     // Deterministic RNG: same params -> same seed -> stationary noise surface for PSO
-    uint32_t local_seed = hash_params(params) + GLOBAL_SEED;
+    uint32_t local_seed = hash_params(params) + mc::get_global_seed();
     std::mt19937 rng(local_seed);
 
     auto bounds = domain.getBounds();
@@ -409,23 +407,27 @@ double objective_function(const std::vector<double>& params) {
 int main(int argc, char* argv[]) {
     // Parse seed from command line if provided
     int num_threads = omp_get_max_threads();  // Default: max available threads
+    std::uint32_t seed = 12345;  // Default seed
     
     if (argc > 1) {
         std::string seed_arg = argv[1];
         // Check if user wants to keep default seed (using "-" as placeholder)
         if (seed_arg == "-") {
-            std::cout << "Using default seed: " << GLOBAL_SEED << std::endl;
+            std::cout << "Using default seed: " << seed << std::endl;
         } else {
             try {
-                GLOBAL_SEED = std::stoul(seed_arg);
-                std::cout << "Using custom seed: " << GLOBAL_SEED << std::endl;
+                seed = static_cast<std::uint32_t>(std::stoul(seed_arg));
+                std::cout << "Using custom seed: " << seed << std::endl;
             } catch (const std::exception&) {
-                std::cerr << "Invalid seed argument. Using default seed: " << GLOBAL_SEED << std::endl;
+                std::cerr << "Invalid seed argument. Using default seed: " << seed << std::endl;
             }
         }
     } else {
-        std::cout << "Using default seed: " << GLOBAL_SEED << std::endl;
+        std::cout << "Using default seed: " << seed << std::endl;
     }
+    
+    // Set the global seed for all library components
+    mc::set_global_seed(seed);
     
     // Second argument: number of threads (0 = sequential, positive = number of threads)
     if (argc > 2) {
@@ -548,7 +550,7 @@ int main(int argc, char* argv[]) {
     {
         int tid = omp_get_thread_num();
         // Deterministic verification RNG per thread; stable across runs
-        std::mt19937 local_rng(GLOBAL_SEED + 9999u + static_cast<uint32_t>(tid));
+        auto local_rng = mc::make_thread_engine(9999);
 
         #pragma omp for
         for (int i = 0; i < n_verify; ++i) {

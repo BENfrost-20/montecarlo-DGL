@@ -7,14 +7,11 @@
  */
 
 #include "PSO.hpp"
+#include "../rng/rng_factory.hpp"
 #include <stdexcept>
 #include <iostream>
 #include <cstdint>
 #include <omp.h>
-#include "../RngManager.hpp"
-
-// Global seed defined in main.cpp
-extern uint32_t GLOBAL_SEED;
 
 namespace optimizers {
 
@@ -22,8 +19,8 @@ namespace optimizers {
         : m_config(config),
           // Initialize global best to worst possible value based on default mode
           m_global_best(Solution::make_worst(OptimizationMode::MINIMIZE)),
-          // Seed the random generator
-          m_rng(GLOBAL_SEED)
+          // Seed the random generator using mc::make_engine
+          m_rng(mc::make_engine(200))  // stream_id=200 for PSO
     {}
 
     void PSO::setObjectiveFunction(ObjectiveFunction func) {
@@ -62,8 +59,8 @@ namespace optimizers {
             auto& p = m_swarm[p_idx];
             
             // Local RNG for thread-safe random number generation
-            RngManager local_rng(GLOBAL_SEED + p_idx);
-            auto local_gen = local_rng.make_rng(0);
+            // stream_id encodes: 1000 (init phase) + particle index
+            auto local_gen = mc::make_thread_engine(1000 + static_cast<std::uint64_t>(p_idx));
             std::uniform_real_distribution<Real> dist(0.0, 1.0);
 
             p.position.resize(dim);
@@ -109,8 +106,8 @@ namespace optimizers {
             auto& p = m_swarm[p_idx];
             
             // Local RNG for thread-safe random generation
-            RngManager local_rng(GLOBAL_SEED + p_idx + 1000);
-            auto local_gen = local_rng.make_rng(0);
+            // stream_id encodes: 2000 (step phase) + particle index
+            auto local_gen = mc::make_thread_engine(2000 + static_cast<std::uint64_t>(p_idx));
             std::uniform_real_distribution<Real> r_dist(0.0, 1.0);
 
             for (size_t i = 0; i < dim; ++i) {

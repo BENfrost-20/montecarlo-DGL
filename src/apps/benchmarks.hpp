@@ -28,9 +28,6 @@
 #include <cmath>
 #include <cstdint>
 
-// Global seed for all random number generation
-extern uint32_t GLOBAL_SEED;
-
 // Global benchmark configuration
 extern const std::vector<size_t> n_samples_vector;
 extern unsigned int n_threads;
