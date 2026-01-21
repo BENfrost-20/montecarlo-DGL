@@ -3,7 +3,7 @@
 
 template <size_t dim>
 UniformProposal<dim>::UniformProposal(const IntegrationDomain<dim>& d)
-    : domain(d), vol_box(1.0)
+    : domain(d), vol_box(d.getBoxVolume())
 {
     auto bounds = domain.getBounds();
     for (size_t i = 0; i < dim; ++i) {

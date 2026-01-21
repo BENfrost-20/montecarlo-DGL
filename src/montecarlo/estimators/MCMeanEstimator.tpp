@@ -8,9 +8,16 @@ template <std::size_t dim>
 MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& domain,
              std::uint32_t seed,
              std::size_t n_samples,
-             const Proposal<dim>& proposal, const std::function<double(const Point<dim>&)>& f) const
+             const std::function<double(const Point<dim>&)>& f) const
 {
     if (n_samples <= 0) throw std::invalid_argument("n_samples must be > 0");
+
+    auto bounds = domain.getBounds();
+    for (size_t i = 0; i < dim; ++i) {
+        dist[i] = std::uniform_real_distribution<double>(
+            bounds[i].first, bounds[i].second
+        );
+    }
 
     const int T = omp_get_max_threads();
 
@@ -23,6 +30,8 @@ MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& d
     std::size_t inside_total = 0;
     RngManager rngs(seed);
 
+
+
 #pragma omp parallel for reduction(+:sum,sum2,inside_total)
     for (int tid = 0; tid < T; ++tid){
 
@@ -32,7 +41,10 @@ MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& d
         auto rng = rngs.make_rng(tid);
 
         for (int i=0; i< n_local; ++i) {
-            Point<dim> p = proposal.sample(rng);
+            geom::Point<dim> p;
+            for (size_t i = 0; i < dim; ++i) {
+                p[i] = dist[i](rng);
+            }
             if (domain.isInside(p)) {
                     double term = f(p);
                     sum += term;

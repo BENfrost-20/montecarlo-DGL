@@ -47,7 +47,15 @@ void executeBenchmark(const std::string& title,
 
 	ISMontecarloIntegrator<dim> isIntegrator(domain);
     UniformProposal<dim> uprop(domain);
-    GaussianProposal<dim> gprop(domain, f, rng, 10000, std::vector<double>(dim, 0.0), std::vector<double>(dim, 0.5), 1e-6);
+    std::vector<double> init_mean(dim, 0.0);
+    std::vector<double> init_sigma(dim, 2.5);
+    //GaussianProposal<dim> gprop(domain, init_mean, init_sigma);*/
+    auto bounds = domain.getBounds();
+    for (size_t i = 0; i < dim; ++i) {
+        init_mean[i]  = 0.5 * (bounds[i].first + bounds[i].second);
+        init_sigma[i] = (bounds[i].second - bounds[i].first) / 3.0; // oppure /2.0
+    }
+    GaussianProposal<dim> gprop(domain, init_mean, init_sigma);
     MixtureProposal<dim> mix({&uprop, &gprop}, {0.5, 0.5});
 
     // Header table for console output

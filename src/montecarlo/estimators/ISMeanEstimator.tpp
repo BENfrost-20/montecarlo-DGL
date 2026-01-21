@@ -3,6 +3,7 @@
 //
 #include <omp.h>
 #include "../RngManager.hpp"
+#include <iostream>
 
 template <std::size_t dim>
 ImportanceEstimate<dim> ISMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& domain,

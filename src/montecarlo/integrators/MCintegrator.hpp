@@ -50,7 +50,7 @@ public:
      * @param f Integrand function to integrate
      * @param n_samples Number of Monte Carlo samples
      * @return Estimated integral value ∫_D f(x) dx
-     * 
+     *
      * Uses Hit-or-Miss sampling within the bounding box. Error scales as O(1/√n).
      */
     // Calcola l'integrale di una funzione 'f' usando Monte Carlo

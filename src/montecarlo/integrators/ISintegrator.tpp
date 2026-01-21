@@ -23,5 +23,5 @@ double ISMontecarloIntegrator<dim>::integrate(
 {
     ISMeanEstimator<dim> mean_estimator;
     ImportanceEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
-    return mean_estimate.mean * this->domain.getBoxVolume();
+    return mean_estimate.mean;
 }

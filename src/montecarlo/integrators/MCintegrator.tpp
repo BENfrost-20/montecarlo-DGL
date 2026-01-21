@@ -46,7 +46,7 @@ double MontecarloIntegrator<dim>::integrate(
     uint32_t seed)
 {
     MCMeanEstimator<dim> mean_estimator;
-    MeanEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
+    MeanEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, f);
     return mean_estimate.mean * this->domain.getBoxVolume();
 }
 

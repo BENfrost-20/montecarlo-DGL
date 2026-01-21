@@ -20,8 +20,9 @@ public:
     MeanEstimate<dim> estimate(const IntegrationDomain<dim>& domain,
              std::uint32_t seed,
              std::size_t n_samples,
-             const Proposal<dim>& proposal,
              const std::function<double(const Point<dim>&)>& f) const;
+private:
+    mutable std::array<std::uniform_real_distribution<double>, dim> dist{};
 };
 
 #include "MCMeanEstimator.tpp"
