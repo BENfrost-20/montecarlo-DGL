@@ -38,9 +38,24 @@ add_executable(drone_optimization_ellipsoid_strength
         src/apps/drone_optimization_ellipsoid_strength.cpp
 )
 
+# Test for RNG reproducibility
+add_executable(test_rng_reproducibility 
+        src/apps/test_rng_reproducibility.cpp
+)
+
 add_library(montecarlo_optimizers
+        src/montecarlo/rng/rng_global.cpp
+        src/montecarlo/rng/rng_factory.cpp
         src/montecarlo/optimizers/PSO.cpp
         src/montecarlo/optimizers/GA.cpp
+)
+
+# montecarlo_optimizers needs OpenMP for omp_get_thread_num() in rng_factory.cpp
+target_link_libraries(montecarlo_optimizers PRIVATE OpenMP::OpenMP_CXX)
+
+# Include path for montecarlo_optimizers
+target_include_directories(montecarlo_optimizers PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
 # Ora si può fare include <montecarlo/...>
@@ -57,6 +72,10 @@ target_include_directories(drone_optimization PRIVATE
 )
 
 target_include_directories(drone_optimization_ellipsoid_strength PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_include_directories(test_rng_reproducibility PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -100,4 +119,10 @@ target_link_libraries(drone_optimization_ellipsoid_strength PRIVATE
         Boost::filesystem
         Boost::system
         muparserx
+)
+
+# Test for RNG reproducibility - only needs montecarlo_optimizers
+target_link_libraries(test_rng_reproducibility PRIVATE
+        OpenMP::OpenMP_CXX
+        montecarlo_optimizers
 )

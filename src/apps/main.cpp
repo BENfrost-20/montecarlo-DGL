@@ -23,6 +23,7 @@
 #include <cstdint>
 
 #include "apps/benchmarks.hpp"
+#include <montecarlo/rng/rng_global.hpp>
 #include <montecarlo/utils/plotter.hpp>
 #include <montecarlo/integrators/MCintegrator.hpp>
 #include <montecarlo/domains/polytope.hpp>
@@ -33,9 +34,6 @@
 
 /// Default dimensionality for integration
 constexpr int dim = 2;
-
-/// Global seed for reproducible RNG
-uint32_t GLOBAL_SEED = 12345;
 
 
 // --- FUNCTION PROTOTYPES ---
@@ -54,18 +52,24 @@ void read_normals_and_offsets_from_qhull_n(
 // --- MAIN ---
 
 int main(int argc, char* argv[]) {
+    // Default seed value
+    std::uint32_t seed = 12345;
+    
     // Check if user provided a seed as argument
     if (argc > 1) {
         try {
-            GLOBAL_SEED = std::stoul(argv[1]);
-            std::cout << "Using custom seed: " << GLOBAL_SEED << std::endl;
+            seed = static_cast<std::uint32_t>(std::stoul(argv[1]));
+            std::cout << "Using custom seed: " << seed << std::endl;
         } catch (const std::exception& e) {
-            std::cerr << "Invalid seed argument. Using default seed: " << GLOBAL_SEED << std::endl;
+            std::cerr << "Invalid seed argument. Using default seed: " << seed << std::endl;
         }
     } else {
-        std::cout << "Using default seed: " << GLOBAL_SEED << std::endl;
+        std::cout << "Using default seed: " << seed << std::endl;
         std::cout << "(To use a different seed, run: ./program <seed>)" << std::endl;
     }
+    
+    // Set the global seed for all library components
+    mc::set_global_seed(seed);
     std::cout << std::endl;
     
     // Closes already open gnuplot windows

@@ -56,6 +56,7 @@
 
 // Monte Carlo library components
 #include "../montecarlo/geometry.hpp"
+#include "../montecarlo/rng/rng_global.hpp"
 #include "../montecarlo/integrators/MCintegrator.hpp"
 #include "../montecarlo/domains/hyperrectangle.hpp"
 #include "../montecarlo/proposals/uniformProposal.hpp"
@@ -70,9 +71,6 @@ using namespace optimizers;
 // =============================================================================
 // GLOBAL PARAMETERS (Financial Market Model)
 // =============================================================================
-
-/// Random seed for reproducibility
-std::uint32_t GLOBAL_SEED = 12345;
 
 /// Stock price today (initial value)
 constexpr double S0 = 100.0;
@@ -468,11 +466,13 @@ double calibrate_volatility_ga(double market_price, int n_mc_samples = 5000) {
 // =============================================================================
 
 int main() {
+    // Set global seed for reproducible results
+    mc::set_global_seed(20260121u);
     
     std::cout << "\n";
     std::cout << "╔════════════════════════════════════════════════════════════╗\n";
-    std::cout << "║   EXOTIC OPTIONS PRICING WITH MONTE CARLO & OPTIMIZERS   ║\n";
-    std::cout << "║   Educational Example - Non-Economists Welcome!           ║\n";
+    std::cout << "║   EXOTIC OPTIONS PRICING WITH MONTE CARLO & OPTIMIZERS     ║\n";
+    std::cout << "║   Educational Example - Non-Economists Welcome!            ║\n";
     std::cout << "╚════════════════════════════════════════════════════════════╝\n";
     std::cout << "\n";
     
