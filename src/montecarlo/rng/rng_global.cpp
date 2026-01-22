@@ -11,7 +11,7 @@ namespace detail{
     // Tracks whether the seed has been explicitly set
     std::atomic<bool> g_seed_initialized{false};
 
-}
+} //namespace detail
 
 bool set_global_seed(std::uint32_t s) {
     bool expected = false;

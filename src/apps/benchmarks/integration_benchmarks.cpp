@@ -5,6 +5,7 @@
 #include "apps/benchmarks.hpp"
 #include <montecarlo/integrators/ISintegrator.hpp>
 #include <montecarlo/utils/muParserXInterface.hpp>
+#include <montecarlo/rng/rng_global.hpp>
 #include <cmath>
 #include <cstdint> 
 
@@ -71,19 +72,19 @@ void executeBenchmark(const std::string& title,
 
         // 2. Uniform IS (Data points are written to rawDataFile by the integrator)
         auto startTimer2 = std::chrono::high_resolution_clock::now();
-        double result2 = isIntegrator.integrate(f, n_i, uprop, 12345);
+        double result2 = isIntegrator.integrate(f, n_i, uprop, mc::rng::get_global_seed());
         auto endTimer2 = std::chrono::high_resolution_clock::now();
         auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer2 - startTimer2);
 
         // 3. Gaussian IS (Data points are written to rawDataFile by the integrator)
         auto startTimer3 = std::chrono::high_resolution_clock::now();
-        double result3 = isIntegrator.integrate(f, n_i, gprop, 12345);
+        double result3 = isIntegrator.integrate(f, n_i, gprop, mc::rng::get_global_seed());
         auto endTimer3 = std::chrono::high_resolution_clock::now();
         auto duration3 = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer3 - startTimer3);
 
         // 4. Mixture IS (Data points are written to rawDataFile by the integrator)
         auto startTimer4 = std::chrono::high_resolution_clock::now();
-        double result4 = isIntegrator.integrate(f, n_i, mix, 12345);
+        double result4 = isIntegrator.integrate(f, n_i, mix, mc::rng::get_global_seed());
         auto endTimer4 = std::chrono::high_resolution_clock::now();
         auto duration4 = std::chrono::duration_cast<std::chrono::milliseconds>(endTimer4 - startTimer4);
 
@@ -304,7 +305,7 @@ void runBenchmarksMH() {
                         const std::function<double(const mc::geom::Point<2>&)>& f,
                         double exact_or_nan)
     {
-        const unsigned int seed = std::random_device{}();
+        const unsigned int seed = mc::rng::get_global_seed();
 
         const double mh_est = mhintegrator.integrate(
             f, static_cast<int>(n_samples), dummy_proposal, seed);
