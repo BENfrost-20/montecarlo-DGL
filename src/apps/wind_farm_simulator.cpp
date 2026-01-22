@@ -14,6 +14,8 @@
 #include <chrono>
 #include <cstdint>
 #include <array>
+#include <mutex>
+#include <sstream>
 #include <omp.h>
 
 // --- Montecarlo library headers ---
@@ -74,6 +76,53 @@ constexpr double WIND_THETA_MAX  = 2.0 * M_PI;
 // Centers for mapping from centered domain coords to physical coords
 constexpr double WIND_SPEED_CENTER = 0.5 * (WIND_SPEED_MIN + WIND_SPEED_MAX); // 20
 constexpr double WIND_THETA_CENTER = 0.5 * (WIND_THETA_MIN + WIND_THETA_MAX); // pi
+
+// Progress printing cadence
+constexpr size_t PROGRESS_EVERY = 10;
+
+// =============================================================================
+// GLOBAL OUTPUT GUARDS (thread-safe console + redirect)
+// =============================================================================
+
+// Global mutex to keep console output readable under OpenMP
+static std::mutex g_print_mutex;
+
+// Global mutex to serialize std::cout/std::cerr redirection sections
+static std::mutex g_cout_redirect_mutex;
+
+// A streambuf that discards everything written to it ("/dev/null"-like).
+class NullBuffer final : public std::streambuf {
+public:
+    int overflow(int c) override { return c; }
+};
+
+// RAII redirector for any std::ostream (e.g., std::cout).
+// NOTE: It is NOT intrinsically thread-safe; protect usage with g_cout_redirect_mutex.
+class CoutRedirector final {
+public:
+    explicit CoutRedirector(std::ostream& os)
+        : os_(os), old_buf_(os.rdbuf())
+    {
+        os_.rdbuf(null_stream().rdbuf());
+    }
+
+    ~CoutRedirector() {
+        os_.rdbuf(old_buf_);
+    }
+
+    CoutRedirector(const CoutRedirector&)            = delete;
+    CoutRedirector& operator=(const CoutRedirector&) = delete;
+
+private:
+    static std::ostream& null_stream() {
+        static NullBuffer nb;
+        static std::ostream ns(&nb);
+        return ns;
+    }
+
+    std::ostream&      os_;
+    std::streambuf*    old_buf_ = nullptr;
+};
 
 // =============================================================================
 // UTILITY: WIND + GEOMETRY
@@ -194,13 +243,13 @@ static inline double farmPowerGivenWind(const std::vector<double>& x,
 }
 
 // =============================================================================
-// MH-BASED EXPECTATION ESTIMATION
+// MH-BASED EXPECTATION ESTIMATION (silent volume spam)
 // =============================================================================
 
 static double estimateAveragePowerMH(const std::vector<double>& x,
                                     const std::vector<double>& y,
                                     std::uint32_t seed32) {
-    using Point2 = mc::geom::Point<2>;
+    using Point2      = mc::geom::Point<2>;
     using Integrator2 = mc::integrators::MHMontecarloIntegrator<2>;
 
     mc::domains::IntegrationDomain<2>* domain = buildWindDomainOwned();
@@ -213,7 +262,6 @@ static double estimateAveragePowerMH(const std::vector<double>& x,
 
         (void)theta; // uniform -> constant
         if (v < WIND_SPEED_MIN || v > WIND_SPEED_MAX) return 0.0;
-        // theta should be in [0,2pi] by construction (domain mapping)
         return weibull_pdf(v);
     };
 
@@ -233,7 +281,6 @@ static double estimateAveragePowerMH(const std::vector<double>& x,
                  x0);
 
     // GaussianProposal samples in centered coordinates w
-    // mean in centered coords for (v=WEIBULL_SCALE, theta=pi)
     std::vector<double> mu{
         WEIBULL_SCALE - WIND_SPEED_CENTER,
         M_PI - WIND_THETA_CENTER
@@ -251,7 +298,19 @@ static double estimateAveragePowerMH(const std::vector<double>& x,
         return farmPowerGivenWind(x, y, v, theta);
     };
 
-    const double avg_power = mh.integrate(f, MH_SAMPLES, proposal, seed32);
+    double avg_power = 0.0;
+
+    // The "Volume: ... +- ..." spam originates inside MH/VolumeEstimator.
+    // We cannot change the library, so we redirect std::cout (and std::cerr if needed)
+    // ONLY while calling the MH integration.
+    {
+        std::lock_guard<std::mutex> lock(g_cout_redirect_mutex);
+
+        CoutRedirector mute_cout(std::cout);
+        CoutRedirector mute_cerr(std::cerr);
+
+        avg_power = mh.integrate(f, MH_SAMPLES, proposal, seed32);
+    }
 
     delete domain;
     return avg_power;
@@ -264,7 +323,8 @@ static double estimateAveragePowerMH(const std::vector<double>& x,
 inline std::uint64_t hashCoordsForSeed(const mc::optim::Coordinates& coords) {
     std::uint64_t hash = 0;
     for (size_t i = 0; i < coords.size(); ++i) {
-        hash ^= std::hash<double>{}(coords[i]) + 0x9e3779b9 + (hash << 6) + (hash >> 2);
+        hash ^= (static_cast<std::uint64_t>(std::hash<double>{}(coords[i]))
+                 + 0x9e3779b97f4a7c15ULL + (hash << 6) + (hash >> 2));
     }
 #ifdef _OPENMP
     hash += static_cast<std::uint64_t>(omp_get_thread_num()) * 1000000ULL;
@@ -273,16 +333,27 @@ inline std::uint64_t hashCoordsForSeed(const mc::optim::Coordinates& coords) {
 }
 
 double windFarmObjective(const mc::optim::Coordinates& coords, std::uint64_t thread_seed) {
-    std::vector<double> x, y;
-    extractTurbinePositions(coords, x, y);
+    // Always guard against uncaught exceptions inside the objective.
+    // If something fails, return a large penalty to keep optimizers stable.
+    try {
+        std::vector<double> x, y;
+        extractTurbinePositions(coords, x, y);
 
-    const double penalty = computeProximityPenalty(x, y);
-    if (penalty > 0.0) return penalty;
+        const double penalty = computeProximityPenalty(x, y);
+        if (penalty > 0.0) return penalty;
 
-    const std::uint32_t seed32 = static_cast<std::uint32_t>(thread_seed);
-    const double avg_power = estimateAveragePowerMH(x, y, seed32);
+        const std::uint32_t seed32 = static_cast<std::uint32_t>(thread_seed);
+        const double avg_power = estimateAveragePowerMH(x, y, seed32);
 
-    return -avg_power;
+        if (!std::isfinite(avg_power)) {
+            return 1e12;
+        }
+
+        // Optimizers minimize -> maximize avg_power by returning negative
+        return -avg_power;
+    } catch (...) {
+        return 1e12;
+    }
 }
 
 // =============================================================================
@@ -294,6 +365,7 @@ void writeResultsFile(const std::string& filename,
                       const std::vector<double>& y) {
     std::ofstream out(filename);
     if (!out.is_open()) {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
         std::cerr << "Error: Cannot create " << filename << "\n";
         return;
     }
@@ -304,6 +376,8 @@ void writeResultsFile(const std::string& filename,
         out << std::fixed << std::setprecision(2)
             << x[i] << "  " << y[i] << "  " << (i + 1) << "\n";
     }
+
+    std::lock_guard<std::mutex> lock(g_print_mutex);
     std::cout << "[INFO] Results written to " << filename << "\n";
 }
 
@@ -312,6 +386,7 @@ void writePlotScript(const std::string& filename,
                      const std::string& output_png) {
     std::ofstream gp(filename);
     if (!gp.is_open()) {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
         std::cerr << "Error: Cannot create " << filename << "\n";
         return;
     }
@@ -332,27 +407,19 @@ void writePlotScript(const std::string& filename,
     gp << "plot '" << data_file << "' using 1:2 with points pt 9 ps 3 title 'Wind Turbines',\\\n"
           "     '" << data_file << "' using 1:2:3 with labels offset 0,1.5 notitle\n";
 
+    std::lock_guard<std::mutex> lock(g_print_mutex);
     std::cout << "[INFO] Gnuplot script written to " << filename << "\n";
 }
 
-void printSummary(const std::string& name,
-                  const mc::optim::Solution& best,
-                  const std::vector<double>& x,
-                  const std::vector<double>& y,
-                  double seconds) {
-    const double avg_power_mw = (-best.value) / 1e6;
-
+static double computeMinDistance(const std::vector<double>& x,
+                                 const std::vector<double>& y) {
     double min_dist = std::numeric_limits<double>::max();
     for (size_t i = 0; i < x.size(); ++i) {
         for (size_t j = i + 1; j < x.size(); ++j) {
             min_dist = std::min(min_dist, turbineDistance(x[i], y[i], x[j], y[j]));
         }
     }
-
-    std::cout << "\n=== " << name << " SUMMARY ===\n";
-    std::cout << "Time: " << std::fixed << std::setprecision(3) << seconds << " s\n";
-    std::cout << "Best avg power: " << std::fixed << std::setprecision(6) << avg_power_mw << " MW\n";
-    std::cout << "Min distance: " << std::fixed << std::setprecision(2) << min_dist << " m\n";
+    return min_dist;
 }
 
 // =============================================================================
@@ -364,6 +431,9 @@ struct RunResult {
     mc::optim::Solution best;
     std::vector<double> x, y;
     double seconds = 0.0;
+
+    double best_avg_power_mw = 0.0;
+    double min_distance_m    = 0.0;
 };
 
 template <typename OptimizerT>
@@ -383,15 +453,19 @@ RunResult runOptimizer(const std::string& name,
     });
 
     optimizer.setCallback([name](const mc::optim::Solution& best, size_t it) {
-        if (it % 10 == 0 || it == 1) {
+        if (it % PROGRESS_EVERY == 0 || it == 1) {
             const double power_mw = -best.value / 1e6;
+            std::lock_guard<std::mutex> lock(g_print_mutex);
             std::cout << "[" << name << " | ITER " << std::setw(4) << it << "] "
                       << "Best power: " << std::fixed << std::setprecision(6)
                       << power_mw << " MW\n";
         }
     });
 
-    std::cout << "\n[INFO] Starting " << name << " optimization...\n\n";
+    {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
+        std::cout << "\n[INFO] Starting " << name << " optimization...\n\n";
+    }
 
     const auto t0 = std::chrono::high_resolution_clock::now();
     mc::optim::Solution best = optimizer.optimize();
@@ -406,7 +480,47 @@ RunResult runOptimizer(const std::string& name,
     writeResultsFile(results_file, x, y);
     writePlotScript(plot_script, results_file, output_png);
 
-    return RunResult{ name, best, x, y, seconds };
+    RunResult rr;
+    rr.name             = name;
+    rr.best             = best;
+    rr.x                = std::move(x);
+    rr.y                = std::move(y);
+    rr.seconds          = seconds;
+    rr.best_avg_power_mw = (-best.value) / 1e6;
+    rr.min_distance_m    = computeMinDistance(rr.x, rr.y);
+    return rr;
+}
+
+static void printFinalComparisonTable(const RunResult& pso_res, const RunResult& ga_res) {
+    const std::string winner = (ga_res.best_avg_power_mw > pso_res.best_avg_power_mw) ? "GA" : "PSO";
+
+    std::lock_guard<std::mutex> lock(g_print_mutex);
+
+    std::cout << "\n=== FINAL RESULTS (clean) ===\n";
+    std::cout << std::left
+              << std::setw(10) << "Method"
+              << std::right
+              << std::setw(12) << "Time(s)"
+              << std::setw(18) << "BestAvg(MW)"
+              << std::setw(18) << "MinDist(m)"
+              << "\n";
+
+    std::cout << std::string(10 + 12 + 18 + 18, '-') << "\n";
+
+    auto printRow = [](const RunResult& r) {
+        std::cout << std::left
+                  << std::setw(10) << r.name
+                  << std::right
+                  << std::setw(12) << std::fixed << std::setprecision(3) << r.seconds
+                  << std::setw(18) << std::fixed << std::setprecision(6) << r.best_avg_power_mw
+                  << std::setw(18) << std::fixed << std::setprecision(2) << r.min_distance_m
+                  << "\n";
+    };
+
+    printRow(pso_res);
+    printRow(ga_res);
+
+    std::cout << "\nWinner (power): " << winner << "\n";
 }
 
 // =============================================================================
@@ -414,10 +528,16 @@ RunResult runOptimizer(const std::string& name,
 // =============================================================================
 
 int main() {
-    std::cout << "\n=== WIND FARM: MH + PSO vs GA ===\n";
+    {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
+        std::cout << "\n=== WIND FARM: MH + PSO vs GA ===\n";
+    }
 
     mc::rng::set_global_seed(42u);
-    std::cout << "[INFO] Global RNG seed set to 42\n";
+    {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
+        std::cout << "[INFO] Global RNG seed set to 42\n";
+    }
 
     // Layout bounds
     const size_t total_dims = 2 * NUM_TURBINES;
@@ -458,23 +578,15 @@ int main() {
     RunResult ga_res  = runOptimizer("GA", ga, lower_bounds, upper_bounds,
                                      "results_ga.dat", "plot_ga.gp", "wind_farm_layout_ga.png");
 
-    // Summaries
-    printSummary("PSO", pso_res.best, pso_res.x, pso_res.y, pso_res.seconds);
-    printSummary("GA",  ga_res.best,  ga_res.x,  ga_res.y,  ga_res.seconds);
+    // Print final comparison table
+    printFinalComparisonTable(pso_res, ga_res);
 
-    const double pso_mw = -pso_res.best.value / 1e6;
-    const double ga_mw  = -ga_res.best.value  / 1e6;
-
-    std::cout << "\n=== COMPARISON ===\n";
-    std::cout << "PSO: " << std::fixed << std::setprecision(6) << pso_mw
-              << " MW  | time " << std::setprecision(2) << pso_res.seconds << " s\n";
-    std::cout << "GA : " << std::fixed << std::setprecision(6) << ga_mw
-              << " MW  | time " << std::setprecision(2) << ga_res.seconds << " s\n";
-    std::cout << "Winner (power): " << ((ga_mw > pso_mw) ? "GA" : "PSO") << "\n";
-
-    std::cout << "\n[INFO] Plots:\n";
-    std::cout << "  gnuplot plot_pso.gp  -> wind_farm_layout_pso.png\n";
-    std::cout << "  gnuplot plot_ga.gp   -> wind_farm_layout_ga.png\n\n";
+    {
+        std::lock_guard<std::mutex> lock(g_print_mutex);
+        std::cout << "\n[INFO] Plots:\n";
+        std::cout << "  gnuplot plot_pso.gp  -> wind_farm_layout_pso.png\n";
+        std::cout << "  gnuplot plot_ga.gp   -> wind_farm_layout_ga.png\n\n";
+    }
 
     return 0;
 }
