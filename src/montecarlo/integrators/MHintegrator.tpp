@@ -54,7 +54,6 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
 
     mc::estimators::VolumeEstimatorMC<dim> ve;
     const auto vol_hat = ve.estimate(this->domain, seed, n_samples_volume);
-    std::cout << "Volume: " << vol_hat.volume << " +- " << 2 * vol_hat.stderr << "\n";
 
     long double sum = 0.0L;
     std::size_t kept = 0;

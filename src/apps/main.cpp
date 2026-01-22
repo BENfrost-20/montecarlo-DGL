@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     bool useGnuplot = false;
-    if (choice >= 1 && choice <= 3) {
+    if (choice >= 1 && choice <= 2) {
         std::cout << "Enable Gnuplot visualization for results? (y/n): ";
         char gpChoice;
         std::cin >> gpChoice;
@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
     }else if (choice == MeHaHard) {
         std::cout << "\nStarting HARDCODED benchmarks with Metropolis-Hastings distribution..." << std::endl;
         // Sends file to gnuPlot
-        runBenchmarksMH(useGnuplot);
+        runBenchmarksMH();
     }else if (choice == Polytope) {
         std::cout << "\nReading Points, Normals and Offsets..." << std::endl;
 

@@ -260,11 +260,19 @@ void runBenchmarks(bool useGnuplot) {
     cylinderIntegration(useGnuplot);
 }
 
-void runBenchmarksMH(bool useGnuplot) {
+#include <cmath>
+#include <iostream>
+#include <functional>
+#include <limits>
+#include <random>
+#include <string>
+
+void runBenchmarksMH() {
     n_threads = std::thread::hardware_concurrency();
     if (n_threads == 0) n_threads = 16;
 
-    mc::domains::Hypersphere<2> domain(10.0);
+    constexpr double R = 10.0;
+    mc::domains::Hypersphere<2> domain(R);
 
     std::function<double(const mc::geom::Point<2>&)> indicator =
         [&domain](const mc::geom::Point<2>& x) -> double {
@@ -279,15 +287,11 @@ void runBenchmarksMH(bool useGnuplot) {
 
     mc::geom::Point<2> x0{};
 
-    std::function<double(const mc::geom::Point<2>&)> f = [](const mc::geom::Point<2>& x) -> double {
-        return x[0]*x[0] + x[1]*x[1];
-    };
-
     mc::integrators::MontecarloIntegrator<2> integrator(domain);
     mc::integrators::MHMontecarloIntegrator<2> mhintegrator(domain);
     mc::proposals::UniformProposal<2> dummy_proposal(domain);
 
-	mhintegrator.setConfig(
+    mhintegrator.setConfig(
         burn_in,
         thinning,
         n_samples_volume,
@@ -296,10 +300,111 @@ void runBenchmarksMH(bool useGnuplot) {
         x0
     );
 
-    std::cout << "Running Benchmarks" << std::endl;
-    std::cout << "Metropolis Hastings result: " << mhintegrator.integrate(f, static_cast<int>(n_samples), dummy_proposal, std::random_device{}()) << std::endl;
-    std::cout << "Montecarlo result: " << integrator.OLDintegrate(f, n_samples) << std::endl;
-    std::cout << "Exact result: " << 5000 * M_PI << std::endl;
+    auto run_case = [&](const std::string& name,
+                        const std::function<double(const mc::geom::Point<2>&)>& f,
+                        double exact_or_nan)
+    {
+        const unsigned int seed = std::random_device{}();
+
+        const double mh_est = mhintegrator.integrate(
+            f, static_cast<int>(n_samples), dummy_proposal, seed);
+
+        const double mc_est = integrator.OLDintegrate(f, n_samples);
+
+        auto print_line = [&](const std::string& method, double est) {
+            std::cout << "  " << method << ": " << est;
+            if (!std::isnan(exact_or_nan)) {
+                const double abs_err = std::abs(est - exact_or_nan);
+                const double rel_err = abs_err / (std::abs(exact_or_nan) + 1e-30);
+                std::cout << " | abs_err=" << abs_err << " | rel_err=" << rel_err;
+            }
+            std::cout << "\n";
+        };
+
+        std::cout << "\n===========================================\n";
+        std::cout << "Case: " << name << "\n";
+        if (!std::isnan(exact_or_nan))
+            std::cout << "Exact: " << exact_or_nan << "\n";
+        else
+            std::cout << "Exact: (no closed form used here)\n";
+
+        print_line("MH", mh_est);
+        print_line("MC", mc_est);
+    };
+
+    std::cout << "Running Benchmarks (MC vs MH) on disk R=" << R << "\n";
+    std::cout << "Config: n_samples=" << n_samples
+              << " burn_in=" << burn_in
+              << " thinning=" << thinning
+              << " deviation=" << deviation
+              << " n_samples_volume=" << n_samples_volume
+              << "\n";
+
+    // --------------------------
+    // A) Sanity check: r^2
+    // f(x)=x^2+y^2, exact = 5000*pi for R=10
+    // --------------------------
+    {
+        auto fA = [](const mc::geom::Point<2>& x) -> double {
+            return x[0]*x[0] + x[1]*x[1];
+        };
+        const double exactA = 0.5 * M_PI * std::pow(R, 4); // π R^4 / 2
+        run_case("A) f=r^2 (sanity check)", fA, exactA);
+    }
+
+    // --------------------------
+    // B) Volume test: f(x)=1
+    // exact = area = pi*R^2
+    // --------------------------
+    {
+        auto fB = [](const mc::geom::Point<2>&) -> double { return 1.0; };
+        const double exactB = M_PI * R * R;
+        run_case("B) f=1 (volume)", fB, exactB);
+    }
+
+    // --------------------------
+    // C) Centered Gaussian: exp(-alpha r^2)
+    // exact = (pi/alpha)*(1 - exp(-alpha R^2))
+    // --------------------------
+    {
+        const double alpha = 1.0;
+        auto fC = [alpha](const mc::geom::Point<2>& x) -> double {
+            const double r2 = x[0]*x[0] + x[1]*x[1];
+            return std::exp(-alpha * r2);
+        };
+        const double exactC = (M_PI/alpha) * (1.0 - std::exp(-alpha * R * R));
+        run_case("C) f=exp(-alpha r^2), alpha=1", fC, exactC);
+    }
+
+    // --------------------------
+    // D) Thin ring: exp(-beta (r-r0)^2)
+    // (closed form on finite disk is messy -> skip exact)
+    // --------------------------
+    {
+        const double r0 = 8.0;
+        const double beta = 50.0;
+        auto fD = [r0,beta](const mc::geom::Point<2>& x) -> double {
+            const double r = std::sqrt(x[0]*x[0] + x[1]*x[1]);
+            const double d = r - r0;
+            return std::exp(-beta * d * d);
+        };
+        run_case("D) f=exp(-beta (r-r0)^2) (thin ring)", fD,
+                 std::numeric_limits<double>::quiet_NaN());
+    }
+
+    // --------------------------
+    // E) Boundary-stressing function: 1/sqrt((R-r)+eps)
+    // (integrable; exact exists but not worth here -> skip exact)
+    // --------------------------
+    {
+        const double eps = 1e-3;
+        auto fE = [eps](const mc::geom::Point<2>& x) -> double {
+            const double r = std::sqrt(x[0]*x[0] + x[1]*x[1]);
+            return 1.0 / std::sqrt((R - r) + eps);
+        };
+        run_case("E) f=1/sqrt((R-r)+eps) (boundary layer)", fE,
+                 std::numeric_limits<double>::quiet_NaN());
+    }
 }
 
 void runBenchmarks(const std::string& expression, bool useGnuplot) {

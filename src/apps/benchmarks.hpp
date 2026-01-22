@@ -57,7 +57,7 @@ void twelveDimIntegration();
 // (Implemented in benchmarks/integration_benchmarks.cpp)
 void runBenchmarks(bool useGnuplot);
 void runBenchmarks(const std::string& expression, bool useGnuplot);
-void runBenchmarksMH(bool useGnuplot);
+void runBenchmarksMH();
 
 // --- PSO Optimization Benchmarks ---
 // (Implemented in benchmarks/pso_benchmarks.cpp)
