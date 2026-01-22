@@ -20,11 +20,34 @@
 
 namespace mc::integrators {
 
+/**
+ * @brief Construct an MH-based integrator for a domain.
+ * @tparam dim Dimensionality parameter.
+ * @param d Reference to the integration domain.
+ */
 template <std::size_t dim>
 MHMontecarloIntegrator<dim>::MHMontecarloIntegrator(const mc::domains::IntegrationDomain<dim>& d)
     : Integrator<dim>(d)
 {}
 
+/**
+ * @brief Configure the MCMC sampler and volume estimation parameters.
+ * @tparam dim Dimensionality parameter.
+ * @param burn_in_ Number of initial MH samples to discard (warmup iterations).
+ * @param thinning_ Thinning factor: keep every k-th sample (k = thinning_).
+ * @param n_samples_volume_ Number of samples for Hit-or-Miss volume estimation.
+ * @param deviation_ Proposal standard deviation (Gaussian random walk step size).
+ * @param p_ Target density proportional to integrand: π(x) ∝ p(x).
+ * @param x0_ Initial MH state (must be inside domain).
+ * 
+ * @throws std::invalid_argument If parameters are invalid:
+ *         - thinning_ == 0
+ *         - deviation_ ≤ 0
+ *         - n_samples_volume_ == 0
+ *         - x0_ ∉ domain
+ * 
+ * @details Must be called before integrate(). Validates all parameters.
+ */
 template <std::size_t dim>
 void MHMontecarloIntegrator<dim>::setConfig(std::size_t burn_in_,
                                            std::size_t thinning_,
@@ -47,6 +70,29 @@ void MHMontecarloIntegrator<dim>::setConfig(std::size_t burn_in_,
     if (!this->domain.isInside(x0)) throw std::invalid_argument("x0 must be inside the domain");
 }
 
+/**
+ * @brief Compute the integral using MH sampling combined with volume estimation.
+ * @tparam dim Dimensionality parameter.
+ * @param f Integrand function: ℝⁿ → ℝ.
+ * @param n_samples Number of (post-burn-in, post-thinning) samples to keep.
+ * @param proposal Unused (MH uses internal sampler with configured p_).
+ * @param seed Random seed for reproducibility (used for both volume and MH sampling).
+ * @return Estimated integral ∫_Ω f(x) dx.
+ * 
+ * @throws std::runtime_error If setConfig() was not called first.
+ * @throws std::invalid_argument If n_samples ≤ 0.
+ * @throws std::runtime_error If all sampled f(x) are non-finite.
+ * 
+ * @details Two-stage algorithm:
+ * 1. **Volume Estimation**: Hit-or-Miss MC with n_samples_volume samples
+ *    estimates V̂_Ω
+ * 2. **Mean Estimation**: MH sampling with:
+ *    - Burn-in: discard first burn_in iterations (warmup)
+ *    - Thinning: keep every thinning-th sample (autocorrelation reduction)
+ *    - Parallel: each thread runs independent MH chain
+ * 3. **Integration**: ∫_Ω f dx ≈ V̂_Ω · (1/M) ∑ f(xᵢ)
+ *    where M = number of kept samples
+ */
 template <std::size_t dim>
 double MHMontecarloIntegrator<dim>::integrate(const Func& f,
                                              int n_samples,
@@ -79,9 +125,11 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
         mc::mcmc::MetropolisHastingsSampler<dim> mh_local(this->domain, p, x0, deviation);
         Point x_local{};
 
+        // Burn-in: discard initial samples for convergence
         for (std::size_t i = 0; i < burn_in; ++i)
             (void)mh_local.next(rng);
 
+        // Sampling with thinning: collect every thinning-th sample
         for (std::size_t i = 0; i < n_local; ++i) {
             for (std::size_t t = 0; t < thinning; ++t)
                 x_local = mh_local.next(rng);

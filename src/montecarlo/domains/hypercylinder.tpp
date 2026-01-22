@@ -16,6 +16,16 @@
 
 namespace mc::domains {
 
+/**
+ * @brief Construct a hypercylinder with given base radius and height.
+ * @tparam dim Dimensionality (must be ≥ 2).
+ * @param rad Radius of the (N-1)-dimensional hypersphere base (must be > 0).
+ * @param h Height along the last dimension (must be ≥ 0).
+ * 
+ * @details A hypercylinder is an (N-1)-dimensional hypersphere of radius `rad`
+ * extruded along the last dimension by height `h`. The region is:
+ * {x ∈ ℝⁿ : x₁² + ... + x_{n-1}² ≤ r², 0 ≤ xₙ ≤ h}
+ */
 template <size_t dim>
 HyperCylinder<dim>::HyperCylinder(double rad, double h)
     : radius(rad), height(h)
@@ -23,6 +33,14 @@ HyperCylinder<dim>::HyperCylinder(double rad, double h)
     static_assert(dim >= 2, "HyperCylinder requires at least 2 dimensions");
 }
 
+/**
+ * @brief Get the axis-aligned bounding box enclosing the hypercylinder.
+ * @tparam dim Dimensionality parameter.
+ * @return Bounds [-radius, radius] for first N-1 dimensions; [0, height] for last.
+ * 
+ * @details Returns a hypercube that minimally encloses the cylinder:
+ * [-r, r]^(N-1) × [0, h]
+ */
 template <size_t dim>
 auto HyperCylinder<dim>::getBounds() const -> mc::geom::Bounds<dim> {
     mc::geom::Bounds<dim> bounds;
@@ -38,12 +56,31 @@ auto HyperCylinder<dim>::getBounds() const -> mc::geom::Bounds<dim> {
     return bounds;
 }
 
+/**
+ * @brief Compute the volume of the bounding hypercube.
+ * @tparam dim Dimensionality parameter.
+ * @return (2*radius)^(dim-1) * height
+ * 
+ * @details Computes the volume of the minimal axis-aligned bounding hypercube.
+ * This is used for normalization in Monte Carlo acceptance-rejection sampling.
+ */
 template <size_t dim>
 double HyperCylinder<dim>::getBoxVolume() const {
     // Volume of the bounding hypercube: (2*r)^(dim-1) * height
     return std::pow(2.0 * radius, static_cast<double>(dim - 1)) * height;
 }
 
+/**
+ * @brief Test whether a point lies inside the hypercylinder.
+ * @tparam dim Dimensionality parameter.
+ * @param point Point to test.
+ * @return true if radial distance² ≤ radius² AND 0 ≤ point[last] ≤ height.
+ * 
+ * @details Two-part check:
+ * 1. Height constraint: 0 ≤ xₙ ≤ h
+ * 2. Radial constraint: x₁² + ... + x_{n-1}² ≤ r²
+ * Time complexity: O(dim).
+ */
 template <size_t dim>
 bool HyperCylinder<dim>::isInside(const mc::geom::Point<dim> &point) const {
     // 1. Check the height constraint (last dimension)

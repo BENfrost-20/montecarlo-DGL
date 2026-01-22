@@ -1,3 +1,10 @@
+/**
+ * @file mixtureProposal.tpp
+ * @brief MixtureProposal template implementation.
+ * @details Implements mixture sampling and PDF evaluation.
+ * Stores non-owning pointers to proposal components.
+ */
+
 // mixtureProposal.tpp
 #ifndef MONTECARLO_1_MIXTURE_PROPOSAL_TPP
 #define MONTECARLO_1_MIXTURE_PROPOSAL_TPP
@@ -8,6 +15,14 @@
 namespace mc {
 namespace proposals {
 
+/**
+ * @brief Validate input components and weights.
+ * @tparam dim Dimensionality parameter.
+ * @param components Vector of proposal pointers (must be non-empty, all non-null).
+ * @param weights Vector of component weights (must match size, all ≥ 0, sum > 0).
+ * 
+ * @throws std::invalid_argument If validation fails.
+ */
 template <size_t dim>
 void MixtureProposal<dim>::validateInputs(const std::vector<const Proposal<dim>*>& components,
                                           const std::vector<double>& weights)
@@ -34,6 +49,12 @@ void MixtureProposal<dim>::validateInputs(const std::vector<const Proposal<dim>*
     }
 }
 
+/**
+ * @brief Normalize weight vector to sum to 1.0.
+ * @tparam dim Dimensionality parameter.
+ * @param weights Unnormalized weights (must sum to > 0).
+ * @return Vector where weights[i] / sum(weights).
+ */
 template <size_t dim>
 std::vector<double> MixtureProposal<dim>::normalizeWeights(const std::vector<double>& weights)
 {
@@ -48,6 +69,20 @@ std::vector<double> MixtureProposal<dim>::normalizeWeights(const std::vector<dou
     return out;
 }
 
+/**
+ * @brief Construct a mixture from proposal components and weights.
+ * @tparam dim Dimensionality parameter.
+ * @param components Vector of non-owning pointers to Proposal<dim> (q_k).
+ * @param weights Vector of component weights (w_k), will be normalized.
+ * 
+ * @throws std::invalid_argument If validation fails.
+ * 
+ * @details Creates a mixture distribution:
+ * q(x) = ∑ₖ wₖ q_k(x)
+ * 
+ * where components q_k are sampled from via categorical selection.
+ * IMPORTANT: Components must outlive this MixtureProposal instance.
+ */
 template <size_t dim>
 MixtureProposal<dim>::MixtureProposal(std::vector<const Proposal<dim>*> components,
                                       std::vector<double> weights)
@@ -60,6 +95,16 @@ MixtureProposal<dim>::MixtureProposal(std::vector<const Proposal<dim>*> componen
     cat = std::discrete_distribution<std::size_t>(w.begin(), w.end());
 }
 
+/**
+ * @brief Sample from the mixture distribution.
+ * @tparam dim Dimensionality parameter.
+ * @param rng Mersenne Twister random generator.
+ * @return Point sampled by: (1) selecting component k ~ Cat(w), (2) sampling from q_k.
+ * 
+ * @details Two-stage sampling:
+ * 1. Draw component index k from categorical distribution over weights
+ * 2. Draw sample x ~ q_k(x)
+ */
 template <size_t dim>
 mc::geom::Point<dim> MixtureProposal<dim>::sample(std::mt19937& rng) const
 {
@@ -67,6 +112,14 @@ mc::geom::Point<dim> MixtureProposal<dim>::sample(std::mt19937& rng) const
     return comps[k]->sample(rng);
 }
 
+/**
+ * @brief Evaluate the mixture probability density.
+ * @tparam dim Dimensionality parameter.
+ * @param x Query point.
+ * @return q(x) = ∑ₖ wₖ q_k(x)
+ * 
+ * @details Weighted sum of component PDFs. Time complexity: O(num_components * dim).
+ */
 template <size_t dim>
 double MixtureProposal<dim>::pdf(const mc::geom::Point<dim>& x) const
 {

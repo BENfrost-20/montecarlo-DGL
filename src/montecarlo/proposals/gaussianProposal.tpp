@@ -1,3 +1,19 @@
+/**
+ * @file gaussianProposal.tpp
+ * @brief GaussianProposal template implementation.
+ * @details Implements multivariate Gaussian sampling with PDF evaluation.
+ * Samples are drawn from the full Gaussian (no domain truncation).
+ * 
+ * IMPORTANT:
+ * - sample(rng) draws from the full Gaussian in R^dim (NO rejection).
+ * - pdf(x) returns the corresponding full Gaussian density (NO domain indicator).
+ *
+ * Domain constraints (if any) must be handled by the estimator via:
+ *   if(domain.isInside(p)) { ... }
+ *
+ * This guarantees sample() and pdf() are always coherent with the Proposal interface.
+ */
+
 // gaussianProposal.tpp
 #ifndef MONTECARLO_1_GAUSSIAN_PROPOSAL_TPP
 #define MONTECARLO_1_GAUSSIAN_PROPOSAL_TPP
@@ -9,6 +25,19 @@
 namespace mc {
 namespace proposals {
 
+/**
+ * @brief Initialize normalization constant and precision from mean and standard deviation.
+ * @tparam dim Dimensionality parameter.
+ * 
+ * @details Precomputes:
+ * - inv_sig2[i] = 1 / (σᵢ²) for each dimension
+ * - log_norm_const = log(det(Σ)^(-1/2) / (2π)^(n/2))
+ *   = -n/2 * log(2π) + ∑ᵢ log(1/σᵢ)
+ * 
+ * This avoids recomputation during PDF evaluations.
+ * 
+ * @throws std::invalid_argument If dimensions mismatch or σᵢ ≤ 0.
+ */
 template <size_t dim>
 void GaussianProposal<dim>::init_from_mu_sig_()
 {
@@ -32,6 +61,19 @@ void GaussianProposal<dim>::init_from_mu_sig_()
     log_norm_const = -0.5 * static_cast<double>(dim) * log_2pi + sum_log_inv_sigma;
 }
 
+/**
+ * @brief Construct a multivariate Gaussian proposal distribution.
+ * @tparam dim Dimensionality parameter.
+ * @param d Integration domain (stored for consistency, may be used later).
+ * @param mean Vector of means (μ) for each dimension. Size must equal dim.
+ * @param sigma Vector of standard deviations (σ) for each dimension. Size must equal dim.
+ *              All σᵢ must be > 0 and finite.
+ * 
+ * @throws std::invalid_argument If vector sizes don't match dim or σᵢ is invalid.
+ * 
+ * @details Initializes a diagonal Gaussian with independent components:
+ * q(x) = ∏ᵢ N(xᵢ; μᵢ, σᵢ²)
+ */
 template <size_t dim>
 GaussianProposal<dim>::GaussianProposal(const mc::domains::IntegrationDomain<dim>& d,
                                         const std::vector<double>& mean,
@@ -41,6 +83,16 @@ GaussianProposal<dim>::GaussianProposal(const mc::domains::IntegrationDomain<dim
     init_from_mu_sig_();
 }
 
+/**
+ * @brief Draw a random sample from the multivariate Gaussian.
+ * @tparam dim Dimensionality parameter.
+ * @param rng Mersenne Twister random generator.
+ * @return Point sampled from N(μ, Σ) where Σ is diagonal with σᵢ² on diagonal.
+ * 
+ * @details Generates independent normal samples for each dimension:
+ * xᵢ ~ N(μᵢ, σᵢ²). Note: samples are drawn from the FULL Gaussian,
+ * not truncated to any domain. Domain handling is the caller's responsibility.
+ */
 template <size_t dim>
 mc::geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
 {
@@ -52,6 +104,17 @@ mc::geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
     return x;
 }
 
+/**
+ * @brief Evaluate the Gaussian probability density function at a point.
+ * @tparam dim Dimensionality parameter.
+ * @param x Query point.
+ * @return q(x) = exp(log_norm_const - 0.5 * ∑ᵢ ((xᵢ - μᵢ)² / σᵢ²))
+ * 
+ * @details Uses precomputed normalization constant and inverse variances
+ * for efficiency. Returns 0.0 for extreme tails where log is non-finite.
+ * 
+ * Time complexity: O(dim).
+ */
 template <size_t dim>
 double GaussianProposal<dim>::pdf(const mc::geom::Point<dim>& x) const
 {
