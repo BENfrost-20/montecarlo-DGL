@@ -1,3 +1,10 @@
+/**
+ * @file hypersphere.tpp
+ * @brief Hypersphere template implementation.
+ * @details Contains the inline implementations of `Hypersphere` methods
+ * for N-dimensional ball volume and containment testing.
+ */
+
 #include <cmath>
 #include "../geometry.hpp"
 #include "integration_domain.hpp"
@@ -26,6 +33,7 @@ template <size_t dim>
 double Hypersphere<dim>::getBoxVolume() const{
     return std::pow(2 * radius, dim);
 }
+
 template <size_t dim>
 bool Hypersphere<dim>::isInside(const mc::geom::Point<dim> &point) const{
     double norm = 0;

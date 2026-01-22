@@ -1,3 +1,10 @@
+/**
+ * @file hypercylinder.tpp
+ * @brief HyperCylinder template implementation.
+ * @details Contains the inline implementations of `HyperCylinder` methods
+ * for hypersphere-base extrusion volume and point containment testing.
+ */
+
 #include <cmath>
 #include <algorithm> // For std::pow
 #include "../geometry.hpp"

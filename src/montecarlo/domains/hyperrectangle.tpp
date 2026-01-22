@@ -1,3 +1,10 @@
+/**
+ * @file hyperrectangle.tpp
+ * @brief HyperRectangle template implementation.
+ * @details Contains the inline implementations of `HyperRectangle` methods
+ * for axis-aligned box volume and containment testing.
+ */
+
 #include <cmath>
 #include "../geometry.hpp"
 #include "integration_domain.hpp"

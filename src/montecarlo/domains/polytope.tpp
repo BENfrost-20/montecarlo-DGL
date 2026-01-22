@@ -1,6 +1,13 @@
-//
-// Created by Giacomo Merlo on 04/12/25.
-//
+/**
+ * @file polytope.tpp
+ * @brief PolyTope template implementation.
+ * @details Contains the inline implementations of `PolyTope` methods for
+ * half-space intersection bounding box and point containment testing.
+ * 
+ * @note Qhull usage: `qhull Qt Qx Fn < points.txt > hull.txt`
+ *       Points file format:  First line: <num_points> <dim>
+ *                            Following lines: coordinates of each vertex
+ */
 
 #ifndef MONTECARLO_1_POLYTOPE_TPP
 #define MONTECARLO_1_POLYTOPE_TPP
@@ -13,8 +20,6 @@
 
 namespace mc::domains {
 
-// Command to generate normals and offsets: qhull Qt Qx Fn < points.txt > hull.txt
-// points.txt -- text file with first line: <num_points> <dim>, then coordinates of each point per line
 template <size_t dim>
 PolyTope<dim>::PolyTope(const std::vector<mc::geom::Point<dim>>&   vertices,
                         const std::vector<std::array<double, dim>>&  norms,
@@ -61,16 +66,16 @@ double PolyTope<dim>::getBoxVolume() const {
 
 template<size_t dim>
 bool PolyTope<dim>::isInside(const mc::geom::Point<dim> &point) const {
-    const double tol = 1e-12; //tolleranza numerica
+    const double tol = 1e-12; // Numerical tolerance for robust testing
     for (size_t i = 0; i < normals.size(); ++i) {
         double s = 0.0;
-        //Moltiplicando la normale per il punto costruisco l'iperpiano, di vettori perpendicolari
-        //alla normale, passante per quel punto.
+        // Compute dot product: normal_i · point
         for (size_t k = 0; k < dim; ++k)
-            s += normals[i][k] * point[k];   // n_i · x
+            s += normals[i][k] * point[k];
 
+        // Check half-space inequality: n_i · x + offset_i ≤ 0
         if (s > offsets[i] + tol)
-            return false;                //Se l'iperpiano viola la condizione
+            return false;  // Point violates this facet constraint
     }
     return true;
 }
