@@ -1,12 +1,4 @@
 // GA.cpp
-/**
- * @file GA.cpp
- * @brief Genetic Algorithm optimization implementation
- * 
- * Implements genetic algorithm with tournament selection, uniform crossover,
- * and Gaussian mutation for non-smooth optimization problems.
- */
-
 #include "GA.hpp"
 #include "../rng/rng_factory.hpp"
 #include <algorithm>
@@ -18,7 +10,7 @@ namespace optimizers {
     GA::GA(const GAConfig& config)
         : m_config(config),
           m_global_best(Solution::make_worst(OptimizationMode::MINIMIZE)),
-          m_rng(mc::make_engine(100))  // stream_id=100 for GA
+          m_rng(mc::make_engine(100)) // stream_id=100 for GA
     {}
 
     void GA::setObjectiveFunction(ObjectiveFunction func) {
@@ -52,9 +44,13 @@ namespace optimizers {
     void GA::evaluate(Individual& ind) {
         ind.fitness = m_func(ind.genome);
 
+        // Protect global best update in parallel evaluation
         Solution sol{ind.genome, ind.fitness};
-        if (sol.isBetterThan(m_global_best, m_mode)) {
-            m_global_best = sol;
+        #pragma omp critical(mc_ga_best)
+        {
+            if (sol.isBetterThan(m_global_best, m_mode)) {
+                m_global_best = sol;
+            }
         }
     }
 
@@ -78,18 +74,23 @@ namespace optimizers {
         const size_t dim = m_lower_bounds.size();
         std::uniform_real_distribution<Real> u01(0.0, 1.0);
 
-        // Reset state
         m_generation = 0;
         m_global_best = Solution::make_worst(m_mode);
 
+        // Genome init stays serial (uses shared RNG)
         for (auto& ind : m_population) {
             ind.genome.resize(dim);
-
             for (size_t i = 0; i < dim; ++i) {
                 Real span = m_upper_bounds[i] - m_lower_bounds[i];
                 ind.genome[i] = m_lower_bounds[i] + u01(m_rng) * span;
             }
-            evaluate(ind);
+            ind.fitness = 0; // will be evaluated below
+        }
+
+        // Fitness evaluation can be parallel
+        #pragma omp parallel for
+        for (int i = 0; i < static_cast<int>(m_population.size()); ++i) {
+            evaluate(m_population[static_cast<size_t>(i)]);
         }
 
         m_initialized = true;
@@ -140,7 +141,6 @@ namespace optimizers {
     void GA::step() {
         if (!m_initialized) initialize();
 
-        // Sort population by fitness (best first, depending on mode)
         std::sort(m_population.begin(), m_population.end(),
                   [&](const Individual& a, const Individual& b) {
                       return isBetterFitness(a.fitness, b.fitness);
@@ -149,14 +149,13 @@ namespace optimizers {
         std::vector<Individual> next;
         next.reserve(m_population.size());
 
-        // --- Elitism: copy best N unchanged ---
         for (size_t i = 0; i < m_config.elitism_count; ++i) {
             next.push_back(m_population[i]);
         }
 
         std::uniform_real_distribution<Real> u01(0.0, 1.0);
 
-        // --- Fill the rest by selection + crossover + mutation ---
+        // Selection + variation stays serial (uses shared RNG)
         while (next.size() < m_population.size()) {
             const Individual& p1 = tournamentSelect();
             const Individual& p2 = tournamentSelect();
@@ -172,13 +171,20 @@ namespace optimizers {
             mutateGaussian(c1.genome);
             mutateGaussian(c2.genome);
 
-            evaluate(c1);
+            c1.fitness = 0; // evaluated below
             next.push_back(std::move(c1));
 
             if (next.size() < m_population.size()) {
-                evaluate(c2);
+                c2.fitness = 0; // evaluated below
                 next.push_back(std::move(c2));
             }
+        }
+
+        // Fitness evaluation can be parallel (skip elites)
+        const size_t start = m_config.elitism_count;
+        #pragma omp parallel for
+        for (int i = static_cast<int>(start); i < static_cast<int>(next.size()); ++i) {
+            evaluate(next[static_cast<size_t>(i)]);
         }
 
         m_population = std::move(next);

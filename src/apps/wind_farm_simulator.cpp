@@ -49,7 +49,7 @@ using namespace optimizers;
 // =============================================================================
 
 /// Number of wind turbines to optimize
-constexpr size_t NUM_TURBINES = 8;
+constexpr size_t NUM_TURBINES = 15;
 
 /// Wind farm domain size (meters)
 constexpr double FARM_WIDTH = 1000.0;   // x range: [0, FARM_WIDTH]

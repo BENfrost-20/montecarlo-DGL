@@ -7,40 +7,28 @@
 
 namespace optimizers {
 
-    /**
-     * @brief Configuration parameters specific to the Genetic Algorithm.
-     * Real-coded GA for continuous optimization.
-     */
     struct GAConfig {
         size_t population_size = 80;
         size_t max_generations = 200;
 
-        // Selection
-        size_t tournament_k = 3;              // Tournament size
+        size_t tournament_k = 3;
 
-        // Variation operators
-        Real crossover_rate = 0.9;            // Probability to crossover
-        Real mutation_rate  = 0.1;            // Probability to mutate each gene
-        Real mutation_sigma = 0.1;            // Stddev for Gaussian mutation (scaled by span)
+        Real crossover_rate = 0.9;
+        Real mutation_rate  = 0.1;
+        Real mutation_sigma = 0.1;
 
-        // Elitism
-        size_t elitism_count = 1;             // Keep best N individuals each generation
+        size_t elitism_count = 1;
     };
 
-    /**
-     * @brief Genetic Algorithm implementation.
-     * Suitable for continuous, non-linear optimization.
-     */
     class GA : public Optimizer {
     public:
         struct Individual {
-            Coordinates genome;   // Candidate solution (same as params)
-            Real fitness;         // Objective value
+            Coordinates genome;
+            Real fitness;
         };
 
         explicit GA(const GAConfig& config = GAConfig{});
 
-        // Optimizer interface
         void setObjectiveFunction(ObjectiveFunction func) override;
         void setBounds(const Coordinates& lower, const Coordinates& upper) override;
         void setMode(OptimizationMode mode) override;
@@ -49,28 +37,23 @@ namespace optimizers {
         Solution optimize() override;
         void step() override;
         [[nodiscard]] Solution getBestSolution() const override;
-        
-        // Getter to access the population from outside (for plotting/debugging)
+
         [[nodiscard]] const std::vector<Individual>& getPopulation() const {
             return m_population;
         }
 
     private:
-        // Initialize + evaluate
         void initialize();
-        void evaluate(Individual& ind);
+        void evaluate(Individual& ind); // Thread-safe best update (critical)
         void enforceBounds(Coordinates& x);
 
-        // Selection + variation
         const Individual& tournamentSelect();
         void crossoverUniform(const Coordinates& p1, const Coordinates& p2,
                               Coordinates& c1, Coordinates& c2);
         void mutateGaussian(Coordinates& x);
 
-        // Utils
         bool isBetterFitness(Real a, Real b) const;
 
-        // Members
         GAConfig m_config;
         OptimizationMode m_mode = OptimizationMode::MINIMIZE;
         ObjectiveFunction m_func;
