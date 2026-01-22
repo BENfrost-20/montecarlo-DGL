@@ -1,3 +1,9 @@
+/**
+ * @file optimizer.hpp
+ * @brief Abstract optimizer interface for PSO, GA, and future algorithms.
+ * @details Defines the common lifecycle (configure, optimize, step, inspect) and
+ * callback semantics used by all optimizers in this package.
+ */
 #pragma once
 #include "types.hpp"
 
@@ -11,6 +17,11 @@ namespace optim{
     class Optimizer {
     public:
 
+        /**
+         * @brief Callback invoked after each step/generation.
+         * @param current_best The best solution so far.
+         * @param iteration Zero-based iteration/generation index.
+         */
         using StepCallback = std::function<void(const Solution& current_best, size_t iteration)>;
 
         virtual ~Optimizer() = default;
@@ -18,19 +29,20 @@ namespace optim{
         // --- Configuration Methods ---
 
         /**
-         * @brief Sets the function to optimize (the "black box").
+         * @brief Set the function to optimize (the "black box").
+         * @param func Objective mapping coordinates to scalar value.
          */
         virtual void setObjectiveFunction(ObjectiveFunction func) = 0;
 
         /**
-         * @brief Defines the search space boundaries (hyper-rectangle).
-         * @param lower_bounds Vector of minimum values for each dimension.
-         * @param upper_bounds Vector of maximum values for each dimension.
+         * @brief Define the search space boundaries (hyper-rectangle).
+         * @param lower_bounds Minimum coordinate per dimension.
+         * @param upper_bounds Maximum coordinate per dimension.
          */
         virtual void setBounds(const Coordinates& lower_bounds, const Coordinates& upper_bounds) = 0;
 
         /**
-         * @brief Sets the optimization goal (Minimization or Maximization).
+         * @brief Set the optimization goal.
          */
         virtual void setMode(OptimizationMode mode) = 0;
 
@@ -39,13 +51,13 @@ namespace optim{
         // --- Execution Methods ---
 
         /**
-         * @brief Runs the optimization loop until the stopping criterion is met.
+         * @brief Run the optimization loop until the stopping criterion is met.
          * @return The best solution found.
          */
         virtual Solution optimize() = 0;
 
         /**
-         * @brief Performs a single iteration/generation of the algorithm.
+         * @brief Perform a single iteration/generation of the algorithm.
          * Useful for debugging, plotting, or GUI integration.
          */
         virtual void step() = 0;
@@ -53,7 +65,7 @@ namespace optim{
         // --- Inspection Methods ---
 
         /**
-         * @brief Returns the best solution found SO FAR.
+         * @brief Get the best solution found so far.
          */
         [[nodiscard]] virtual Solution getBestSolution() const = 0;
     };

@@ -1,4 +1,12 @@
 // GA.cpp
+/**
+ * @file GA.cpp
+ * @brief Genetic Algorithm implementation.
+ * @details Implements tournament selection, uniform crossover, Gaussian mutation,
+ * and elitism. Fitness evaluation may be parallelized with OpenMP. Global-best
+ * updates are performed serially (outside parallel regions) to avoid races and
+ * ensure deterministic tie-breaking.
+ */
 #include "GA.hpp"
 #include "../rng/rng_factory.hpp"
 #include <algorithm>
