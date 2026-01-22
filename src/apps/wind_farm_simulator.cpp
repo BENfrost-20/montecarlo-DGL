@@ -1,6 +1,33 @@
 /**
  * @file wind_farm_simulator.cpp
- * @brief Wind Farm Layout Optimization using Hybrid MH-Monte Carlo + PSO/GA (comparison)
+ * @brief Wind Farm Layout Optimization using Hybrid MH-Monte Carlo + PSO/GA
+ * 
+ * @details Advanced application demonstrating two parallel optimization approaches:
+ * 
+ * **Approach 1: Metropolis-Hastings MCMC Integration**
+ * - Models wind power distribution over spatial domain
+ * - Uses MCMC to sample from target density proportional to wind power
+ * - Computes expected power output analytically
+ * - Explores interdependencies between turbine positions
+ * 
+ * **Approach 2: Heuristic Optimization (PSO/GA)**
+ * - Direct optimization of turbine placement
+ * - Faster convergence for specific objective functions
+ * - Suitable for real-time planning constraints
+ * 
+ * **Key Features:**
+ * - Realistic wind resource modeling
+ * - Wake loss calculations between turbines
+ * - Multiple objective functions (power, spacing constraints, efficiency)
+ * - Parallel evaluation with OpenMP
+ * - Gnuplot visualization of optimal layouts
+ * 
+ * **Outputs:**
+ * - Optimal turbine positions and expected power
+ * - Comparison metrics between MH and PSO/GA approaches
+ * - Visualization scripts for spatial analysis
+ * 
+ * @see MHMontecarloIntegrator, PSO, GA
  */
 
 #include <iostream>

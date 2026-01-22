@@ -1,3 +1,22 @@
+/**
+ * @file test_rng_reproducibility.cpp
+ * @brief Test suite for RNG reproducibility and optimizer determinism
+ * 
+ * @details Validates that:
+ * - Random number generation is reproducible across runs with same seed
+ * - PSO and GA optimize deterministically with seeded RNGs
+ * - Results are consistent regardless of OpenMP thread count
+ * 
+ * **Test Functions:**
+ * - Rosenbrock: f(x,y) = (1-x)² + 100(y-x²)²
+ *   Optimal: (1,1) with value 0
+ * 
+ * **Verification:**
+ * - Single-thread vs multi-thread consistency
+ * - Run-to-run reproducibility with same seed
+ * - Optimizer convergence quality
+ */
+
 #include <iostream>
 #include <vector>
 #include <cmath>
@@ -9,11 +28,31 @@
 #include "montecarlo/optimizers/PSO.hpp"
 #include "montecarlo/optimizers/GA.hpp"
 
+/**
+ * @brief Rosenbrock function benchmark
+ * @param x Vector of two coordinates [x0, x1]
+ * @return (1-x0)² + 100(x1-x0²)²
+ * 
+ * @details Classic benchmark function with global minimum at (1,1) = 0.
+ * Used to test optimizer reproducibility and convergence.
+ */
 double rosenbrock(const std::vector<double>& x) {
     double a = 1.0, b = 100.0;
     return std::pow(a - x[0], 2) + b * std::pow(x[1] - x[0]*x[0], 2);
 }
 
+/**
+ * @brief Run PSO on Rosenbrock function and return best value found.
+ * @return Best objective value found by PSO
+ * 
+ * @details Configuration:
+ * - Population: 20 particles
+ * - Iterations: 30
+ * - Inertia: 0.7
+ * - Cognitive coeff: 1.5
+ * - Social coeff: 1.5
+ * - Domain: [-5, 5] × [-5, 5]
+ */
 double run_pso_test() {
     mc::optim::PSOConfig cfg;
     cfg.population_size = 20;
@@ -31,6 +70,18 @@ double run_pso_test() {
     return best.value;
 }
 
+/**
+ * @brief Run GA on Rosenbrock function and return best value found.
+ * @return Best objective value found by GA
+ * 
+ * @details Configuration:
+ * - Population: 20 individuals
+ * - Generations: 30
+ * - Tournament k: 3
+ * - Crossover rate: 0.9
+ * - Mutation rate: 0.1
+ * - Domain: [-5, 5] × [-5, 5]
+ */
 double run_ga_test() {
     mc::optim::GAConfig cfg;
     cfg.population_size = 20;

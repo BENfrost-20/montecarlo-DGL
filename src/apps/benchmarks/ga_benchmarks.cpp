@@ -1,3 +1,30 @@
+/**
+ * @file ga_benchmarks.cpp
+ * @brief Genetic Algorithm benchmark suite with visualization
+ * 
+ * @details Comprehensive testing of GA performance with frame-based animation support:
+ * 
+ * **Features:**
+ * - Multi-problem benchmark suite (sphere, Rastrigin, Rosenbrock, Ackley)
+ * - Population evolution visualization via frame snapshots
+ * - Real-time convergence tracking
+ * - Comparative analysis of GA vs PSO
+ * 
+ * **Test Problems:**
+ * 1. Sphere: f(x,y) = x² + y², easy unimodal problem
+ * 2. Rastrigin: Highly multimodal, 25+ local minima in [-5.12, 5.12]²
+ * 3. Rosenbrock: Long narrow valley, requires fine-tuning
+ * 4. Ackley: Many local minima with large global basin
+ * 
+ * **Visualization:**
+ * - Frame output saved to ga_frames/ subdirectory
+ * - Each iteration generates population snapshot
+ * - Files named: baseName_iter_0.dat, baseName_iter_1.dat, etc.
+ * - Ready for gnuplot animation script generation
+ * 
+ * @see GA, Optimizer, OptimizationMode
+ */
+
 //
 // GA (Genetic Algorithm) benchmarks
 //
@@ -12,13 +39,27 @@ namespace opt = mc::optim;
 
 // --- GA Helper Functions ---
 
-// Names file frames: baseName_iter_0.dat, baseName_iter_1.dat, ...
+/**
+ * @brief Generate frame filename for GA population evolution
+ * @param baseName Base name for output files
+ * @param iter Iteration/generation number
+ * @return Filename formatted as: baseName_iter_N.dat
+ */
 static std::string makeFrameName(const std::string& baseName, size_t iter) {
     std::ostringstream oss;
     oss << baseName << "_iter_" << iter << ".dat";
     return oss.str();
 }
 
+/**
+ * @brief Save population snapshot for 2D visualization.
+ * @param baseName Base filename for frame output
+ * @param iter Current iteration/generation
+ * @param pop Vector of individuals (genome + fitness)
+ * 
+ * @details Saves population positions to ga_frames/baseName_iter_N.dat
+ * for gnuplot animation or analysis. Each line: x y (first two coordinates).
+ */
 static void savePopulationFrame2D(const std::string& baseName, size_t iter,
                                   const std::vector<opt::GA::Individual>& pop) {
     // Create ga_frames subdirectory

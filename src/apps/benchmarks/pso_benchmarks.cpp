@@ -1,3 +1,30 @@
+/**
+ * @file pso_benchmarks.cpp
+ * @brief Particle Swarm Optimization benchmark suite
+ * 
+ * @details Comprehensive testing of PSO performance on various optimization problems:
+ * 
+ * **Test Problems:**
+ * 1. **Sphere Function**: f(x,y) = x² + y², minimum at (0,0) = 0
+ *    - Convex, smooth, unimodal
+ *    - Tests basic convergence
+ * 
+ * 2. **Rastrigin Function**: Highly multimodal benchmark
+ *    - f(x,y) = 20 + x² + y² - 10(cos(2πx) + cos(2πy))
+ *    - Many local minima, challenging for optimization
+ * 
+ * 3. **Rosenbrock Function**: f(x,y) = (1-x)² + 100(y-x²)²
+ *    - Long narrow valley, tests exploration vs exploitation
+ * 
+ * **Metrics:**
+ * - Convergence speed (iterations to near-optimum)
+ * - Final solution quality
+ * - Stability across multiple runs
+ * - Performance scaling with dimension
+ * 
+ * @see PSO, OptimizationMode
+ */
+
 //
 // PSO (Particle Swarm Optimization) benchmarks
 //
@@ -10,8 +37,9 @@ namespace opt = mc::optim;
 
 /**
  * @brief Test 1: Sphere Function
- * Objective: Minimize f(x, y) = x^2 + y^2
+ * @details Objective: Minimize f(x, y) = x^2 + y^2
  * Global Minimum: 0 at [0, 0]
+ * Search Space: [-10, 10] per dimension
  */
 void runSphereTest(opt::PSO& pso, const opt::Coordinates& lower, const opt::Coordinates& upper) {
     std::cout << "Optimization Problem: Minimize Sphere Function in 2D" << std::endl;

@@ -4,10 +4,6 @@
  * @details Contains inline implementations for importance sampling integration
  * with custom proposal distributions.
  */
-
-//
-// Created by Giacomo Merlo on 15/01/26.
-//
 #include "integrator.hpp"
 #include "../geometry.hpp"
 #include <vector>
@@ -43,6 +39,9 @@ ISMontecarloIntegrator<dim>::ISMontecarloIntegrator(const mc::domains::Integrati
  * **Variance reduction**: When q(x) ≈ f(x), the weights f/q are nearly constant,
  * reducing variance compared to uniform sampling.
  */
+template <size_t dim>
+double ISMontecarloIntegrator<dim>::integrate(
+    const std::function<double(const mc::geom::Point<dim>&)>& f,
     int n_samples,
     const mc::proposals::Proposal<dim>& proposal,
     std::uint32_t seed)

@@ -1,3 +1,29 @@
+/**
+ * @file integration_benchmarks.cpp
+ * @brief Benchmark suite for Monte Carlo integration algorithms
+ * 
+ * @details Comprehensive evaluation of integration accuracy and performance across:
+ * - Multiple algorithms: Uniform MC, Importance Sampling, MCMC
+ * - Various dimensions: 1D through 12D
+ * - Different domain types: rectangles, spheres, cylinders, hyperrectangles
+ * - Parser-based and hardcoded function expressions
+ * 
+ * **Methodology:**
+ * - Sweep across sample counts (logarithmic scale)
+ * - Time execution of each integration
+ * - Compute error relative to analytical reference when available
+ * - Generate CSV output for statistical analysis
+ * - Produce Gnuplot scripts for visualization
+ * 
+ * **Key Benchmarks:**
+ * - uniDimIntegration(): ∫₀¹ x² dx = 1/3
+ * - circleIntegration(): ∫ (x²+y²) dA over unit disk
+ * - sphereIntegration(): ∫ (x²+y²+z²) dV over unit ball
+ * - Higher-dimensional tests to study curse of dimensionality
+ * 
+ * @see runBenchmarks(), executeBenchmark(), saveResults()
+ */
+
 //
 // Integration benchmarks for Monte Carlo methods
 //
@@ -12,7 +38,19 @@
 // --- Helper for formatted console output ---
 
 /**
- * GENERIC execution loop.
+ * @brief Generic execution loop for integration benchmarks.
+ * @tparam dim Dimensionality of the integration domain.
+ * @tparam Func Function type (integrand).
+ * @param title Display title for the benchmark
+ * @param filename Output CSV filename
+ * @param integrator Integration engine to benchmark
+ * @param domain Integration domain (used for visualization)
+ * @param f Integrand function
+ * @param useGnuplot If true, generate visualization script
+ * @param rawDataFile Raw data filename for plotting
+ * @param functionExpr String representation of the integrand
+ * 
+ * @details GENERIC execution loop.
  * Runs the integration for increasing sample sizes, measures time, plots results, and saves to file.
  */
 template <size_t dim, typename Func>
