@@ -6,7 +6,7 @@
 #include <montecarlo/integrators/ISintegrator.hpp>
 #include <montecarlo/utils/muParserXInterface.hpp>
 #include <cmath>
-#include <cstdint>
+#include <cstdint> 
 
 // --- Helper for formatted console output ---
 
@@ -198,26 +198,55 @@ void cylinderIntegration(bool useGnuplot) {
 // 2. PARSER (muParserX)
 // Using the 'expr' string directly read from file.
 
+// 2. PARSER (muParserX) - THREAD SAFE WRAPPER
+
 void circleIntegrationParser(const std::string& expr, bool useGnuplot) {
-    mc::utils::muParserXInterface<2, mc::geom::Point<2>> parser(expr);
-    runCircleBenchmark(parser, "Parser", useGnuplot, expr);
+    using Parser = mc::utils::muParserXInterface<2, mc::geom::Point<2>>;
+    Parser base(expr);
+
+    auto f = [base](const mc::geom::Point<2>& x) -> double {
+        thread_local Parser p = base;   // una copia per thread
+        return p(x);
+    };
+
+    runCircleBenchmark(f, "Parser", useGnuplot, expr);
 }
 
 void sphereIntegrationParser(const std::string& expr, bool useGnuplot) {
-    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
-    runSphereBenchmark(parser, "Parser", useGnuplot, expr);
+    using Parser = mc::utils::muParserXInterface<4, mc::geom::Point<4>>;
+    Parser base(expr);
+
+    auto f = [base](const mc::geom::Point<4>& x) -> double {
+        thread_local Parser p = base;
+        return p(x);
+    };
+
+    runSphereBenchmark(f, "Parser", useGnuplot, expr);
 }
 
 void rectangularIntegrationParser(const std::string& expr, bool useGnuplot) {
-    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
-    runRectBenchmark(parser, "Parser", useGnuplot, expr);
+    using Parser = mc::utils::muParserXInterface<4, mc::geom::Point<4>>;
+    Parser base(expr);
+
+    auto f = [base](const mc::geom::Point<4>& x) -> double {
+        thread_local Parser p = base;
+        return p(x);
+    };
+
+    runRectBenchmark(f, "Parser", useGnuplot, expr);
 }
 
 void cylinderIntegrationParser(const std::string& expr, bool useGnuplot) {
-    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
-    runCylinderBenchmark(parser, "Parser", useGnuplot, expr);
-}
+    using Parser = mc::utils::muParserXInterface<4, mc::geom::Point<4>>;
+    Parser base(expr);
 
+    auto f = [base](const mc::geom::Point<4>& x) -> double {
+        thread_local Parser p = base;
+        return p(x);
+    };
+
+    runCylinderBenchmark(f, "Parser", useGnuplot, expr);
+}
 
 // --- Main Entry Points ---
 
