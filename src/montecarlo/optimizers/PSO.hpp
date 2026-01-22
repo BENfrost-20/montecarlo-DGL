@@ -3,7 +3,8 @@
 #include <vector>
 #include <random>
 
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     struct PSOConfig {
         size_t population_size = 50;
@@ -58,4 +59,5 @@ namespace optimizers {
 
         StepCallback m_callback;
     };
-}
+} //namespace mc
+} //namespace optim

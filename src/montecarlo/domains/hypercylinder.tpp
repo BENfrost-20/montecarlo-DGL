@@ -3,11 +3,11 @@
 #include "../geometry.hpp"
 #include "integration_domain.hpp"
 
-using namespace geom;
-
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+
+namespace mc::domains {
 
 template <size_t dim>
 HyperCylinder<dim>::HyperCylinder(double rad, double h)
@@ -17,16 +17,16 @@ HyperCylinder<dim>::HyperCylinder(double rad, double h)
 }
 
 template <size_t dim>
-auto HyperCylinder<dim>::getBounds() const -> Bounds<dim> {
-    Bounds<dim> bounds;
+auto HyperCylinder<dim>::getBounds() const -> mc::geom::Bounds<dim> {
+    mc::geom::Bounds<dim> bounds;
 
     // Set bounds for the hypersphere base dimensions (0 to n-2)
     for (size_t i = 0; i < dim - 1; ++i) {
-        bounds[i] = make_pair(-radius, radius);
+        bounds[i] = std::make_pair(-radius, radius);
     }
 
     // Set bounds for the height dimension (last dimension, n-1)
-    bounds[dim - 1] = make_pair(0.0, height);
+    bounds[dim - 1] = std::make_pair(0.0, height);
 
     return bounds;
 }
@@ -38,7 +38,7 @@ double HyperCylinder<dim>::getBoxVolume() const {
 }
 
 template <size_t dim>
-bool HyperCylinder<dim>::isInside(const Point<dim> &point) const {
+bool HyperCylinder<dim>::isInside(const mc::geom::Point<dim> &point) const {
     // 1. Check the height constraint (last dimension)
     double h_val = point[dim - 1];
     if (h_val < 0.0 || h_val > height) {
@@ -55,3 +55,5 @@ bool HyperCylinder<dim>::isInside(const Point<dim> &point) const {
 
     return radial_dist_squared <= (radius * radius);
 }
+
+} // namespace mc::domains

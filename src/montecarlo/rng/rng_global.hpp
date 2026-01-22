@@ -4,6 +4,8 @@
 #include <cstdint>
 
 namespace mc {
+namespace rng {
+
 
 /**
  * @brief Set the global seed used by all library RNG components.
@@ -31,6 +33,7 @@ std::uint32_t get_global_seed();
  */
 bool is_global_seed_initialized();
 
+} //namespace rng
 } // namespace mc
 
 #endif // MONTECARLO_RNG_GLOBAL_HPP

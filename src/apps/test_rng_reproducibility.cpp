@@ -9,32 +9,30 @@
 #include "montecarlo/optimizers/PSO.hpp"
 #include "montecarlo/optimizers/GA.hpp"
 
-using namespace optimizers;
-
 double rosenbrock(const std::vector<double>& x) {
     double a = 1.0, b = 100.0;
     return std::pow(a - x[0], 2) + b * std::pow(x[1] - x[0]*x[0], 2);
 }
 
 double run_pso_test() {
-    PSOConfig cfg;
+    mc::optim::PSOConfig cfg;
     cfg.population_size = 20;
     cfg.max_iterations = 30;
     cfg.inertia_weight = 0.7;
     cfg.cognitive_coeff = 1.5;
     cfg.social_coeff = 1.5;
 
-    PSO pso(cfg);
+    mc::optim::PSO pso(cfg);
     pso.setObjectiveFunction(rosenbrock);
     pso.setBounds({-5.0, -5.0}, {5.0, 5.0});
-    pso.setMode(OptimizationMode::MINIMIZE);
+    pso.setMode(mc::optim::OptimizationMode::MINIMIZE);
 
-    Solution best = pso.optimize();
+    mc::optim::Solution best = pso.optimize();
     return best.value;
 }
 
 double run_ga_test() {
-    GAConfig cfg;
+    mc::optim::GAConfig cfg;
     cfg.population_size = 20;
     cfg.max_generations = 30;
     cfg.tournament_k = 3;
@@ -43,12 +41,12 @@ double run_ga_test() {
     cfg.mutation_sigma = 0.1;
     cfg.elitism_count = 1;
 
-    GA ga(cfg);
+    mc::optim::GA ga(cfg);
     ga.setObjectiveFunction(rosenbrock);
     ga.setBounds({-5.0, -5.0}, {5.0, 5.0});
-    ga.setMode(OptimizationMode::MINIMIZE);
+    ga.setMode(mc::optim::OptimizationMode::MINIMIZE);
 
-    Solution best = ga.optimize();
+    mc::optim::Solution best = ga.optimize();
     return best.value;
 }
 
@@ -58,7 +56,7 @@ std::vector<double> generate_samples(int n_samples, std::uint64_t stream_id) {
     #pragma omp parallel for
     for (int i = 0; i < n_samples; ++i) {
         // Deterministic per-index stream; independent of scheduling
-        auto rng = mc::make_engine(stream_id + static_cast<std::uint64_t>(i));
+        auto rng = mc::rng::make_engine(stream_id + static_cast<std::uint64_t>(i));
         std::uniform_real_distribution<double> dist(0.0, 1.0);
         results[i] = dist(rng);
     }
@@ -73,8 +71,8 @@ int main() {
 
     // Seed can be set only once (library policy)
     std::cout << "Init: set global seed once...\n";
-    bool seed_ok = mc::set_global_seed(12345u);
-    std::uint32_t seed_now = mc::get_global_seed();
+    bool seed_ok = mc::rng::set_global_seed(12345u);
+    std::uint32_t seed_now = mc::rng::get_global_seed();
 
     std::cout << "  set_global_seed returned: " << (seed_ok ? "true" : "false") << "\n";
     std::cout << "  get_global_seed: " << seed_now << "\n\n";

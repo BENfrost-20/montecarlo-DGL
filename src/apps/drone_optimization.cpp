@@ -57,9 +57,6 @@
 #include <fstream>
 #include <stdexcept>
 
-using namespace geom;
-using namespace optimizers;
-
 /// Dimensionality of the problem space (3D geometry)
 constexpr size_t DIM = 3;
 
@@ -67,7 +64,7 @@ constexpr size_t DIM = 3;
 // HELPER FUNCTIONS FOR READING POLYTOPE DATA
 // =================================================================================
 template <int dim>
-std::vector<geom::Point<dim>> read_points_from_file_drone(const std::string& filename)
+std::vector<mc::geom::Point<dim>> read_points_from_file_drone(const std::string& filename)
 {
     std::ifstream in(filename);
     if (!in.is_open()) {
@@ -88,11 +85,11 @@ std::vector<geom::Point<dim>> read_points_from_file_drone(const std::string& fil
             " but template expects dim = " + std::to_string(dim));
     }
 
-    std::vector<geom::Point<dim>> points;
+    std::vector<mc::geom::Point<dim>> points;
     points.reserve(num_points);
 
     for (std::size_t i = 0; i < num_points; ++i) {
-        geom::Point<dim> p;
+        mc::geom::Point<dim> p;
         for (int k = 0; k < dim; ++k) {
             if (!(in >> p[k])) {
                 throw std::runtime_error(
@@ -166,12 +163,12 @@ void read_normals_and_offsets_from_file_drone(
 // =================================================================================
 // 1. COMPLEX DOMAIN DEFINITION (Arm + Motor Housing)
 // =================================================================================
-class DroneArmDomain : public IntegrationDomain<DIM> {
+class DroneArmDomain : public mc::domains::IntegrationDomain<DIM> {
 public:
     // Geometric components
-    std::unique_ptr<HyperRectangle<DIM>> arm;
-    std::unique_ptr<HyperCylinder<DIM>> motor_housing;
-    std::unique_ptr<PolyTope<DIM>> cabin;  // Optional: PolyTope for cabin geometry
+    std::unique_ptr<mc::domains::HyperRectangle<DIM>> arm;
+    std::unique_ptr<mc::domains::HyperCylinder<DIM>> motor_housing;
+    std::unique_ptr<mc::domains::PolyTope<DIM>> cabin;  // Optional: PolyTope for cabin geometry
     
     // Offsets relative to origin
     std::array<double, DIM> motor_offset;
@@ -180,10 +177,10 @@ public:
     DroneArmDomain() {
         // 1. Arm: 10 units long, 2 units wide, 1 unit tall, centered at origin
         std::array<double, DIM> arm_dims = {10.0, 2.0, 1.0}; 
-        arm = std::make_unique<HyperRectangle<DIM>>(arm_dims);
+        arm = std::make_unique<mc::domains::HyperRectangle<DIM>>(arm_dims);
 
         // 2. Motor housing: cylinder radius 1.5, height 1.2 (along Z-axis)
-        motor_housing = std::make_unique<HyperCylinder<DIM>>(1.5, 1.2);
+        motor_housing = std::make_unique<mc::domains::HyperCylinder<DIM>>(1.5, 1.2);
         
         // Position motor at arm tip (x = 5.0)
         motor_offset = {5.0, 0.0, -0.6};
@@ -197,7 +194,7 @@ public:
             std::vector<double> offsets;
             read_normals_and_offsets_from_file_drone<DIM>("../drone_assets/cabin_hull.txt", normals, offsets);
 
-            cabin = std::make_unique<PolyTope<DIM>>(points, normals, offsets);
+            cabin = std::make_unique<mc::domains::PolyTope<DIM>>(points, normals, offsets);
             cabin_offset = {-2.0, 0.0, 0.5};
         } catch (const std::exception&) {
             cabin = nullptr;
@@ -206,8 +203,8 @@ public:
     }
 
     // Bounding box for Monte Carlo sampling (union of component bounds)
-    Bounds<DIM> getBounds() const override {
-        Bounds<DIM> b;
+    mc::geom::Bounds<DIM> getBounds() const override {
+        mc::geom::Bounds<DIM> b;
         b[0] = {-6.0, 8.0};   // X
         b[1] = {-3.0, 3.0};   // Y
         b[2] = {-2.0, 2.0};   // Z
@@ -219,18 +216,18 @@ public:
     }
 
     // Constructive Solid Geometry (CSG): Union of Arm ∪ Motor ∪ Cabin
-    bool isInside(const Point<DIM> &p) const override {
+    bool isInside(const mc::geom::Point<DIM> &p) const override {
         // Check arm
         if (arm->isInside(p)) return true;
 
         // Check motor (with offset)
-        Point<DIM> p_local;
+        mc::geom::Point<DIM> p_local;
         for(size_t i=0; i<DIM; ++i) p_local[i] = p[i] - motor_offset[i];
         if (motor_housing->isInside(p_local)) return true;
 
         // Check cabin (PolyTope) if loaded
         if (cabin) {
-            Point<DIM> p_cabin;
+            mc::geom::Point<DIM> p_cabin;
             for(size_t i=0; i<DIM; ++i) p_cabin[i] = p[i] - cabin_offset[i];
             if (cabin->isInside(p_cabin)) return true;
         }
@@ -276,7 +273,7 @@ public:
         for (double x = -5.0; x <= 5.0; x += step) {
             for (double y = -1.0; y <= 1.0; y += step) {
                 for (double z = -0.5; z <= 0.5; z += step) {
-                    Point<DIM> p;
+                    mc::geom::Point<DIM> p;
                     p[0] = x;
                     p[1] = y;
                     p[2] = z;
@@ -297,13 +294,13 @@ public:
         for (double x = 3.5; x <= 6.5; x += step_motor) {
             for (double y = -1.5; y <= 1.5; y += step_motor) {
                 for (double z = -0.6; z <= 0.6; z += step_motor) {
-                    Point<DIM> p;
+                    mc::geom::Point<DIM> p;
                     p[0] = x;
                     p[1] = y;
                     p[2] = z;
                     
                     // Transform to motor local coordinates
-                    Point<DIM> p_motor;
+                    mc::geom::Point<DIM> p_motor;
                     for(size_t i=0; i<DIM; ++i) p_motor[i] = p[i] - motor_offset[i];
                     
                     // Draw only if inside motor AND outside hole
@@ -343,7 +340,7 @@ double objective_function(const std::vector<double>& params) {
 
     // Geometric guard: prevent optimizing a hole center outside the body
     DroneArmDomain domain;
-    Point<DIM> hole_center;
+    mc::geom::Point<DIM> hole_center;
     hole_center[0] = hole_x;
     hole_center[1] = hole_y;
     hole_center[2] = hole_z;
@@ -352,7 +349,7 @@ double objective_function(const std::vector<double>& params) {
     }
 
     // Deterministic RNG: same params -> same seed -> stationary noise surface for PSO
-    uint32_t local_seed = hash_params(params) + mc::get_global_seed();
+    uint32_t local_seed = hash_params(params) + mc::rng::get_global_seed();
     std::mt19937 rng(local_seed);
 
     auto bounds = domain.getBounds();
@@ -370,7 +367,7 @@ double objective_function(const std::vector<double>& params) {
 
     // Single Monte Carlo pass: inside domain and outside hole -> accumulate mass and moments
     for (int i = 0; i < n_samples; ++i) {
-        Point<DIM> p;
+        mc::geom::Point<DIM> p;
         p[0] = dist_x(rng);
         p[1] = dist_y(rng);
         p[2] = dist_z(rng);
@@ -427,7 +424,7 @@ int main(int argc, char* argv[]) {
     }
     
     // Set the global seed for all library components
-    mc::set_global_seed(seed);
+    mc::rng::set_global_seed(seed);
     
     // Second argument: number of threads (0 = sequential, positive = number of threads)
     if (argc > 2) {
@@ -462,16 +459,16 @@ int main(int argc, char* argv[]) {
     std::cout << "--- Pre-computing Static Drone Properties (Baseline) ---" << std::endl;
 
     DroneArmDomain static_domain;
-    MontecarloIntegrator<DIM> static_integrator(static_domain);
+    mc::integrators::MontecarloIntegrator<DIM> static_integrator(static_domain);
 
     // High sample count for accurate baseline (reused later for ground truth)
     int n_baseline = 1000000;
 
     // Density functions for full body (no hole consideration)
-    auto f_mass = [](const Point<DIM>& p) { return 1.0; };
-    auto f_mx   = [](const Point<DIM>& p) { return p[0]; };
-    auto f_my   = [](const Point<DIM>& p) { return p[1]; };
-    auto f_mz   = [](const Point<DIM>& p) { return p[2]; };
+    auto f_mass = [](const mc::geom::Point<DIM>& p) { return 1.0; };
+    auto f_mx   = [](const mc::geom::Point<DIM>& p) { return p[0]; };
+    auto f_my   = [](const mc::geom::Point<DIM>& p) { return p[1]; };
+    auto f_mz   = [](const mc::geom::Point<DIM>& p) { return p[2]; };
 
     double base_mass = static_integrator.OLDintegrate(f_mass, n_baseline);
     double base_mx   = static_integrator.OLDintegrate(f_mx, n_baseline);
@@ -486,14 +483,14 @@ int main(int argc, char* argv[]) {
     std::cout << std::endl;
 
     // PSO configuration
-    PSOConfig config;
+    mc::optim::PSOConfig config;
     config.population_size = 30;
     config.max_iterations = 50;
     config.cognitive_coeff = 1.5;
     config.social_coeff = 1.5;
     config.inertia_weight = 0.7;
 
-    PSO pso(config);
+    mc::optim::PSO pso(config);
 
     // Set objective function
     pso.setObjectiveFunction(objective_function);
@@ -503,10 +500,10 @@ int main(int argc, char* argv[]) {
     std::vector<double> upper_bounds = { 4.0,  1.0,  0.5, 0.9};
 
     pso.setBounds(lower_bounds, upper_bounds);
-    pso.setMode(OptimizationMode::MINIMIZE);
+    pso.setMode(mc::optim::OptimizationMode::MINIMIZE);
 
     // Progress callback
-    pso.setCallback([](const Solution& best, int iter) {
+    pso.setCallback([](const mc::optim::Solution& best, int iter) {
         if (iter % 10 == 0) {
             std::cout << "Iter " << iter << " | Error: " << best.value << " | ";
             std::cout << "Hole: x=" << best.params[0] << " r=" << best.params[3] << std::endl;
@@ -514,7 +511,7 @@ int main(int argc, char* argv[]) {
     });
 
     // Run optimization
-    Solution best_sol = pso.optimize();
+    mc::optim::Solution best_sol = pso.optimize();
 
     std::cout << "\n--- Optimization Complete ---" << std::endl;
     std::cout << "Final Error: " << best_sol.value << std::endl;
@@ -550,11 +547,11 @@ int main(int argc, char* argv[]) {
     {
         int tid = omp_get_thread_num();
         // Deterministic verification RNG per thread; stable across runs
-        auto local_rng = mc::make_thread_engine(9999);
+        auto local_rng = mc::rng::make_thread_engine(9999);
 
         #pragma omp for
         for (int i = 0; i < n_verify; ++i) {
-            Point<DIM> p;
+            mc::geom::Point<DIM> p;
             double rx = std::generate_canonical<double, 32>(local_rng);
             double ry = std::generate_canonical<double, 32>(local_rng);
             double rz = std::generate_canonical<double, 32>(local_rng);
@@ -588,7 +585,7 @@ int main(int argc, char* argv[]) {
     double cm_y_final = static_cast<double>(total_my / total_hits);
     double cm_z_final = static_cast<double>(total_mz / total_hits);
 
-    const Point<DIM> CM_target_verify = [](){ Point<DIM> p; p[0] = 1.0; p[1] = 0.0; p[2] = 0.0; return p; }();
+    const mc::geom::Point<DIM> CM_target_verify = [](){ mc::geom::Point<DIM> p; p[0] = 1.0; p[1] = 0.0; p[2] = 0.0; return p; }();
     double error_final = std::sqrt(std::pow(cm_x_final - CM_target_verify[0], 2) +
                                    std::pow(cm_y_final - CM_target_verify[1], 2) +
                                    std::pow(cm_z_final - CM_target_verify[2], 2));
@@ -665,7 +662,7 @@ int main(int argc, char* argv[]) {
     domain_verify.exportGeometry("./drone_frames", best_x, best_y, best_z, best_r);
     
     // Generate gnuplot visualization script
-    createDroneVisualizationScript("visualize_drone.gp", "drone_frames/drone_domain.txt");
+    mc::utils::createDroneVisualizationScript("visualize_drone.gp", "drone_frames/drone_domain.txt");
 
     return 0;
 }

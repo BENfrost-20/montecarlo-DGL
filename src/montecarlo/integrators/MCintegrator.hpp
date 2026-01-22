@@ -23,18 +23,22 @@
 #include <cstdint>
 #include <functional>
 
+namespace mc::integrators {
+
 template <std::size_t dim>
 class MontecarloIntegrator : public Integrator<dim> {
 public:
-    explicit MontecarloIntegrator(const IntegrationDomain<dim>& d);
+    explicit MontecarloIntegrator(const mc::domains::IntegrationDomain<dim>& d);
 
-    double OLDintegrate(const std::function<double(const Point<dim>&)>& f, int n_samples);
+    double OLDintegrate(const std::function<double(const mc::geom::Point<dim>&)>& f, int n_samples);
 
-    double integrate(const std::function<double(const Point<dim>&)>& f,
+    double integrate(const std::function<double(const mc::geom::Point<dim>&)>& f,
                      int n_samples,
-                     const Proposal<dim>& proposal,
+                     const mc::proposals::Proposal<dim>& proposal,
                      std::uint32_t seed) override;
 };
+
+} // namespace mc::integrators
 
 #include "MCintegrator.tpp"
 

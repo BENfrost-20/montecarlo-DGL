@@ -17,17 +17,19 @@
 #include <cstdint>
 #include <functional>
 
+namespace mc::integrators {
+
 template <std::size_t dim>
 class MHMontecarloIntegrator : public Integrator<dim> {
 public:
-    using Point = geom::Point<dim>;
+    using Point = mc::geom::Point<dim>;
     using Func  = std::function<double(const Point&)>;
 
-    explicit MHMontecarloIntegrator(const IntegrationDomain<dim>& d);
+    explicit MHMontecarloIntegrator(const mc::domains::IntegrationDomain<dim>& d);
 
     double integrate(const Func& f,
                      int n_samples,
-                     const Proposal<dim>& proposal,
+                     const mc::proposals::Proposal<dim>& proposal,
                      std::uint32_t seed) override;
 
     void setConfig(std::size_t burn_in_,
@@ -48,6 +50,8 @@ private:
     std::function<double(const Point&)> p;
     geom::Point<dim> x0;
 };
+ 
+} // namespace mc::integrators
 
 #include "MHintegrator.tpp"
 

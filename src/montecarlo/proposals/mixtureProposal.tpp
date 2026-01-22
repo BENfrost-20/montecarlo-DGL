@@ -5,6 +5,9 @@
 #include <numeric>   // std::accumulate
 #include <cmath>     // std::isfinite
 
+namespace mc {
+namespace proposals {
+
 template <size_t dim>
 void MixtureProposal<dim>::validateInputs(const std::vector<const Proposal<dim>*>& components,
                                           const std::vector<double>& weights)
@@ -58,14 +61,14 @@ MixtureProposal<dim>::MixtureProposal(std::vector<const Proposal<dim>*> componen
 }
 
 template <size_t dim>
-geom::Point<dim> MixtureProposal<dim>::sample(std::mt19937& rng) const
+mc::geom::Point<dim> MixtureProposal<dim>::sample(std::mt19937& rng) const
 {
     const std::size_t k = cat(rng);
     return comps[k]->sample(rng);
 }
 
 template <size_t dim>
-double MixtureProposal<dim>::pdf(const geom::Point<dim>& x) const
+double MixtureProposal<dim>::pdf(const mc::geom::Point<dim>& x) const
 {
     double acc = 0.0;
     for (std::size_t k = 0; k < comps.size(); ++k) {
@@ -73,5 +76,8 @@ double MixtureProposal<dim>::pdf(const geom::Point<dim>& x) const
     }
     return acc;
 }
+
+} // namespace proposals
+} // namespace mc
 
 #endif // MONTECARLO_1_MIXTURE_PROPOSAL_TPP

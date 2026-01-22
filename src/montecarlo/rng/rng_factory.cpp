@@ -21,7 +21,9 @@
 
 namespace mc {
 
-namespace {
+namespace rng {
+
+namespace detail {
 
 // splitmix64 mixer (Vigna), used here as a high-quality mixing function
 inline std::uint64_t splitmix64_mix(std::uint64_t x) {
@@ -63,12 +65,12 @@ inline std::mt19937 create_mt19937(std::uint64_t seed) {
     return std::mt19937(seq);
 }
 
-} // anonymous namespace
+} // detail namespace
 
 std::mt19937 make_engine(std::uint64_t stream_id) {
     const std::uint64_t base = static_cast<std::uint64_t>(get_global_seed());
-    const std::uint64_t mixed = combine_seeds(base, stream_id, 0ULL);
-    return create_mt19937(mixed);
+    const std::uint64_t mixed = mc::rng::detail::combine_seeds(base, stream_id, 0ULL);
+    return mc::rng::detail::create_mt19937(mixed);
 }
 
 std::mt19937 make_thread_engine(std::uint64_t stream_id) {
@@ -79,8 +81,8 @@ std::mt19937 make_thread_engine(std::uint64_t stream_id) {
     tid = static_cast<std::uint64_t>(omp_get_thread_num());
 #endif
 
-    const std::uint64_t mixed = combine_seeds(base, stream_id, tid);
-    return create_mt19937(mixed);
+    const std::uint64_t mixed = mc::rng::detail::combine_seeds(base, stream_id, tid);
+    return mc::rng::detail::create_mt19937(mixed);
 }
 
 std::mt19937 make_engine_with_seed(std::optional<std::uint32_t> base_seed,
@@ -90,8 +92,9 @@ std::mt19937 make_engine_with_seed(std::optional<std::uint32_t> base_seed,
         ? static_cast<std::uint64_t>(*base_seed)
         : static_cast<std::uint64_t>(get_global_seed());
 
-    const std::uint64_t mixed = combine_seeds(base, stream_id, 0ULL);
-    return create_mt19937(mixed);
+    const std::uint64_t mixed = mc::rng::detail::combine_seeds(base, stream_id, 0ULL);
+    return mc::rng::detail::create_mt19937(mixed);
 }
 
+} // namespace rng
 } // namespace mc

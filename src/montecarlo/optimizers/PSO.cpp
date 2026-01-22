@@ -12,7 +12,8 @@
   #include <omp.h>
 #endif
 
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     PSO::PSO(const PSOConfig& config)
         : m_config(config),
@@ -58,7 +59,7 @@ namespace optimizers {
             auto& p = m_swarm[static_cast<size_t>(p_idx)];
 
             // Thread-safe RNG
-            auto local_gen = mc::make_thread_engine(1000ULL + static_cast<std::uint64_t>(p_idx));
+            auto local_gen = mc::rng::make_thread_engine(1000ULL + static_cast<std::uint64_t>(p_idx));
             std::uniform_real_distribution<Real> dist(0.0, 1.0);
 
             p.position.resize(dim);
@@ -100,7 +101,7 @@ namespace optimizers {
             auto& p = m_swarm[static_cast<size_t>(p_idx)];
 
             // Thread-safe RNG
-            auto local_gen = mc::make_thread_engine(2000ULL + static_cast<std::uint64_t>(p_idx));
+            auto local_gen = mc::rng::make_thread_engine(2000ULL + static_cast<std::uint64_t>(p_idx));
             std::uniform_real_distribution<Real> r_dist(0.0, 1.0);
 
             for (size_t i = 0; i < dim; ++i) {
@@ -172,4 +173,5 @@ namespace optimizers {
         return m_global_best;
     }
 
-}
+} //namespace mc
+} //namespace optim

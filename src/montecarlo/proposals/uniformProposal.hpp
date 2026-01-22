@@ -16,6 +16,9 @@
 #include <random>
 #include <utility>
 
+namespace mc {
+namespace proposals {
+
 /**
  * @brief Uniform distribution over a domain
  * @tparam dim Dimensionality
@@ -32,27 +35,30 @@ public:
      * @brief Construct uniform proposal over domain
      * @param d Integration domain to sample from
      */
-    explicit UniformProposal(const IntegrationDomain<dim>& d);
+    explicit UniformProposal(const mc::domains::IntegrationDomain<dim>& d);
 
     /**
      * @brief Sample uniform point from domain
      * @param rng Random generator
      * @return Point uniformly distributed in domain
      */
-    geom::Point<dim> sample(std::mt19937& rng) const override;
+    mc::geom::Point<dim> sample(std::mt19937& rng) const override;
 
     /**
      * @brief Evaluate uniform PDF
      * @param x Query point
      * @return 1/V if x in domain, undefined behavior otherwise
      */
-    double pdf(const geom::Point<dim>&) const override;
+    double pdf(const mc::geom::Point<dim>&) const override;
 
 private:
-    const IntegrationDomain<dim>& domain;
+    const mc::domains::IntegrationDomain<dim>& domain;
     mutable std::array<std::uniform_real_distribution<double>, dim> dist{};
     double vol_box;
 };
+
+} // namespace proposals
+} // namespace mc
 
 #include "uniformProposal.tpp"
 

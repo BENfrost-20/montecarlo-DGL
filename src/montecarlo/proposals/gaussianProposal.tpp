@@ -6,6 +6,9 @@
 #include <utility>  // std::move
 #include <numbers>
 
+namespace mc {
+namespace proposals {
+
 template <size_t dim>
 void GaussianProposal<dim>::init_from_mu_sig_()
 {
@@ -30,7 +33,7 @@ void GaussianProposal<dim>::init_from_mu_sig_()
 }
 
 template <size_t dim>
-GaussianProposal<dim>::GaussianProposal(const IntegrationDomain<dim>& d,
+GaussianProposal<dim>::GaussianProposal(const mc::domains::IntegrationDomain<dim>& d,
                                         const std::vector<double>& mean,
                                         const std::vector<double>& sigma)
     : domain(d), mu(mean), sig(sigma)
@@ -39,9 +42,9 @@ GaussianProposal<dim>::GaussianProposal(const IntegrationDomain<dim>& d,
 }
 
 template <size_t dim>
-geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
+mc::geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
 {
-    geom::Point<dim> x;
+    mc::geom::Point<dim> x;
     for (size_t i = 0; i < dim; ++i){
         std::normal_distribution<double> d(mu[i], sig[i]);
         x[i] = d(rng);
@@ -50,7 +53,7 @@ geom::Point<dim> GaussianProposal<dim>::sample(std::mt19937& rng) const
 }
 
 template <size_t dim>
-double GaussianProposal<dim>::pdf(const geom::Point<dim>& x) const
+double GaussianProposal<dim>::pdf(const mc::geom::Point<dim>& x) const
 {
     // Full Gaussian density on R^dim (no domain indicator).
     double quad = 0.0;
@@ -68,5 +71,8 @@ double GaussianProposal<dim>::pdf(const geom::Point<dim>& x) const
 
     return std::exp(logp);
 }
+
+} // namespace proposals
+} // namespace mc
 
 #endif // MONTECARLO_1_GAUSSIAN_PROPOSAL_TP

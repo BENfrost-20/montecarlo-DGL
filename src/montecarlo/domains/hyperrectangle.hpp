@@ -12,8 +12,8 @@
 #include "integration_domain.hpp"
 #include <utility>
 #include "../geometry.hpp"
-using namespace std;
-using namespace geom;
+
+namespace mc::domains {
 
 /**
  * @brief Axis-aligned hyperrectangular domain
@@ -30,13 +30,13 @@ public:
      * @brief Construct hyperrectangle from dimension extents
      * @param dims Array of dimension sizes (extent along each axis)
      */
-    HyperRectangle(array<double, dim> &dims);
+    HyperRectangle(std::array<double, dim> &dims);
 
     /**
      * @brief Get bounding box (coincides with domain itself)
      * @return Bounds covering the entire hyperrectangle
      */
-    Bounds<dim> getBounds() const override;
+    mc::geom::Bounds<dim> getBounds() const override;
 
     /**
      * @brief Compute hyperrectangle volume
@@ -49,10 +49,12 @@ public:
      * @param point Query point
      * @return true if point ∈ [center - dims/2, center + dims/2] on all axes
      */
-    bool isInside(const Point<dim> &point) const override;
+    bool isInside(const mc::geom::Point<dim> &point) const override;
 private:
-    array<double, dim> dimensions; ///< Extent along each axis
+    std::array<double, dim> dimensions; ///< Extent along each axis
 };
+
+} // namespace mc::domains
 
 #include "hyperrectangle.tpp"
 

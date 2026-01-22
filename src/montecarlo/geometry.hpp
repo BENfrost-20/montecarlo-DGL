@@ -13,14 +13,12 @@
 #include <array>
 #include <cstddef>
 
-using namespace std;
-
 /**
  * @namespace geom
  * @brief Geometric types and utilities for N-dimensional spaces.
  * Contains fundamental primitives like Point and Bounds used throughout the Monte Carlo library.
  */
-namespace geom {
+namespace mc::geom {
 
 /**
  * @brief N-dimensional point representation
@@ -103,10 +101,10 @@ public:
     }
 
 private:
-    array<pair<double, double>, dim> bounds; ///< Min/max pairs for each dimension
+    std::array<std::pair<double, double>, dim> bounds; ///< Min/max pairs for each dimension
 };
                                                                                         
 
-} // namespace geom
+} // namespace mc::geom
 
 #endif // MONTECARLO_1_GEOMETRY_HPP

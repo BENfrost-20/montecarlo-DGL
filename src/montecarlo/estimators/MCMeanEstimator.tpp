@@ -12,11 +12,13 @@
 
 #include "montecarlo/rng/rng_factory.hpp"
 
+namespace mc::estimators {
+
 template <std::size_t dim>
-MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& domain,
+MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const mc::domains::IntegrationDomain<dim>& domain,
                                                 std::uint32_t seed,
                                                 std::size_t n_samples,
-                                                const std::function<double(const Point<dim>&)>& f) const
+                                                const std::function<double(const mc::geom::Point<dim>&)>& f) const
 {
     if (n_samples == 0) throw std::invalid_argument("n_samples must be > 0");
 
@@ -37,8 +39,8 @@ MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& d
     for (int tid = 0; tid < T; ++tid) {
         const std::size_t n_local = base + (static_cast<std::size_t>(tid) < rem ? 1u : 0u);
 
-        auto rng = mc::make_engine_with_seed(std::optional<std::uint32_t>{seed},
-                                             static_cast<std::uint64_t>(tid));
+        auto rng = mc::rng::make_engine_with_seed(std::optional<std::uint32_t>{seed},
+                              static_cast<std::uint64_t>(tid));
 
         auto local_dist = dist;
 
@@ -68,3 +70,5 @@ MeanEstimate<dim> MCMeanEstimator<dim>::estimate(const IntegrationDomain<dim>& d
 
     return out;
 }
+
+} // namespace mc::estimators

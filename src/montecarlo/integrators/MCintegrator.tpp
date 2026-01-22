@@ -6,18 +6,17 @@
 #include <functional>
 #include <vector>
 
-using namespace geom;
-using namespace std;
+namespace mc::integrators {
 
 template <size_t dim>
-MontecarloIntegrator<dim>::MontecarloIntegrator(const IntegrationDomain<dim>& d)
+MontecarloIntegrator<dim>::MontecarloIntegrator(const mc::domains::IntegrationDomain<dim>& d)
     : Integrator<dim>(d) {}
 
 template <size_t dim>
-double MontecarloIntegrator<dim>::OLDintegrate(const function<double(const Point<dim>&)>& f,
+double MontecarloIntegrator<dim>::OLDintegrate(const std::function<double(const mc::geom::Point<dim>&)>& f,
                                                int n_samples)
 {
-    vector<Point<dim>> points = this->initializeRandomizer(n_samples);
+    std::vector<mc::geom::Point<dim>> points = this->initializeRandomizer(n_samples);
 
     double sum = 0.0;
     for (const auto& p : points) {
@@ -29,14 +28,16 @@ double MontecarloIntegrator<dim>::OLDintegrate(const function<double(const Point
 }
 
 template <size_t dim>
-double MontecarloIntegrator<dim>::integrate(const function<double(const Point<dim>&)>& f,
+double MontecarloIntegrator<dim>::integrate(const std::function<double(const mc::geom::Point<dim>&)>& f,
                                             int n_samples,
-                                            const Proposal<dim>&,
+                                            const mc::proposals::Proposal<dim>&,
                                             std::uint32_t seed)
 {
-    MCMeanEstimator<dim> mean_estimator;
-    MeanEstimate<dim> mean_estimate =
+    mc::estimators::MCMeanEstimator<dim> mean_estimator;
+    mc::estimators::MeanEstimate<dim> mean_estimate =
         mean_estimator.estimate(this->domain, seed, static_cast<std::size_t>(n_samples), f);
 
     return mean_estimate.mean * this->domain.getBoxVolume();
 }
+
+} // namespace mc::integrators

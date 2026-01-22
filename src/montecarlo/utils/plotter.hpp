@@ -14,6 +14,8 @@
 #include <filesystem>
 #include "../domains/integration_domain.hpp"
 
+namespace mc::utils {
+
 /**
  * Utility to close all currently open Gnuplot windows.
  */
@@ -35,7 +37,7 @@ inline std::string formatTitle(std::string name) {
  */
 template <size_t dim>
 inline void createGnuplotScript(const std::string& tempRawDataFile,
-                                const IntegrationDomain<dim>& domain,
+                                const mc::domains::IntegrationDomain<dim>& domain,
                                 size_t currentSamples) {
 
     if (dim > 3) return; // Cannot plot 4D+ geometry easily
@@ -55,12 +57,12 @@ inline void createGnuplotScript(const std::string& tempRawDataFile,
     std::ifstream inFile(tempRawDataFile);
     if (!inFile.is_open()) return;
 
-    std::vector<geom::Point<dim>> points;
+    std::vector<mc::geom::Point<dim>> points;
     std::string line;
     while (std::getline(inFile, line)) {
         if (line.empty()) continue;
         std::stringstream ss(line);
-        geom::Point<dim> p;
+        mc::geom::Point<dim> p;
         for (size_t i = 0; i < dim; ++i) ss >> p[i];
         points.push_back(p);
     }
@@ -130,7 +132,7 @@ inline void createGnuplotScript(const std::string& tempRawDataFile,
  */
 template <size_t dim, typename Func>
 inline void createFunctionGnuplotScript(const std::string& tempRawDataFile,
-                                        const IntegrationDomain<dim>& domain,
+                                        const mc::domains::IntegrationDomain<dim>& domain,
                                         const Func& func,
                                         size_t currentSamples) {
     if (dim > 3) return;
@@ -156,7 +158,7 @@ inline void createFunctionGnuplotScript(const std::string& tempRawDataFile,
     while (std::getline(inFile, line)) {
         if (line.empty()) continue;
         std::stringstream ss(line);
-        geom::Point<dim> p;
+        mc::geom::Point<dim> p;
         for (size_t i = 0; i < dim; ++i) ss >> p[i];
 
         if (domain.isInside(p)) {
@@ -509,5 +511,6 @@ inline void createDroneVisualizationScript(const std::string& scriptName,
     std::cout << "To visualize: gnuplot -persist " << scriptName << std::endl;
 }
 
+} // namespace mc::utils
 
 #endif //MONTECARLO_1_PLOTTER_HPP

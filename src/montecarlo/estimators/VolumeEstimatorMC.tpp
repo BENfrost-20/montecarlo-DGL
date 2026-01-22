@@ -12,6 +12,8 @@
 
 #include "montecarlo/rng/rng_factory.hpp"
 
+namespace mc::estimators {
+
 template <std::size_t dim>
 static geom::Point<dim>
 sample_uniform_in_box(const geom::Bounds<dim>& b, std::mt19937& rng)
@@ -26,7 +28,7 @@ sample_uniform_in_box(const geom::Bounds<dim>& b, std::mt19937& rng)
 
 template <std::size_t dim>
 VolumeEstimate<dim>
-VolumeEstimatorMC<dim>::estimate(const IntegrationDomain<dim>& domain,
+VolumeEstimatorMC<dim>::estimate(const mc::domains::IntegrationDomain<dim>& domain,
                                  std::uint32_t seed,
                                  std::size_t n_samples) const
 {
@@ -45,8 +47,8 @@ VolumeEstimatorMC<dim>::estimate(const IntegrationDomain<dim>& domain,
     for (int tid = 0; tid < T; ++tid) {
         const std::size_t n_local = base + (static_cast<std::size_t>(tid) < rem ? 1u : 0u);
 
-        auto rng = mc::make_engine_with_seed(std::optional<std::uint32_t>{seed},
-                                             static_cast<std::uint64_t>(tid));
+        auto rng = mc::rng::make_engine_with_seed(std::optional<std::uint32_t>{seed},
+                              static_cast<std::uint64_t>(tid));
 
         for (std::size_t i = 0; i < n_local; ++i) {
             const auto x = sample_uniform_in_box<dim>(bounds, rng);
@@ -65,3 +67,5 @@ VolumeEstimatorMC<dim>::estimate(const IntegrationDomain<dim>& domain,
     out.stderr = boxV * se_p;
     return out;
 }
+
+} // namespace mc::integrators

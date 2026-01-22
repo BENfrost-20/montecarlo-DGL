@@ -5,12 +5,13 @@
 #include <cmath>
 #include <cstdint>
 
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     GA::GA(const GAConfig& config)
         : m_config(config),
           m_global_best(Solution::make_worst(OptimizationMode::MINIMIZE)),
-          m_rng(mc::make_engine(100)) // stream_id=100 for GA
+          m_rng(mc::rng::make_engine(100)) // stream_id=100 for GA
     {}
 
     void GA::setObjectiveFunction(ObjectiveFunction func) {
@@ -208,4 +209,5 @@ namespace optimizers {
         return m_global_best;
     }
 
-} // namespace optimizers
+} //namespace mc
+} //namespace optim

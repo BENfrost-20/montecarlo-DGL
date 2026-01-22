@@ -41,8 +41,6 @@
 #include "../montecarlo/optimizers/PSO.hpp"
 #include "../montecarlo/optimizers/types.hpp"
 
-using namespace optimizers;
-
 // =============================================================================
 // CONFIGURATION CONSTANTS
 // =============================================================================
@@ -95,7 +93,7 @@ inline double turbineDistance(double x1, double y1, double x2, double y2) {
  * @param x Output vector of x coordinates
  * @param y Output vector of y coordinates
  */
-inline void extractTurbinePositions(const Coordinates& coords, 
+inline void extractTurbinePositions(const mc::optim::Coordinates& coords, 
                                      std::vector<double>& x, 
                                      std::vector<double>& y) {
     size_t n = coords.size() / 2;
@@ -185,7 +183,7 @@ inline double applyWakeEffect(double base_speed, double distance) {
  * @param thread_seed Seed offset for thread-safe RNG
  * @return Negative average power (negative because PSO minimizes)
  */
-double windFarmObjective(const Coordinates& coords, std::uint64_t thread_seed) {
+double windFarmObjective(const mc::optim::Coordinates& coords, std::uint64_t thread_seed) {
     std::vector<double> x, y;
     extractTurbinePositions(coords, x, y);
     size_t n = x.size();
@@ -198,7 +196,7 @@ double windFarmObjective(const Coordinates& coords, std::uint64_t thread_seed) {
     }
     
     // Monte Carlo simulation for wind speed
-    auto rng = mc::make_engine_with_seed(static_cast<std::uint32_t>(thread_seed), 0);
+    auto rng = mc::rng::make_engine_with_seed(static_cast<std::uint32_t>(thread_seed), 0);
     
     double total_energy = 0.0;
     
@@ -338,7 +336,7 @@ void writePlotScript(const std::string& filename,
 /**
  * @brief Print optimization summary to console
  */
-void printSummary(const Solution& best, 
+void printSummary(const mc::optim::Solution& best, 
                    const std::vector<double>& x,
                    const std::vector<double>& y) {
     std::cout << "\n";
@@ -396,7 +394,7 @@ int main(int argc, char* argv[]) {
     std::cout << "╚══════════════════════════════════════════════════════════════╝\n\n";
     
     // Set global seed for reproducibility
-    mc::set_global_seed(42u);
+    mc::rng::set_global_seed(42u);
     std::cout << "[INFO] Global RNG seed set to 42\n";
     
     // Configuration info
@@ -411,8 +409,8 @@ int main(int argc, char* argv[]) {
     // Each turbine has (x, y), so total dimensions = 2 * NUM_TURBINES
     size_t total_dims = 2 * NUM_TURBINES;
     
-    Coordinates lower_bounds(total_dims);
-    Coordinates upper_bounds(total_dims);
+    mc::optim::Coordinates lower_bounds(total_dims);
+    mc::optim::Coordinates upper_bounds(total_dims);
     
     for (size_t i = 0; i < NUM_TURBINES; ++i) {
         // x coordinate bounds
@@ -424,7 +422,7 @@ int main(int argc, char* argv[]) {
     }
     
     // Configure PSO
-    PSOConfig config;
+    mc::optim::PSOConfig config;
     config.population_size = 60;    // Number of particles
     config.max_iterations = 150;    // Maximum iterations
     config.inertia_weight = 0.6;    // Velocity inertia
@@ -439,17 +437,17 @@ int main(int argc, char* argv[]) {
     std::cout << "       - Social coefficient: " << config.social_coeff << "\n\n";
     
     // Create PSO optimizer
-    PSO optimizer(config);
+    mc::optim::PSO optimizer(config);
     
     // Set bounds
     optimizer.setBounds(lower_bounds, upper_bounds);
     
     // Set optimization mode (minimize because objective returns -energy)
-    optimizer.setMode(OptimizationMode::MINIMIZE);
+    optimizer.setMode(mc::optim::OptimizationMode::MINIMIZE);
     
     // Create thread-safe objective function wrapper
     // Each evaluation gets a unique seed based on parameters hash
-    auto objectiveWrapper = [](const Coordinates& coords) -> Real {
+    auto objectiveWrapper = [](const mc::optim::Coordinates& coords) -> mc::optim::Real {
         // Create a simple hash from coordinates for reproducible seeding
         std::uint64_t hash = 0;
         for (size_t i = 0; i < coords.size(); ++i) {
@@ -467,7 +465,7 @@ int main(int argc, char* argv[]) {
     
     // Set callback for progress reporting
     size_t callback_counter = 0;
-    optimizer.setCallback([&callback_counter](const Solution& best, size_t iteration) {
+    optimizer.setCallback([&callback_counter](const mc::optim::Solution& best, size_t iteration) {
         if (iteration % 10 == 0 || iteration == 1) {
             double power_mw = -best.value / 1e6;
             std::cout << "[ITER " << std::setw(4) << iteration << "] "
@@ -481,7 +479,7 @@ int main(int argc, char* argv[]) {
     std::cout << "[INFO] Starting optimization...\n\n";
     
     auto start_time = std::chrono::high_resolution_clock::now();
-    Solution best = optimizer.optimize();
+    mc::optim::Solution best = optimizer.optimize();
     auto end_time = std::chrono::high_resolution_clock::now();
     
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);

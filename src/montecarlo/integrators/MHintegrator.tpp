@@ -12,8 +12,10 @@
 
 #include "montecarlo/rng/rng_factory.hpp"
 
+namespace mc::integrators {
+
 template <std::size_t dim>
-MHMontecarloIntegrator<dim>::MHMontecarloIntegrator(const IntegrationDomain<dim>& d)
+MHMontecarloIntegrator<dim>::MHMontecarloIntegrator(const mc::domains::IntegrationDomain<dim>& d)
     : Integrator<dim>(d)
 {}
 
@@ -42,7 +44,7 @@ void MHMontecarloIntegrator<dim>::setConfig(std::size_t burn_in_,
 template <std::size_t dim>
 double MHMontecarloIntegrator<dim>::integrate(const Func& f,
                                              int n_samples,
-                                             const Proposal<dim>&,
+                                             const mc::proposals::Proposal<dim>&,
                                              std::uint32_t seed)
 {
     if (!configured)
@@ -50,7 +52,7 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
     if (n_samples <= 0)
         throw std::invalid_argument("n_samples must be > 0");
 
-    VolumeEstimatorMC<dim> ve;
+    mc::estimators::VolumeEstimatorMC<dim> ve;
     const auto vol_hat = ve.estimate(this->domain, seed, n_samples_volume);
     std::cout << "Volume: " << vol_hat.volume << " +- " << 2 * vol_hat.stderr << "\n";
 
@@ -66,10 +68,10 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
         const int tid = omp_get_thread_num();
         const std::size_t n_local = base + (static_cast<std::size_t>(tid) < rem ? 1u : 0u);
 
-        auto rng = mc::make_engine_with_seed(std::optional<std::uint32_t>{seed},
-                                             static_cast<std::uint64_t>(tid));
+        auto rng = mc::rng::make_engine_with_seed(std::optional<std::uint32_t>{seed},
+                             static_cast<std::uint64_t>(tid));
 
-        MetropolisHastingsSampler<dim> mh_local(this->domain, p, x0, deviation);
+        mc::mcmc::MetropolisHastingsSampler<dim> mh_local(this->domain, p, x0, deviation);
         Point x_local{};
 
         for (std::size_t i = 0; i < burn_in; ++i)
@@ -93,3 +95,5 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
     const double mean_f = static_cast<double>(sum / static_cast<long double>(kept));
     return vol_hat.volume * mean_f;
 }
+
+} // namespace mc::integrators

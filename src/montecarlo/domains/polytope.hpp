@@ -13,8 +13,7 @@
 #include "../geometry.hpp"
 #include <vector>
 
-using namespace geom;
-using namespace std;
+namespace mc::domains {
 
 /**
  * @class PolyTope
@@ -37,7 +36,7 @@ public:
      * @note norms and offs must have the same size (number of facets).
      */
     PolyTope(const std::vector<geom::Point<dim>>&   vertices,
-                        const std::vector<array<double, dim>>&  norms,
+                        const std::vector<std::array<double, dim>>&  norms,
                         const std::vector<double>&      offs);
 
     /**
@@ -61,10 +60,12 @@ public:
     bool isInside(const geom::Point<dim> &p) const override;
 
 private:
-    vector<Point<dim>> vec;           ///< Vertices of the polytope.
-    vector<array<double, dim>> normals; ///< Inward-pointing normal vectors of facets.
-    vector<double> offsets;           ///< Offset values for facet inequalities.
+    std::vector<mc::geom::Point<dim>> vec;           ///< Vertices of the polytope.
+    std::vector<std::array<double, dim>> normals; ///< Inward-pointing normal vectors of facets.
+    std::vector<double> offsets;           ///< Offset values for facet inequalities.
 };
+
+} // namespace mc::domains
 
 #include "polytope.tpp"
 

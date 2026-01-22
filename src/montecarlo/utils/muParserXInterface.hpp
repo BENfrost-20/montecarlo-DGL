@@ -8,7 +8,8 @@
 #include <sstream>
 #include <stdexcept>
 
-namespace MuParserInterface
+namespace mc::utils
+
 {
 /*! An interface to MuParserX to define a function
 
@@ -169,5 +170,5 @@ private:
   // The muparserX value used to set the variables in the engine
   mutable mup::Value M_value;
 };
-} // namespace MuParserInterface
+} // namespace mc::utils
 #endif

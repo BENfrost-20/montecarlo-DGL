@@ -5,6 +5,8 @@
 #include "../geometry.hpp"
 #include <cmath>
 
+namespace mc::domains {
+
 /**
  * @brief N-dimensional HyperCylinder implementation.
  * Defined as an (n-1)-dimensional hypersphere of radius 'r'
@@ -43,6 +45,9 @@ private:
 };
 
 // Ensure the implementation code is saved as "hypercylinder.tpp"
+
+} // namespace mc::domains
+
 #include "hypercylinder.tpp"
 
 #endif //MONTECARLO_1_HYPERCYLINDER_HPP

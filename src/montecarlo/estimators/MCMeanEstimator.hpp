@@ -12,6 +12,8 @@
 #include <functional>
 #include <random>
 
+namespace mc::estimators {
+
 template <std::size_t dim>
 struct MeanEstimate {
     double mean   = 0.0;        ///< Estimated E_q[f(X)]
@@ -23,14 +25,16 @@ struct MeanEstimate {
 template <std::size_t dim>
 class MCMeanEstimator {
 public:
-    MeanEstimate<dim> estimate(const IntegrationDomain<dim>& domain,
+    MeanEstimate<dim> estimate(const mc::domains::IntegrationDomain<dim>& domain,
                               std::uint32_t seed,
                               std::size_t n_samples,
-                              const std::function<double(const Point<dim>&)>& f) const;
+                              const std::function<double(const mc::geom::Point<dim>&)>& f) const;
 
 private:
     mutable std::array<std::uniform_real_distribution<double>, dim> dist{};
 };
+
+} // namespace mc::estimators
 
 #include "MCMeanEstimator.tpp"
 

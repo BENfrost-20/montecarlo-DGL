@@ -1,8 +1,11 @@
 #ifndef MONTECARLO_1_UNIFORM_PROPOSAL_TPP
 #define MONTECARLO_1_UNIFORM_PROPOSAL_TPP
 
+namespace mc {
+namespace proposals {
+
 template <size_t dim>
-UniformProposal<dim>::UniformProposal(const IntegrationDomain<dim>& d)
+UniformProposal<dim>::UniformProposal(const mc::domains::IntegrationDomain<dim>& d)
     : domain(d), vol_box(d.getBoxVolume())
 {
     auto bounds = domain.getBounds();
@@ -15,9 +18,9 @@ UniformProposal<dim>::UniformProposal(const IntegrationDomain<dim>& d)
 }
 
 template <size_t dim>
-geom::Point<dim> UniformProposal<dim>::sample(std::mt19937& rng) const
+mc::geom::Point<dim> UniformProposal<dim>::sample(std::mt19937& rng) const
 {
-    geom::Point<dim> x;
+    mc::geom::Point<dim> x;
     for (size_t i = 0; i < dim; ++i) {
         x[i] = dist[i](rng);
     }
@@ -25,9 +28,12 @@ geom::Point<dim> UniformProposal<dim>::sample(std::mt19937& rng) const
 }
 
 template <size_t dim>
-double UniformProposal<dim>::pdf(const geom::Point<dim>&) const
+double UniformProposal<dim>::pdf(const mc::geom::Point<dim>&) const
 {
     return 1.0 / vol_box;
 }
+
+} // namespace proposals
+} // namespace mc
 
 #endif // MONTECARLO_1_UNIFORM_PROPOSAL_TPP

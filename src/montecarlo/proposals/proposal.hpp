@@ -12,6 +12,10 @@
 #include <random>
 #include "../geometry.hpp"
 
+namespace mc {
+namespace proposals {
+
+
 /**
  * @brief Abstract proposal distribution interface
  * @tparam dim Dimensionality of the distribution
@@ -33,7 +37,7 @@ public:
      * @return Point distributed according to q(x)
      */
     // Sample a point according to p(x)
-    virtual geom::Point<dim> sample(std::mt19937& rng) const = 0;
+    virtual mc::geom::Point<dim> sample(std::mt19937& rng) const = 0;
 
     /**
      * @brief Evaluate the proposal probability density function
@@ -43,7 +47,10 @@ public:
      * Must be non-zero everywhere in the support of the integrand.
      */
     // Evaluate p(x) (the PDF) at x
-    virtual double pdf(const geom::Point<dim>& x) const = 0;
+    virtual double pdf(const mc::geom::Point<dim>& x) const = 0;
 };
+
+} // namespace proposals
+} // namespace mc
 
 #endif

@@ -29,6 +29,9 @@
 #include <numeric>   // std::accumulate
 #include <cmath>     // std::isfinite
 
+namespace mc {
+namespace proposals {
+
 template <size_t dim>
 class MixtureProposal : public Proposal<dim>
 {
@@ -50,10 +53,10 @@ public:
                     std::vector<double> weights);
 
     /// @brief Sample from the mixture.
-    geom::Point<dim> sample(std::mt19937& rng) const override;
+    mc::geom::Point<dim> sample(std::mt19937& rng) const override;
 
     /// @brief Evaluate mixture PDF q(x) = sum_k w_k * q_k(x).
-    double pdf(const geom::Point<dim>& x) const override;
+    double pdf(const mc::geom::Point<dim>& x) const override;
 
     std::size_t numComponents() const noexcept { return comps.size(); }
     const std::vector<double>& getWeights() const noexcept { return w; }
@@ -68,6 +71,9 @@ private:
                                const std::vector<double>& weights);
     static std::vector<double> normalizeWeights(const std::vector<double>& weights);
 };
+
+} // namespace proposals
+} // namespace mc
 
 #include "mixtureProposal.tpp"
 

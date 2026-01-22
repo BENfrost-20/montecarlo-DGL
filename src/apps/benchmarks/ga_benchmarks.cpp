@@ -8,7 +8,7 @@
 #include <sstream>
 #include <filesystem>
 
-namespace opt = optimizers;
+namespace opt = mc::optim;
 
 // --- GA Helper Functions ---
 
@@ -239,7 +239,7 @@ void runVisualGABenchmark() {
     std::string gridFile = "ga_grid.dat";
 
     std::cout << "Generating background grid (heatmap)..." << std::endl;
-    saveFunctionGrid(gridFile, rastrigin, -5.12, 5.12, -5.12, 5.12, 100);
+    mc::utils::saveFunctionGrid(gridFile, rastrigin, -5.12, 5.12, -5.12, 5.12, 100);
 
     ga.setCallback([&](const opt::Solution&, size_t gen) {
         savePopulationFrame2D(baseName, gen, ga.getPopulation());
@@ -252,7 +252,7 @@ void runVisualGABenchmark() {
 
     std::cout << "Launching Gnuplot animation..." << std::endl;
     // riuso lo script PSO: basta cambiare nome file gp e titolo
-    createPSOAnimationScript("run_ga.gp", gridFile, baseName, config.max_generations, "GA Rastrigin 2D");
+    mc::utils::createPSOAnimationScript("run_ga.gp", gridFile, baseName, config.max_generations, "GA Rastrigin 2D");
 }
 
 void runVisualGA3DBenchmark() {
@@ -290,7 +290,7 @@ void runVisualGA3DBenchmark() {
     std::string slicesFile = "ga_slices_3d.dat";
 
     std::cout << "Generating 3D function slices (walls)..." << std::endl;
-    saveFunctionSlices3D(slicesFile, rastrigin3D, min_b, max_b, 50);
+    mc::utils::saveFunctionSlices3D(slicesFile, rastrigin3D, min_b, max_b, 50);
 
     ga.setCallback([&](const opt::Solution&, size_t gen) {
         savePopulationFrame3D(baseName, gen, ga.getPopulation());
@@ -304,7 +304,7 @@ void runVisualGA3DBenchmark() {
     std::cout << "\nOptimization finished." << std::endl;
 
     std::cout << "Launching Gnuplot 3D animation..." << std::endl;
-    createPSOAnimationScript3D("run_ga_3d.gp", slicesFile, baseName, config.max_generations,
+    mc::utils::createPSOAnimationScript3D("run_ga_3d.gp", slicesFile, baseName, config.max_generations,
                               "GA 3D Rastrigin", min_b, max_b);
 }
 

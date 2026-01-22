@@ -8,8 +8,6 @@
 #include <cmath>
 #include <cstdint>
 
-using namespace MuParserInterface;
-
 // --- Helper for formatted console output ---
 
 /**
@@ -19,8 +17,8 @@ using namespace MuParserInterface;
 template <size_t dim, typename Func>
 void executeBenchmark(const std::string& title,
                       const std::string& filename,
-                      MontecarloIntegrator<dim>& integrator,
-                      const IntegrationDomain<dim>& domain, // Needed for plotting
+                      mc::integrators::MontecarloIntegrator<dim>& integrator,
+                      const mc::domains::IntegrationDomain<dim>& domain, // Needed for plotting
                       Func&& f,
                       bool useGnuplot,
                       const std::string& rawDataFile,
@@ -44,8 +42,8 @@ void executeBenchmark(const std::string& title,
 
     std::vector<results> testResults;
 
-	ISMontecarloIntegrator<dim> isIntegrator(domain);
-    UniformProposal<dim> uprop(domain);
+	mc::integrators::ISMontecarloIntegrator<dim> isIntegrator(domain);
+    mc::proposals::UniformProposal<dim> uprop(domain);
     std::vector<double> init_mean(dim, 0.0);
     std::vector<double> init_sigma(dim, 2.5);
     auto bounds = domain.getBounds();
@@ -53,8 +51,8 @@ void executeBenchmark(const std::string& title,
         init_mean[i]  = 0.5 * (bounds[i].first + bounds[i].second);
         init_sigma[i] = (bounds[i].second - bounds[i].first) / 3.0; // oppure /2.0
     }
-    GaussianProposal<dim> gprop(domain, init_mean, init_sigma);
-    MixtureProposal<dim> mix({&uprop, &gprop}, {0.5, 0.5});
+    mc::proposals::GaussianProposal<dim> gprop(domain, init_mean, init_sigma);
+    mc::proposals::MixtureProposal<dim> mix({&uprop, &gprop}, {0.5, 0.5});
 
     // Header table for console output
     std::cout << std::string(107, '-') << '\n';
@@ -106,10 +104,10 @@ void executeBenchmark(const std::string& title,
         // 2. Plotting (Inside the loop to show progress for each sample size)
         if (useGnuplot) {
             // Plot Domain Geometry (Inside/Outside points)
-            createGnuplotScript(rawDataFile, domain, n_i);
+            mc::utils::createGnuplotScript(rawDataFile, domain, n_i);
 
             // Plot Function Value (f(x))
-            createFunctionGnuplotScript(rawDataFile, domain, f, n_i);
+            mc::utils::createFunctionGnuplotScript(rawDataFile, domain, f, n_i);
         }
     }
 
@@ -121,8 +119,8 @@ void executeBenchmark(const std::string& title,
 
 template <typename Func>
 void runCircleBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, const std::string& funcStr) {
-    Hypersphere<2> circle(5.0);
-    MontecarloIntegrator<2> integrator(circle);
+    mc::domains::Hypersphere<2> circle(5.0);
+    mc::integrators::MontecarloIntegrator<2> integrator(circle);
     std::string title = "2D Circle Integration (Radius 5) [" + modeLabel + "]";
     std::string filename = "resultsCircle_" + modeLabel + ".txt";
     std::string dataFile = "hsphere_samples.dat"; // File name must match what Integrator writes
@@ -133,8 +131,8 @@ void runCircleBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, c
 template <typename Func>
 void runSphereBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, const std::string& funcStr) {
     double radius = 10.0;
-    Hypersphere<4> sphere(radius);
-    MontecarloIntegrator<4> integrator(sphere);
+    mc::domains::Hypersphere<4> sphere(radius);
+    mc::integrators::MontecarloIntegrator<4> integrator(sphere);
     std::string title = "4D Hypersphere Integration [" + modeLabel + "]";
     std::string filename = "resultsSphere4D_" + modeLabel + ".txt";
     std::string dataFile = "hsphere_samples.dat";
@@ -145,8 +143,8 @@ void runSphereBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, c
 template <typename Func>
 void runRectBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, const std::string& funcStr) {
     std::array<double, 4> sides = {10.0, 5.0, 10.0, 5.0};
-    HyperRectangle<4> rectangle(sides);
-    MontecarloIntegrator<4> integrator(rectangle);
+    mc::domains::HyperRectangle<4> rectangle(sides);
+    mc::integrators::MontecarloIntegrator<4> integrator(rectangle);
     std::string title = "4D HyperRectangle Integration [" + modeLabel + "]";
     std::string filename = "resultsRectangle4D_" + modeLabel + ".txt";
     std::string dataFile = "hrectangle_samples.dat";
@@ -158,8 +156,8 @@ template <typename Func>
 void runCylinderBenchmark(Func f, const std::string& modeLabel, bool useGnuplot, const std::string& funcStr) {
     double radius = 5.0;
     double height = 10.0;
-    HyperCylinder<4> cylinder(radius, height);
-    MontecarloIntegrator<4> integrator(cylinder);
+    mc::domains::HyperCylinder<4> cylinder(radius, height);
+    mc::integrators::MontecarloIntegrator<4> integrator(cylinder);
     std::string title = "4D HyperCylinder Integration [" + modeLabel + "]";
     std::string filename = "resultsCylinder4D_" + modeLabel + ".txt";
     std::string dataFile = "cylinder_samples.dat";
@@ -174,25 +172,25 @@ void runCylinderBenchmark(Func f, const std::string& modeLabel, bool useGnuplot,
 // Manually defining the function string description for the output file/console.
 
 void circleIntegration(bool useGnuplot) {
-    auto f = [](const Point<2> &x) { return x[0] * x[0] - x[1] * x[1]; };
+    auto f = [](const mc::geom::Point<2> &x) { return x[0] * x[0] - x[1] * x[1]; };
     std::string funcStr = "x[0]^2 - x[1]^2";
     runCircleBenchmark(f, "Hardcoded", useGnuplot, funcStr);
 }
 
 void sphereIntegration(bool useGnuplot) {
-    auto f = [](const Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
+    auto f = [](const mc::geom::Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
     std::string funcStr = "x[0]^2 + x[1]^2 + x[2]^2 + x[3]^2";
     runSphereBenchmark(f, "Hardcoded", useGnuplot, funcStr);
 }
 
 void rectangularIntegration(bool useGnuplot) {
-    auto f = [](const Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
+    auto f = [](const mc::geom::Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
     std::string funcStr = "x[0]^2 + x[1]^2 + x[2]^2 + x[3]^2";
     runRectBenchmark(f, "Hardcoded", useGnuplot, funcStr);
 }
 
 void cylinderIntegration(bool useGnuplot) {
-    auto f = [](const Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
+    auto f = [](const mc::geom::Point<4> &x) { return x[0]*x[0] + x[1]*x[1] + x[2]*x[2] + x[3]*x[3]; };
     std::string funcStr = "x[0]^2 + x[1]^2 + x[2]^2 + x[3]^2";
     runCylinderBenchmark(f, "Hardcoded", useGnuplot, funcStr);
 }
@@ -201,22 +199,22 @@ void cylinderIntegration(bool useGnuplot) {
 // Using the 'expr' string directly read from file.
 
 void circleIntegrationParser(const std::string& expr, bool useGnuplot) {
-    muParserXInterface<2, Point<2>> parser(expr);
+    mc::utils::muParserXInterface<2, mc::geom::Point<2>> parser(expr);
     runCircleBenchmark(parser, "Parser", useGnuplot, expr);
 }
 
 void sphereIntegrationParser(const std::string& expr, bool useGnuplot) {
-    muParserXInterface<4, Point<4>> parser(expr);
+    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
     runSphereBenchmark(parser, "Parser", useGnuplot, expr);
 }
 
 void rectangularIntegrationParser(const std::string& expr, bool useGnuplot) {
-    muParserXInterface<4, Point<4>> parser(expr);
+    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
     runRectBenchmark(parser, "Parser", useGnuplot, expr);
 }
 
 void cylinderIntegrationParser(const std::string& expr, bool useGnuplot) {
-    muParserXInterface<4, Point<4>> parser(expr);
+    mc::utils::muParserXInterface<4, mc::geom::Point<4>> parser(expr);
     runCylinderBenchmark(parser, "Parser", useGnuplot, expr);
 }
 
@@ -237,12 +235,12 @@ void runBenchmarksMH(bool useGnuplot) {
     n_threads = std::thread::hardware_concurrency();
     if (n_threads == 0) n_threads = 16;
 
-    Hypersphere<2> domain(10.0);
+    mc::domains::Hypersphere<2> domain(10.0);
 
-    std::function<double(const geom::Point<2>&)> indicator =
-    [&domain](const geom::Point<2>& x) -> double {
-        return domain.isInside(x) ? 1.0 : 0.0;
-    };
+    std::function<double(const mc::geom::Point<2>&)> indicator =
+        [&domain](const mc::geom::Point<2>& x) -> double {
+            return domain.isInside(x) ? 1.0 : 0.0;
+        };
 
     const double deviation = 0.15;
     const std::size_t burn_in = 20'000;
@@ -250,15 +248,15 @@ void runBenchmarksMH(bool useGnuplot) {
     const std::size_t n_samples = 1'000'000;
     const std::size_t n_samples_volume = 200'000;
 
-    geom::Point<2> x0;
+    mc::geom::Point<2> x0{};
 
-    std::function<double(const geom::Point<2>&)> f = [](const geom::Point<2>& x) -> double {
+    std::function<double(const mc::geom::Point<2>&)> f = [](const mc::geom::Point<2>& x) -> double {
         return x[0]*x[0] + x[1]*x[1];
     };
 
-    MontecarloIntegrator<2> integrator(domain);
-	MHMontecarloIntegrator<2> mhintegrator(domain);
- 	UniformProposal<2> dummy_proposal(domain);
+    mc::integrators::MontecarloIntegrator<2> integrator(domain);
+    mc::integrators::MHMontecarloIntegrator<2> mhintegrator(domain);
+    mc::proposals::UniformProposal<2> dummy_proposal(domain);
 
 	mhintegrator.setConfig(
         burn_in,

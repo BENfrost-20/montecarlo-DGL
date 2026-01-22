@@ -18,11 +18,13 @@
 #include "integrator.hpp"
 #include <functional>
 
+namespace mc::integrators {
+
 template <std::size_t dim>
 class ISMontecarloIntegrator : public Integrator<dim> {
 public:
 
-    explicit ISMontecarloIntegrator(const IntegrationDomain<dim> &d);
+    explicit ISMontecarloIntegrator(const mc::domains::IntegrationDomain<dim> &d);
 
     /**
      * @brief Importance sampling Monte Carlo integration
@@ -35,9 +37,14 @@ public:
      * Samples from proposal distribution q(x) instead of uniform.
      * Computes ∫ f(x)/q(x) * q(x) dx using importance weights.
      */
-    double integrate(const function<double(const Point<dim>&)>& f, int n_samples, const Proposal<dim>& proposal, uint32_t seed) override;
+    double integrate(const std::function<double(const mc::geom::Point<dim>&)>& f,
+                     int n_samples,
+                     const mc::proposals::Proposal<dim>& proposal,
+                     std::uint32_t seed) override;
 
 };
+
+} // namespace mc::integrators
 
 #include "ISintegrator.tpp"
 

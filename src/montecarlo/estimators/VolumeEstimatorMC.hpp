@@ -22,6 +22,8 @@
 #include "../domains/integration_domain.hpp"
 #include "../geometry.hpp"
 
+namespace mc::estimators {
+
 template <std::size_t dim>
 struct VolumeEstimate {
     double volume = 0.0;        ///< Estimated |D| (domain volume)
@@ -34,10 +36,12 @@ template <std::size_t dim>
 class VolumeEstimatorMC {
 public:
     VolumeEstimate<dim>
-    estimate(const IntegrationDomain<dim>& domain,
+    estimate(const mc::domains::IntegrationDomain<dim>& domain,
              std::uint32_t seed,
              std::size_t n_samples) const;
 };
+
+} // namespace mc::estimators
 
 #include "VolumeEstimatorMC.tpp"
 

@@ -11,14 +11,13 @@
 #include "integration_domain.hpp"
 #include <vector>
 
-using namespace geom;
-using namespace std;
+namespace mc::domains {
 
 // Command to generate normals and offsets: qhull Qt Qx Fn < points.txt > hull.txt
 // points.txt -- text file with first line: <num_points> <dim>, then coordinates of each point per line
 template <size_t dim>
-PolyTope<dim>::PolyTope(const std::vector<Point<dim>>&   vertices,
-                        const std::vector<array<double, dim>>&  norms,
+PolyTope<dim>::PolyTope(const std::vector<mc::geom::Point<dim>>&   vertices,
+                        const std::vector<std::array<double, dim>>&  norms,
                         const std::vector<double>&      offs)
     : vec(vertices)
     , normals(norms)
@@ -36,23 +35,23 @@ PolyTope<dim>::PolyTope(const std::vector<Point<dim>>&   vertices,
 }
 
 template<size_t dim>
-Bounds<dim> PolyTope<dim>::getBounds() const{
-    Bounds<dim> bounds;
+mc::geom::Bounds<dim> PolyTope<dim>::getBounds() const{
+    mc::geom::Bounds<dim> bounds;
     for (int i = 0; i < dim; ++i) {
         double max = vec[0][i];
         double min = vec[0][i];
-        for (Point p: vec) {
+        for (mc::geom::Point<dim> p: vec) {
             if (p[i] > max) max = p[i];
             if (p[i] < min) min = p[i];
         }
-        bounds[i] = make_pair(min, max);
+        bounds[i] = std::make_pair(min, max);
     }
     return bounds;
 }
 
 template<size_t dim>
 double PolyTope<dim>::getBoxVolume() const {
-    Bounds<dim> bou = this->getBounds();
+    mc::geom::Bounds<dim> bou = this->getBounds();
     double vol = 1;
     for (int i = 0; i <dim; ++i) {
         vol *= (bou[i].second - bou[i].first);
@@ -61,7 +60,7 @@ double PolyTope<dim>::getBoxVolume() const {
 }
 
 template<size_t dim>
-bool PolyTope<dim>::isInside(const Point<dim> &point) const {
+bool PolyTope<dim>::isInside(const mc::geom::Point<dim> &point) const {
     const double tol = 1e-12; //tolleranza numerica
     for (size_t i = 0; i < normals.size(); ++i) {
         double s = 0.0;
@@ -76,7 +75,6 @@ bool PolyTope<dim>::isInside(const Point<dim> &point) const {
     return true;
 }
 
-
-
+} // namespace mc::domains
 
 #endif //MONTECARLO_1_POLYTOPE_TPP

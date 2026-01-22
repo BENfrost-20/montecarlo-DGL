@@ -5,7 +5,8 @@
 #include <random>
 #include <stdexcept>
 
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     struct GAConfig {
         size_t population_size = 80;
@@ -71,4 +72,5 @@ namespace optimizers {
         size_t m_generation = 0;
     };
 
-} // namespace optimizers
+} //namespace mc
+} //namespace optim

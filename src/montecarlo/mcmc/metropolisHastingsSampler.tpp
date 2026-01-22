@@ -9,11 +9,14 @@
 #include <functional>
 #include <stdexcept>
 
+namespace mc{
+namespace mcmc{
+
 template <size_t dim>
 MetropolisHastingsSampler<dim>::MetropolisHastingsSampler(
-    const IntegrationDomain<dim>& d,
-    const std::function<double(const geom::Point<dim>&)>& p,
-    geom::Point<dim> x0,
+    const mc::domains::IntegrationDomain<dim>& d,
+    const std::function<double(const mc::geom::Point<dim>&)>& p,
+    mc::geom::Point<dim> x0,
     double deviation)
   : domain(d)
   , target(p)
@@ -33,7 +36,7 @@ MetropolisHastingsSampler<dim>::next(std::mt19937& rng)
     ++n_steps;
 
     //Genero y
-    geom::Point<dim> y = current;
+    mc::geom::Point<dim> y = current;
     for (std::size_t k = 0; k < dim; ++k)
         y[k] += rw_normal(rng);
 
@@ -71,7 +74,7 @@ MetropolisHastingsSampler<dim>::next(std::mt19937& rng)
 
 template <size_t dim>
 double
-MetropolisHastingsSampler<dim>::target_pdf(const geom::Point<dim>& x)
+MetropolisHastingsSampler<dim>::target_pdf(const mc::geom::Point<dim>& x)
 {
     return target(x);
 }
@@ -82,3 +85,6 @@ MetropolisHastingsSampler<dim>::acceptance_rate() const
 {
     return (n_steps == 0) ? 0.0 : static_cast<double>(n_accept) / static_cast<double>(n_steps);
 }
+
+} //namespace mcmc
+} //namespace mc

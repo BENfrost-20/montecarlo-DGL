@@ -19,6 +19,8 @@
 #include <optional>
 
 namespace mc {
+namespace rng {
+
 
 /**
  * @brief Create a deterministic RNG engine for a specific stream
@@ -47,6 +49,7 @@ std::mt19937 make_thread_engine(std::uint64_t stream_id = 0);
 std::mt19937 make_engine_with_seed(std::optional<std::uint32_t> base_seed,
                                    std::uint64_t stream_id);
 
+} // namespace rng
 } // namespace mc
 
 #endif // MONTECARLO_RNG_FACTORY_HPP

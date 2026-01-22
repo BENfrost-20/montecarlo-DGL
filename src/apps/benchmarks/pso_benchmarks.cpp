@@ -6,7 +6,7 @@
 #include <cmath>
 #include <cstdint>
 
-namespace opt = optimizers;
+namespace opt = mc::optim;
 
 /**
  * @brief Test 1: Sphere Function
@@ -232,12 +232,12 @@ void runVisualPSOBenchmark() {
 
     std::cout << "Generating background grid (heatmap)..." << std::endl;
     // Save the static background (function landscape)
-    saveFunctionGrid(gridFile, rastrigin, -5.12, 5.12, -5.12, 5.12, 100);
+    mc::utils::saveFunctionGrid(gridFile, rastrigin, -5.12, 5.12, -5.12, 5.12, 100);
 
     // 4. Set Callback to save each frame
     pso.setCallback([&](const opt::Solution&, size_t iter) {
         // Use the public getter to access particle positions
-        saveSwarmFrame(baseName, iter, pso.getParticles());
+        mc::utils::saveSwarmFrame(baseName, iter, pso.getParticles());
         std::cout << "Saved frame " << iter << "/" << config.max_iterations << "\r" << std::flush;
     });
 
@@ -248,7 +248,7 @@ void runVisualPSOBenchmark() {
 
     // 6. Launch Animation
     std::cout << "Launching Gnuplot animation..." << std::endl;
-    createPSOAnimationScript("run_pso.gp", gridFile, baseName, config.max_iterations, "PSO Rastrigin 2D");
+    mc::utils::createPSOAnimationScript("run_pso.gp", gridFile, baseName, config.max_iterations, "PSO Rastrigin 2D");
 }
 
 void runVisualPSO3DBenchmark() {
@@ -287,11 +287,11 @@ void runVisualPSO3DBenchmark() {
 
     // [NEW] Generate the 3D Slices (Walls)
     std::cout << "Generating 3D function slices (walls)..." << std::endl;
-    saveFunctionSlices3D(slicesFile, rastrigin3D, min_b, max_b, 50); // 50 = resolution
+    mc::utils::saveFunctionSlices3D(slicesFile, rastrigin3D, min_b, max_b, 50); // 50 = resolution
 
     // 4. Callback
     pso.setCallback([&](const opt::Solution&, size_t iter) {
-        saveSwarmFrame(baseName, iter, pso.getParticles());
+        mc::utils::saveSwarmFrame(baseName, iter, pso.getParticles());
         if (iter % 10 == 0) std::cout << "Generating Frame " << iter << "/" << config.max_iterations << "\r" << std::flush;
     });
 
@@ -302,7 +302,7 @@ void runVisualPSO3DBenchmark() {
 
     // 6. Launch 3D Animation (Pass slicesFile)
     std::cout << "Launching Gnuplot 3D animation..." << std::endl;
-    createPSOAnimationScript3D("run_pso_3d.gp", slicesFile, baseName, config.max_iterations, "PSO 3D Rastrigin", min_b, max_b);
+    mc::utils::createPSOAnimationScript3D("run_pso_3d.gp", slicesFile, baseName, config.max_iterations, "PSO 3D Rastrigin", min_b, max_b);
 }
 
 // --- Main Optimization Benchmark Entry Point ---

@@ -20,8 +20,7 @@
 #include "../domains/hypercylinder.hpp"
 #include "../domains/hyperrectangle.hpp"
 
-using namespace std;
-using namespace geom;
+namespace mc::integrators {
 
 /**
  * @class Integrator
@@ -35,8 +34,8 @@ template <size_t dim>
 class Integrator
 {
 protected:
-    const IntegrationDomain<dim> &domain; ///< Reference to the integration domain.
-    vector<mt19937> randomizer; ///< Per-thread random number generators.
+    const mc::domains::IntegrationDomain<dim> &domain; ///< Reference to the integration domain.
+    std::vector<std::mt19937> randomizer; ///< Per-thread random number generators.
 
     /**
      * @brief Initializes random samples uniformly distributed in the domain.
@@ -47,42 +46,42 @@ protected:
      * and returns as vector of Point<dim>.
      * @note This helper was used in earlier development; modern code uses RngManager.
      */
-    vector<Point<dim>> initializeRandomizer(int numbers)
+    std::vector<mc::geom::Point<dim>> initializeRandomizer(int numbers)
     {
         // Initialize seed sequence for random number generators
-        seed_seq seq{1, 2, 3, 4, 5};
-        vector<uint32_t> seeds(dim);
+        std::seed_seq seq{1, 2, 3, 4, 5};
+        std::vector<std::uint32_t> seeds(dim);
         seq.generate(seeds.begin(), seeds.end());
 
         // Create 'dim' independent random engines (one per dimension)
-        array<mt19937, dim> engines;
+        std::array<std::mt19937, dim> engines;
         for (size_t i = 0; i < dim; ++i)
             engines[i].seed(seeds[i]);
 
         // Create uniform distributions for each dimension
-        array<uniform_real_distribution<double>, dim> distributions;
+        std::array<std::uniform_real_distribution<double>, dim> distributions;
         for (size_t i = 0; i < dim; ++i)
         {
             auto bounds = this->domain.getBounds();
-            distributions[i] = uniform_real_distribution<double>(bounds[i].first,
+            distributions[i] = std::uniform_real_distribution<double>(bounds[i].first,
                                                                  bounds[i].second);
         }
 
         // Reserve storage for samples
-        vector<Point<dim>> random_numbers;
+        std::vector<mc::geom::Point<dim>> random_numbers;
         random_numbers.reserve(numbers);
 
         // Open output file based on domain type for visualization
         std::ofstream outfile;
-        if (typeid(domain) == typeid(Hypersphere<dim>))
+        if (typeid(domain) == typeid(mc::domains::Hypersphere<dim>))
         {
             outfile.open("hsphere_samples.dat");
         }
-        else if (typeid(domain) == typeid(HyperCylinder<dim>))
+        else if (typeid(domain) == typeid(mc::domains::HyperCylinder<dim>))
         {
             outfile.open("cylinder_samples.dat");
         }
-        else if (typeid(domain) == typeid(HyperRectangle<dim>))
+        else if (typeid(domain) == typeid(mc::domains::HyperRectangle<dim>))
         {
             outfile.open("hrectangle_samples.dat");
         }
@@ -94,7 +93,7 @@ protected:
         // Generate 'numbers' sample points, one per line in output file
         for (int j = 0; j < numbers; ++j)
         {
-            Point<dim> x;
+            mc::geom::Point<dim> x;
             for (size_t i = 0; i < dim; ++i)
             {
                 x[i] = distributions[i](engines[i]);
@@ -114,14 +113,19 @@ public:
      * @brief Constructs an integrator for a specific domain.
      * @param d Reference to the integration domain.
      */
-    explicit Integrator(const IntegrationDomain<dim> &d) : domain(d) {}
+    explicit Integrator(const mc::domains::IntegrationDomain<dim> &d) : domain(d) {}
 
-    virtual double integrate(const function<double(const Point<dim>&)>& f, int n_samples, const Proposal<dim>& proposal, uint32_t seed) = 0;
+    virtual double integrate(const std::function<double(const mc::geom::Point<dim>&)>& f,
+                             int n_samples,
+                             const mc::proposals::Proposal<dim>& proposal,
+                             std::uint32_t seed) = 0;
 
     /**
      * @brief Virtual destructor for proper polymorphic cleanup.
      */
     virtual ~Integrator() = default;
 };
+
+} // namespace mc::integrators
 
 #endif // MONTECARLO_1_INTEGRATOR_HPP

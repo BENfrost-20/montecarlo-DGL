@@ -2,8 +2,8 @@
 #include <atomic>
 
 namespace mc {
-
-namespace {
+namespace rng {
+namespace detail{
 
     // Default seed (used if never explicitly initialized)
     std::atomic<std::uint32_t> g_global_seed{12345u};
@@ -17,12 +17,12 @@ bool set_global_seed(std::uint32_t s) {
     bool expected = false;
 
     // Allow setting the seed ONLY if it was never initialized
-    if (g_seed_initialized.compare_exchange_strong(
+    if (mc::rng::detail::g_seed_initialized.compare_exchange_strong(
             expected,
             true,
             std::memory_order_acq_rel))
     {
-        g_global_seed.store(s, std::memory_order_relaxed);
+        mc::rng::detail::g_global_seed.store(s, std::memory_order_relaxed);
         return true;
     }
 
@@ -30,11 +30,12 @@ bool set_global_seed(std::uint32_t s) {
 }
 
 std::uint32_t get_global_seed() {
-    return g_global_seed.load(std::memory_order_relaxed);
+    return mc::rng::detail::g_global_seed.load(std::memory_order_relaxed);
 }
 
 bool is_global_seed_initialized() {
-    return g_seed_initialized.load(std::memory_order_acquire);
+    return mc::rng::detail::g_seed_initialized.load(std::memory_order_acquire);
 }
 
+} // namespace rng
 } // namespace mc

@@ -8,19 +8,24 @@
 #include <iostream>
 #include <omp.h>
 
+namespace mc::integrators {
+
+
 template <size_t dim>
-ISMontecarloIntegrator<dim>::ISMontecarloIntegrator(const IntegrationDomain<dim> &d)
+ISMontecarloIntegrator<dim>::ISMontecarloIntegrator(const mc::domains::IntegrationDomain<dim> &d)
     : Integrator<dim>(d) {}
 
 
 template <size_t dim>
 double ISMontecarloIntegrator<dim>::integrate(
-    const function<double(const Point<dim>&)>& f,
+    const std::function<double(const mc::geom::Point<dim>&)>& f,
     int n_samples,
-    const Proposal<dim>& proposal,
-    uint32_t seed)
+    const mc::proposals::Proposal<dim>& proposal,
+    std::uint32_t seed)
 {
-    ISMeanEstimator<dim> mean_estimator;
-    ImportanceEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
+    mc::estimators::ISMeanEstimator<dim> mean_estimator;
+    mc::estimators::ImportanceEstimate<dim> mean_estimate = mean_estimator.estimate(this->domain, seed, n_samples, proposal, f);
     return mean_estimate.mean;
 }
+
+} // namespace mc::integrators

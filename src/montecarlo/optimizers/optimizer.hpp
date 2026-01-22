@@ -1,7 +1,8 @@
 #pragma once
 #include "types.hpp"
 
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     /**
      * @brief Abstract base class for all optimization algorithms.
@@ -56,4 +57,5 @@ namespace optimizers {
          */
         [[nodiscard]] virtual Solution getBestSolution() const = 0;
     };
-}
+} //namespace mc
+} //namespace optim

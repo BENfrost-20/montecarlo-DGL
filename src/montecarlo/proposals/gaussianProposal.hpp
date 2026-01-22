@@ -25,19 +25,22 @@
 #include <stdexcept>
 #include <vector>
 
+namespace mc {
+namespace proposals {
+
 template <size_t dim>
 class GaussianProposal : public Proposal<dim>
 {
 public:
-    GaussianProposal(const IntegrationDomain<dim>& d,
+    GaussianProposal(const mc::domains::IntegrationDomain<dim>& d,
                      const std::vector<double>& mean,
                      const std::vector<double>& sigma);
 
-    geom::Point<dim> sample(std::mt19937& rng) const override;
-    double pdf(const geom::Point<dim>& x) const override;
+    mc::geom::Point<dim> sample(std::mt19937& rng) const override;
+    double pdf(const mc::geom::Point<dim>& x) const override;
 
 private:
-    const IntegrationDomain<dim>& domain; // kept for consistency / future use
+    const mc::domains::IntegrationDomain<dim>& domain; // kept for consistency / future use
 
     std::vector<double> mu;
     std::vector<double> sig;
@@ -47,6 +50,9 @@ private:
 
     void init_from_mu_sig_();
 };
+
+} // namespace proposals
+} // namespace mc
 
 #include "gaussianProposal.tpp"
 

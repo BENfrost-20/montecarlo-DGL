@@ -13,8 +13,7 @@
 #include <array>
 #include "../geometry.hpp"
 
-using namespace std;
-using namespace geom;
+namespace mc::domains {
 
 /**
  * @brief Abstract base class for N-dimensional integration domains
@@ -38,7 +37,7 @@ public:
      * within a hyperrectangle enclosing the actual domain.
      */
     // returns the boundaries o f each dimension of the integration domain
-    virtual Bounds<dim> getBounds() const = 0;
+    virtual mc::geom::Bounds<dim> getBounds() const = 0;
 
     /**
      * @brief Compute the volume of the bounding box
@@ -59,11 +58,13 @@ public:
      * sampling. Should be implemented efficiently as it's called millions of times.
      */
     // returns true if the given point is inside the integration domain
-    virtual bool isInside(const Point<dim> &point) const = 0;
+    virtual bool isInside(const mc::geom::Point<dim> &point) const = 0;
 
     /// Virtual destructor for proper cleanup of derived classes
     virtual ~IntegrationDomain() = default;
 
 };
+
+} // namespace mc::domains
 
 #endif //MONTECARLO_1_INTEGRATION_DOMAIN_HPP

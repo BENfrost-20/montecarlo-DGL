@@ -17,6 +17,9 @@
 #include <cstdint>
 #include <functional>
 
+namespace mc::estimators {
+
+
 template <std::size_t dim>
 struct ImportanceEstimate {
     double mean = 0.0;
@@ -28,12 +31,14 @@ struct ImportanceEstimate {
 template <std::size_t dim>
 class ISMeanEstimator {
 public:
-    ImportanceEstimate<dim> estimate(const IntegrationDomain<dim>& domain,
-                                    std::uint32_t seed,
-                                    std::size_t n_samples,
-                                    const Proposal<dim>& proposal,
-                                    const std::function<double(const Point<dim>&)>& f) const;
+    ImportanceEstimate<dim> estimate(const mc::domains::IntegrationDomain<dim>& domain,
+                                     std::uint32_t seed,
+                                     std::size_t n_samples,
+                                     const mc::proposals::Proposal<dim>& proposal,
+                                     const std::function<double(const mc::geom::Point<dim>&)>& f) const;
 };
+
+} // namespace mc::estimators
 
 #include "ISMeanEstimator.tpp"
 

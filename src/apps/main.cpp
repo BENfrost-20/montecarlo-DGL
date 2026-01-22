@@ -40,7 +40,7 @@ constexpr int dim = 2;
 std::string readFunctionFromFile(const std::string& filename);
 
 template <int dim>
-std::vector<Point<dim>> read_points_from_file(const std::string& filename);
+std::vector<mc::geom::Point<dim>> read_points_from_file(const std::string& filename);
 
 template <int dim>
 void read_normals_and_offsets_from_qhull_n(
@@ -69,11 +69,11 @@ int main(int argc, char* argv[]) {
     }
     
     // Set the global seed for all library components
-    mc::set_global_seed(seed);
+    mc::rng::set_global_seed(seed);
     std::cout << std::endl;
     
     // Closes already open gnuplot windows
-    closeGnuplotWindows();
+    mc::utils::closeGnuplotWindows();
 
     std::cout << "===========================================" << std::endl;
     std::cout << "   Monte Carlo Integration Benchmarks" << std::endl;
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
     }else if (choice == Polytope) {
         std::cout << "\nReading Points, Normals and Offsets..." << std::endl;
 
-        std::vector<geom::Point<dim>> points = read_points_from_file<dim>("../points.txt");
+        std::vector<mc::geom::Point<dim>> points = read_points_from_file<dim>("../points.txt");
 
 
         std::vector<std::array<double, dim>> normals;
@@ -145,18 +145,18 @@ int main(int argc, char* argv[]) {
 
         read_normals_and_offsets_from_qhull_n<dim>("../hull.txt", normals, offsets);
 
-        PolyTope<dim> polytope(points, normals, offsets);
-        MontecarloIntegrator<dim> integrator(polytope);
+        mc::domains::PolyTope<dim> polytope(points, normals, offsets);
+        mc::integrators::MontecarloIntegrator<dim> integrator(polytope);
         /*
-        auto f_const = [](const Point<3>& p) {
+        auto f_const = [](const mc::geom::Point<3>& p) {
             return 1.0;
         };
 
-        auto f_linear = [](const Point<3>& p) {
+        auto f_linear = [](const mc::geom::Point<3>& p) {
             return p[0] + p[1] + p[2];   // x + y + z
         };
 
-        auto f_quad = [](const Point<3>& p) {
+        auto f_quad = [](const mc::geom::Point<3>& p) {
             return p[0]*p[0] + p[1]*p[1] + p[2]*p[2];
         };
         std::cout << integrator.integrate(f_const, 1000000) << std::endl;
@@ -169,17 +169,17 @@ int main(int argc, char* argv[]) {
 
 
         // f(x,y) = 1
-        auto f_const = [](const Point<2>& p) {
+        auto f_const = [](const mc::geom::Point<2>& p) {
             return 1.0;
         };
 
         // f(x,y) = x
-        auto f_x = [](const Point<2>& p) {
+        auto f_x = [](const mc::geom::Point<2>& p) {
             return p[0];
         };
 
         // f(x,y) = y
-        auto f_y = [](const Point<2>& p) {
+        auto f_y = [](const mc::geom::Point<2>& p) {
             return p[1];
         };
 
@@ -237,7 +237,7 @@ std::string readFunctionFromFile(const std::string& filename) {
 }
 
 template <int dim>
-std::vector<Point<dim>> read_points_from_file(const std::string& filename)
+std::vector<mc::geom::Point<dim>> read_points_from_file(const std::string& filename)
 {
     std::ifstream in(filename);
     if (!in.is_open()) {
@@ -260,11 +260,11 @@ std::vector<Point<dim>> read_points_from_file(const std::string& filename)
             " but template expects dim = " + std::to_string(dim));
     }
 
-    std::vector<Point<dim>> points;
+    std::vector<mc::geom::Point<dim>> points;
     points.reserve(num_points);
 
     for (std::size_t i = 0; i < num_points; ++i) {
-        Point<dim> p;
+        mc::geom::Point<dim> p;
         for (int k = 0; k < dim; ++k) {
             if (!(in >> p[k])) {
                 throw std::runtime_error(

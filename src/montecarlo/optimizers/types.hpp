@@ -16,7 +16,8 @@
  * Contains type definitions, abstract optimizer base class, and concrete implementations
  * for particle swarm and genetic algorithm optimization.
  */
-namespace optimizers {
+namespace mc{
+namespace optim{
 
     // Define the precision used across the library.
     // Changing this to 'float' updates the whole library automatically.
@@ -59,4 +60,5 @@ namespace optimizers {
             return value > other.value;
         }
     };
-}
+} //namespace mc
+} //namespace optim

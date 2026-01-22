@@ -5,8 +5,7 @@
 #include <utility>
 #include "../geometry.hpp"
 
-using namespace std;
-using namespace geom;
+namespace mc::domains {
 
 /**
  * @brief N-dimensional ball (solid sphere)
@@ -24,14 +23,16 @@ class Hypersphere : public IntegrationDomain<dim>{
 public:
     Hypersphere(double rad);
 
-    Bounds<dim> getBounds() const override;
+    mc::geom::Bounds<dim> getBounds() const override;
 
     double getBoxVolume() const override;
 
-    bool isInside(const Point<dim> &point) const override;
+    bool isInside(const mc::geom::Point<dim> &point) const override;
 private:
     double radius;
 };
+
+} // namespace mc::domains
 
 #include "hypersphere.tpp"
 
