@@ -1,5 +1,8 @@
 # Montecarlo-DGL code review
+# My comments
+Good presentation. I liked the fact that you tried to find practical applications.
 
+#CODEX comments
 ## Overview
 - The project implements Monte Carlo integration over multiple domains (hypersphere, hyperrectangle, hypercylinder, polytope) with classic MC, importance sampling, and Metropolis–Hastings MCMC.
 - It includes proposal distributions (uniform, Gaussian, mixture), estimators (mean/volume), RNG utilities, and optimizers (PSO, GA).
