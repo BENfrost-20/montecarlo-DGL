@@ -111,6 +111,10 @@ double MHMontecarloIntegrator<dim>::integrate(const Func& f,
     std::size_t kept = 0;
 
     const int T = omp_get_max_threads();
+    // @comment: Potential bug: using omp_get_max_threads() outside the parallel region can overestimate
+    // the number of active threads (e.g., when OMP_NUM_THREADS < max). This causes n_local to be
+    // computed with a larger T and results in fewer total samples than requested. Consider using
+    // omp_get_num_threads() inside the parallel region or parallelizing a loop over n_samples.
     const std::size_t base = static_cast<std::size_t>(n_samples) / static_cast<std::size_t>(T);
     const std::size_t rem  = static_cast<std::size_t>(n_samples) % static_cast<std::size_t>(T);
 
