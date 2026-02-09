@@ -1,0 +1,9 @@
+<map id="mc::integrators::Integrator&lt; dim &gt;" name="mc::integrators::Integrator&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="Abstract base class for Monte Carlo integration in N dimensions." alt="" coords="252,5,437,165"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1integrators_1_1ISMontecarloIntegrator.html" title="Importance sampling Monte Carlo integrator." alt="" coords="5,223,212,323"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="242,170,172,225,169,221,239,166"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1integrators_1_1MHMontecarloIntegrator.html" title="Metropolis&#45;Hastings MCMC integrator for complex domains." alt="" coords="237,213,453,333"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="347,179,347,213,342,213,342,179"/>
+<area shape="rect" id="Node000004" href="$classmc_1_1integrators_1_1MontecarloIntegrator.html" title="Uniform&#45;sampling Monte Carlo integrator for N&#45;dimensional domains." alt="" coords="477,213,671,333"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="450,168,503,211,500,215,447,173"/>
+</map>

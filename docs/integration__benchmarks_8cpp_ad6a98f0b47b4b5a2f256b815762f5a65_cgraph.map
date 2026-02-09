@@ -1,0 +1,23 @@
+<map id="runCircleBenchmark" name="runCircleBenchmark">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,185,160,210"/>
+<area shape="rect" id="Node000002" href="$integration__benchmarks_8cpp.html#a58f19e7e4fd19b25ecf0048ccb82e705" title="Generic execution loop for integration benchmarks." alt="" coords="208,185,355,210"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,195,194,195,194,200,160,200"/>
+<area shape="rect" id="Node000003" href="$namespacemc_1_1utils.html#a0dffb17257bac930060d199a00fe8eef" title=" " alt="" coords="419,5,601,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="288,183,331,122,363,86,401,55,411,49,414,54,404,60,367,90,335,125,292,186"/>
+<area shape="rect" id="Node000005" href="$namespacemc_1_1utils.html#afaf70e150a29a11f0ab5e121caa951d3" title=" " alt="" coords="421,69,599,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="301,182,346,155,402,126,434,112,436,117,404,130,349,159,304,187"/>
+<area shape="rect" id="Node000006" href="$classmc_1_1domains_1_1IntegrationDomain.html#a31ef4c76c6c87398eebbb660df203384" title="Get the axis&#45;aligned bounding box of the domain." alt="" coords="665,99,851,139"/>
+<area shape="poly" id="edge8_Node000002_Node000006" title=" " alt="" coords="343,182,402,171,651,131,652,136,403,176,344,187"/>
+<area shape="rect" id="Node000007" href="$namespacemc_1_1rng.html#ae8ce618a80ac94df709f1fd752932c0c" title="Get the current global seed." alt="" coords="417,185,603,210"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="355,195,403,195,403,200,355,200"/>
+<area shape="rect" id="Node000008" href="$classmc_1_1integrators_1_1ISMontecarloIntegrator.html#abf2130a6963f200e1baaff24c29028f4" title="Compute the integral using importance sampling." alt="" coords="403,235,617,275"/>
+<area shape="poly" id="edge9_Node000002_Node000008" title=" " alt="" coords="333,207,417,229,416,234,332,213"/>
+<area shape="rect" id="Node000009" href="$classmc_1_1integrators_1_1MontecarloIntegrator.html#af3c3289ee5bdf681b6c1ffa75c45b950" title="Legacy integration routine (deprecated)." alt="" coords="409,299,611,339"/>
+<area shape="poly" id="edge10_Node000002_Node000009" title=" " alt="" coords="298,208,343,245,404,284,419,291,417,296,401,289,340,250,295,212"/>
+<area shape="rect" id="Node000010" href="$benchmarks_8cpp.html#a5137168fd2eda60894530765f6d5af1e" title="Export benchmark results to CSV file for analysis." alt="" coords="459,363,561,389"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="291,209,307,238,332,276,365,316,404,348,424,359,446,366,445,371,422,364,401,353,361,319,328,280,303,241,287,212"/>
+<area shape="rect" id="Node000004" href="$classmc_1_1domains_1_1IntegrationDomain.html#a31b3f4605bad5c5c88c6df26d05b27e9" title="Test whether a point lies inside the domain." alt="" coords="665,20,851,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="602,28,652,31,652,36,601,33"/>
+<area shape="poly" id="edge6_Node000005_Node000004" title=" " alt="" coords="599,69,651,58,652,64,600,74"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="600,97,652,103,651,109,599,103"/>
+</map>

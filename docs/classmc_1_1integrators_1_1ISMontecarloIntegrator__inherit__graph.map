@@ -1,0 +1,5 @@
+<map id="mc::integrators::ISMontecarloIntegrator&lt; dim &gt;" name="mc::integrators::ISMontecarloIntegrator&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="Importance sampling Monte Carlo integrator." alt="" coords="5,213,212,313"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1integrators_1_1Integrator.html" title="Abstract base class for Monte Carlo integration in N dimensions." alt="" coords="16,5,201,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,179,111,213,106,213,106,179"/>
+</map>

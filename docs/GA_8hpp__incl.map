@@ -1,0 +1,20 @@
+<map id="src/montecarlo/optimizers/GA.hpp" name="src/montecarlo/optimizers/GA.hpp">
+<area shape="rect" id="Node000001" title="Genetic Algorithm (GA) interface and data structures." alt="" coords="95,5,287,45"/>
+<area shape="rect" id="Node000002" href="$optimizer_8hpp.html" title="Abstract optimizer interface for PSO, GA, and future algorithms." alt="" coords="79,93,189,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,47,153,84,149,80,175,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,240,68,265"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="133,48,98,67,68,95,51,127,42,163,38,226,32,226,37,162,46,125,64,92,94,63,131,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="214,93,286,119"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="208,44,235,80,231,84,203,47"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="311,93,397,119"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="231,43,319,85,317,90,229,48"/>
+<area shape="rect" id="Node000003" href="$types_8hpp.html" title="Core optimizer type definitions for the Monte Carlo toolkit." alt="" coords="92,167,179,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="137,119,138,153,132,153,132,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="121,194,65,234,62,230,118,190"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="92,240,179,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="138,192,138,226,133,226,133,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="203,240,262,265"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="153,190,207,229,204,234,149,194"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="286,240,366,265"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="167,190,283,232,281,237,165,195"/>
+</map>

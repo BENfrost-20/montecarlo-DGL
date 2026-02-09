@@ -1,0 +1,35 @@
+<map id="src/montecarlo/optimizers/types.hpp" name="src/montecarlo/optimizers/types.hpp">
+<area shape="rect" id="Node000001" title="Core optimizer type definitions for the Monte Carlo toolkit." alt="" coords="97,5,289,45"/>
+<area shape="rect" id="Node000002" href="$wind__farm__simulator_8cpp.html" title="Wind Farm Layout Optimization using Hybrid MH&#45;Monte Carlo + PSO/GA." alt="" coords="5,269,155,309"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,59,91,270,86,268,177,57"/>
+<area shape="rect" id="Node000003" href="$optimizer_8hpp.html" title="Abstract optimizer interface for PSO, GA, and future algorithms." alt="" coords="195,93,387,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="227,52,271,91,267,95,223,56"/>
+<area shape="rect" id="Node000004" href="$GA_8hpp.html" title="Genetic Algorithm (GA) interface and data structures." alt="" coords="195,181,387,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="293,147,293,181,288,181,288,147"/>
+<area shape="rect" id="Node000013" href="$PSO_8hpp.html" title="Particle Swarm Optimization (PSO) interface and data structures." alt="" coords="552,181,744,221"/>
+<area shape="poly" id="edge13_Node000003_Node000013" title=" " alt="" coords="383,134,570,179,569,184,382,139"/>
+<area shape="poly" id="edge11_Node000004_Node000002" title=" " alt="" coords="233,229,127,272,125,267,231,224"/>
+<area shape="rect" id="Node000005" href="$benchmarks_8hpp.html" title="Benchmarking framework for Monte Carlo integration algorithms." alt="" coords="678,277,866,302"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,220,708,274,707,279,400,225"/>
+<area shape="rect" id="Node000011" href="$test__rng__reproducibility_8cpp.html" title="Test suite for RNG reproducibility and optimizer determinism." alt="" coords="395,277,653,302"/>
+<area shape="poly" id="edge10_Node000004_Node000011" title=" " alt="" coords="356,224,494,274,492,279,354,229"/>
+<area shape="rect" id="Node000012" href="$GA_8cpp.html" title="Genetic Algorithm implementation." alt="" coords="179,269,371,309"/>
+<area shape="poly" id="edge12_Node000004_Node000012" title=" " alt="" coords="287,235,281,270,276,269,282,234"/>
+<area shape="rect" id="Node000006" href="$benchmarks_8cpp.html" title="Implementation of shared benchmark utilities and global configuration." alt="" coords="272,365,459,390"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="705,307,420,367,419,362,704,302"/>
+<area shape="rect" id="Node000007" href="$ga__benchmarks_8cpp.html" title="Genetic Algorithm benchmark suite with visualization." alt="" coords="483,357,643,397"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="732,310,610,360,608,355,730,305"/>
+<area shape="rect" id="Node000008" href="$integration__benchmarks_8cpp.html" title="Benchmark suite for Monte Carlo integration algorithms." alt="" coords="667,357,877,397"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="775,316,775,357,769,357,769,316"/>
+<area shape="rect" id="Node000009" href="$pso__benchmarks_8cpp.html" title="Particle Swarm Optimization benchmark suite." alt="" coords="901,357,1064,397"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="814,305,937,355,935,360,812,310"/>
+<area shape="rect" id="Node000010" href="$main_8cpp.html" title="Command&#45;line interface for Monte Carlo integration and benchmarking." alt="" coords="1089,365,1229,390"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="838,302,1077,355,1109,362,1108,367,1075,360,837,308"/>
+<area shape="poly" id="edge17_Node000013_Node000002" title=" " alt="" coords="539,218,364,241,167,272,156,274,155,269,166,267,363,236,538,213"/>
+<area shape="poly" id="edge14_Node000013_Node000005" title=" " alt="" coords="689,227,757,274,754,279,685,232"/>
+<area shape="poly" id="edge16_Node000013_Node000011" title=" " alt="" coords="611,232,542,279,539,274,607,227"/>
+<area shape="rect" id="Node000014" href="$drone__optimization_8cpp.html" title="Drone arm center of mass optimization using PSO with high&#45;precision verification." alt="" coords="890,277,1123,302"/>
+<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="741,222,960,274,958,279,739,227"/>
+<area shape="rect" id="Node000015" href="$PSO_8cpp.html" title="Particle Swarm Optimization implementation." alt="" coords="1148,269,1340,309"/>
+<area shape="poly" id="edge18_Node000013_Node000015" title=" " alt="" coords="758,214,1136,267,1148,269,1147,274,1136,272,758,219"/>
+</map>

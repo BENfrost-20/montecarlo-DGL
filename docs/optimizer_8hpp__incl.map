@@ -1,0 +1,13 @@
+<map id="src/montecarlo/optimizers/optimizer.hpp" name="src/montecarlo/optimizers/optimizer.hpp">
+<area shape="rect" id="Node000001" title="Abstract optimizer interface for PSO, GA, and future algorithms." alt="" coords="87,5,279,45"/>
+<area shape="rect" id="Node000002" href="$types_8hpp.html" title="Core optimizer type definitions for the Monte Carlo toolkit." alt="" coords="140,93,227,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="186,46,186,79,181,79,181,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,68,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="161,121,74,163,72,158,159,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="92,167,179,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="178,121,153,157,148,154,173,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="203,167,262,192"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="194,117,219,154,215,157,189,121"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="286,167,366,192"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="207,116,292,158,289,163,205,121"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classmc_1_1proposals_1_1Proposal.html" title="Abstract proposal distribution interface." alt="" coords="5,69,183,109"/>
+<area shape="rect" id="Node000001" href="$classmc_1_1proposals_1_1GaussianProposal.html" title=" " alt="" coords="231,5,468,45"/>
+<area shape="poly" id="edge11_Node000000_Node000001" title=" " alt="" coords="187,63,268,43,270,48,189,68"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1proposals_1_1MixtureProposal.html" title=" " alt="" coords="236,69,463,109"/>
+<area shape="poly" id="edge12_Node000000_Node000002" title=" " alt="" coords="197,87,236,87,236,92,197,92"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1proposals_1_1UniformProposal.html" title="Uniform distribution over a domain." alt="" coords="234,133,465,173"/>
+<area shape="poly" id="edge13_Node000000_Node000003" title=" " alt="" coords="189,110,270,131,268,136,187,115"/>
+</map>

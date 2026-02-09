@@ -1,0 +1,7 @@
+<map id="mc::optim::Optimizer" name="mc::optim::Optimizer">
+<area shape="rect" id="Node000001" title="Abstract base class for all optimization algorithms." alt="" coords="105,5,281,211"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1optim_1_1GA.html" title="Genetic Algorithm optimizer." alt="" coords="5,259,181,484"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,224,139,259,134,257,147,222"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1optim_1_1PSO.html" title="Particle Swarm Optimization algorithm." alt="" coords="205,259,381,484"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="240,222,253,257,248,259,235,224"/>
+</map>

@@ -1,0 +1,20 @@
+<map id="src/montecarlo/proposals/gaussianProposal.hpp" name="src/montecarlo/proposals/gaussianProposal.hpp">
+<area shape="rect" id="Node000001" title="Diagonal multivariate Gaussian proposal (no domain truncation)." alt="" coords="483,5,669,45"/>
+<area shape="rect" id="Node000002" href="$wind__farm__simulator_8cpp.html" title="Wind Farm Layout Optimization using Hybrid MH&#45;Monte Carlo + PSO/GA." alt="" coords="404,93,553,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="546,56,502,95,498,91,543,52"/>
+<area shape="rect" id="Node000003" href="$ISintegrator_8hpp.html" title="Importance sampling Monte Carlo integration engine." alt="" coords="577,93,772,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="610,52,655,91,651,95,606,56"/>
+<area shape="rect" id="Node000004" href="$benchmarks_8hpp.html" title="Benchmarking framework for Monte Carlo integration algorithms." alt="" coords="475,181,663,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="640,144,587,183,584,179,637,139"/>
+<area shape="rect" id="Node000007" href="$integration__benchmarks_8cpp.html" title="Benchmark suite for Monte Carlo integration algorithms." alt="" coords="752,255,963,295"/>
+<area shape="poly" id="edge9_Node000003_Node000007" title=" " alt="" coords="708,140,837,253,834,257,705,144"/>
+<area shape="rect" id="Node000005" href="$benchmarks_8cpp.html" title="Implementation of shared benchmark utilities and global configuration." alt="" coords="5,262,192,287"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="485,211,204,257,163,265,162,259,204,252,484,206"/>
+<area shape="rect" id="Node000006" href="$ga__benchmarks_8cpp.html" title="Genetic Algorithm benchmark suite with visualization." alt="" coords="216,255,376,295"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="517,213,362,257,361,252,516,208"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="625,208,789,252,787,257,624,213"/>
+<area shape="rect" id="Node000008" href="$pso__benchmarks_8cpp.html" title="Particle Swarm Optimization benchmark suite." alt="" coords="400,255,563,295"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="548,218,504,257,501,253,545,214"/>
+<area shape="rect" id="Node000009" href="$main_8cpp.html" title="Command&#45;line interface for Monte Carlo integration and benchmarking." alt="" coords="587,262,727,287"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="594,214,646,260,643,264,591,218"/>
+</map>

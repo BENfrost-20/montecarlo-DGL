@@ -1,0 +1,7 @@
+<map id="DroneArmDomain" name="DroneArmDomain">
+<area shape="rect" id="Node000001" title=" " alt="" coords="16,397,172,623"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1domains_1_1IntegrationDomain.html" title=" " alt="" coords="5,208,183,348"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,362,97,397,91,397,91,362"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1domains_1_1IntegrationDomain.html" title="Abstract base class for N&#45;dimensional integration domains." alt="" coords="5,5,183,145"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,159,97,208,91,208,91,159"/>
+</map>

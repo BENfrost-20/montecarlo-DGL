@@ -1,0 +1,5 @@
+<map id="mc::optim::GA::setMode" name="mc::optim::GA::setMode">
+<area shape="rect" id="Node000001" title="Set optimization mode (minimize or maximize)." alt="" coords="5,13,184,38"/>
+<area shape="rect" id="Node000002" href="$structmc_1_1optim_1_1Solution.html#a611a6651c3a8910e5b1d9c53d03dade6" title="Helper to create a worst&#45;case solution for initialization." alt="" coords="232,5,381,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,23,218,23,218,28,184,28"/>
+</map>

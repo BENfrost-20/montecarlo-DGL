@@ -1,0 +1,9 @@
+<map id="mc::proposals::Proposal&lt; dim &gt;" name="mc::proposals::Proposal&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="Abstract proposal distribution interface." alt="" coords="283,5,453,125"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1proposals_1_1GaussianProposal.html" title=" " alt="" coords="5,193,235,313"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="280,136,200,195,197,191,277,132"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1proposals_1_1MixtureProposal.html" title=" " alt="" coords="259,173,477,333"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="371,139,371,173,365,173,365,139"/>
+<area shape="rect" id="Node000004" href="$classmc_1_1proposals_1_1UniformProposal.html" title="Uniform distribution over a domain." alt="" coords="502,193,725,313"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="458,132,537,191,534,195,455,136"/>
+</map>

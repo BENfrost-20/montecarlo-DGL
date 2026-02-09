@@ -1,0 +1,5 @@
+<map id="mc::domains::Hypersphere&lt; dim &gt;" name="mc::domains::Hypersphere&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="N&#45;dimensional ball (solid sphere)." alt="" coords="5,193,195,333"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1domains_1_1IntegrationDomain.html" title="Abstract base class for N&#45;dimensional integration domains." alt="" coords="11,5,189,145"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,159,103,193,97,193,97,159"/>
+</map>

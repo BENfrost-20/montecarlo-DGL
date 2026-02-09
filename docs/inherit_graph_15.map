@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classmc_1_1optim_1_1Optimizer.html" title="Abstract base class for all optimization algorithms." alt="" coords="5,31,165,56"/>
+<area shape="rect" id="Node000001" href="$classmc_1_1optim_1_1GA.html" title="Genetic Algorithm optimizer." alt="" coords="217,5,332,31"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="179,28,217,23,218,28,180,33"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1optim_1_1PSO.html" title="Particle Swarm Optimization algorithm." alt="" coords="213,55,336,80"/>
+<area shape="poly" id="edge10_Node000000_Node000002" title=" " alt="" coords="180,53,214,57,213,62,179,58"/>
+</map>

@@ -1,0 +1,14 @@
+<map id="mc::optim::PSO::step" name="mc::optim::PSO::step">
+<area shape="rect" id="Node000001" title="Perform one PSO iteration: update velocity/position, evaluate, update personal and global bests." alt="" coords="5,77,164,102"/>
+<area shape="rect" id="Node000002" href="$namespacemc_1_1rng.html#acc040fd4a9536fb66cae8144bc232ddd" title="Create a deterministic RNG engine for a specific stream." alt="" coords="212,77,379,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,87,198,87,198,92,164,92"/>
+<area shape="rect" id="Node000003" href="$namespacemc_1_1rng_1_1detail.html#a38d2bbfd85016beeafdb31e4c1715477" title=" " alt="" coords="429,5,609,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="340,74,435,47,436,52,342,79"/>
+<area shape="rect" id="Node000005" href="$namespacemc_1_1rng_1_1detail.html#ab57e549b90087ff17a6516ced8a196ae" title="Create mt19937 from a 64&#45;bit seed." alt="" coords="437,69,602,109"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="379,87,423,87,423,92,379,92"/>
+<area shape="rect" id="Node000006" href="$namespacemc_1_1rng.html#ae8ce618a80ac94df709f1fd752932c0c" title="Get the current global seed." alt="" coords="427,134,612,159"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="346,99,457,128,455,133,345,105"/>
+<area shape="rect" id="Node000004" href="$namespacemc_1_1rng_1_1detail.html#afd7cf835af1e7345389b5497652dd399" title=" " alt="" coords="660,45,885,70"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="610,34,659,40,658,46,609,39"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="602,76,658,69,659,74,602,82"/>
+</map>

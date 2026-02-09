@@ -1,0 +1,151 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,363,60,389"/>
+<area shape="rect" id="Node000002" href="$namespacemc_1_1utils.html#aff19537e87356f06b09c49dca12ab356" title="Utility to close all currently open Gnuplot windows." alt="" coords="110,90,341,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="31,363,34,319,44,257,53,224,66,191,84,160,106,133,124,119,128,124,110,137,88,163,71,193,58,226,49,258,39,320,37,363"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1integrators_1_1MontecarloIntegrator.html#af3c3289ee5bdf681b6c1ffa75c45b950" title="Legacy integration routine (deprecated)." alt="" coords="401,5,604,45"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="32,363,37,326,48,275,70,222,86,198,106,177,136,156,166,147,194,144,222,146,280,147,310,141,341,125,357,109,364,91,372,73,389,55,398,49,401,54,392,59,377,76,369,93,361,112,344,129,311,146,280,153,222,151,194,150,167,152,139,161,110,181,91,201,75,225,53,277,42,327,37,363"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#ae63a96dd565d35bbd052436b8acc5342" title=" " alt="" coords="144,338,307,363"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="60,370,130,361,131,366,60,375"/>
+<area shape="rect" id="Node000005" href="$integration__benchmarks_8cpp.html#a1804258a16eecb93074f2b402b1e9e3e" title="Run integration benchmarks with hardcoded integrands." alt="" coords="163,387,287,413"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="60,377,150,388,149,393,60,382"/>
+<area shape="rect" id="Node000010" href="$integration__benchmarks_8cpp.html#ab2ed2cf0f01f6abbce77b392c588bdec" title="Run Metropolis&#45;Hastings MCMC integration benchmarks." alt="" coords="152,191,299,217"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="46,361,197,224,201,228,50,365"/>
+<area shape="rect" id="Node000015" href="$ga__benchmarks_8cpp.html#a354c50598eb8661f162e833a5274a287" title=" " alt="" coords="112,585,339,610"/>
+<area shape="poly" id="edge15_Node000001_Node000015" title=" " alt="" coords="47,387,206,572,202,576,43,391"/>
+<area shape="rect" id="Node000036" href="$pso__benchmarks_8cpp.html#af9e32412c4fe2b234b47239c8b761074" title=" " alt="" coords="108,1199,343,1225"/>
+<area shape="poly" id="edge58_Node000001_Node000036" title=" " alt="" coords="40,389,221,1185,215,1186,34,390"/>
+<area shape="rect" id="Node000054" href="$namespacemc_1_1rng.html#aa2dfac002fcae2fb6e633c4ebc1e00e0" title="Set the global seed used by all library RNG components." alt="" coords="133,1249,317,1274"/>
+<area shape="poly" id="edge99_Node000001_Node000054" title=" " alt="" coords="37,389,41,556,52,827,62,967,74,1091,91,1185,100,1217,110,1236,123,1246,119,1250,106,1239,95,1219,85,1187,69,1092,57,967,47,827,35,556,32,389"/>
+<area shape="rect" id="Node000006" href="$benchmarks_8hpp.html#af99e742f0b4c5c7723e5ffa15355be22" title="2D circular integration: f(x,y) = x²+y² over unit disk" alt="" coords="439,362,567,387"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="287,392,425,379,425,384,288,397"/>
+<area shape="rect" id="Node000007" href="$benchmarks_8hpp.html#a22b965eaaee3c41de1ab71c3608d43ac" title="3D cylindrical integration: hypercylinder base with height" alt="" coords="430,411,575,437"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="288,403,416,414,416,419,287,408"/>
+<area shape="rect" id="Node000008" href="$benchmarks_8hpp.html#ad178402c8d0a8b2853cb70eab42a6119" title="2D rectangular integration over axis&#45;aligned box" alt="" coords="419,461,586,486"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="268,410,391,445,430,455,429,460,390,451,267,415"/>
+<area shape="rect" id="Node000009" href="$benchmarks_8hpp.html#a9222d62f0eadd14e4a8f592220405a9c" title="3D spherical integration: f(x,y,z) = x²+y²+z² over unit ball" alt="" coords="434,313,571,338"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="287,387,342,372,365,360,390,347,420,338,422,343,392,352,368,364,344,377,288,392"/>
+<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="298,192,321,183,341,170,353,157,359,143,364,114,369,85,376,70,389,55,394,51,398,55,393,59,381,73,374,86,369,115,364,145,357,160,344,174,323,188,300,197"/>
+<area shape="rect" id="Node000011" href="$namespacemc_1_1rng.html#ae8ce618a80ac94df709f1fd752932c0c" title="Get the current global seed." alt="" coords="410,134,595,159"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="287,189,427,159,428,165,288,194"/>
+<area shape="rect" id="Node000012" href="$classmc_1_1integrators_1_1MHMontecarloIntegrator.html#ac6d2bedc9dd30ef98d33d84f68cd0e43" title="Compute the integral using MH sampling combined with volume estimation." alt="" coords="391,184,615,224"/>
+<area shape="poly" id="edge11_Node000010_Node000012" title=" " alt="" coords="299,201,377,201,377,207,299,207"/>
+<area shape="rect" id="Node000013" href="$classmc_1_1domains_1_1Hypersphere.html#ae058fd26df92686a66d91d92aecd723b" title="Test if a point is inside the hypersphere." alt="" coords="404,248,601,288"/>
+<area shape="poly" id="edge12_Node000010_Node000013" title=" " alt="" coords="282,214,403,242,402,247,281,219"/>
+<area shape="rect" id="Node000014" href="$classmc_1_1integrators_1_1MHMontecarloIntegrator.html#a5b0390f8f03c5873369894a5bcb876ee" title="Configure the MCMC sampler parameters." alt="" coords="391,69,615,109"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="296,189,341,170,356,158,365,145,374,132,389,119,401,113,404,117,392,124,378,136,369,148,360,161,344,174,298,194"/>
+<area shape="rect" id="Node000016" href="$ga__benchmarks_8cpp.html#a22e0c750e645c80e6b2618e07a51920d" title=" " alt="" coords="437,510,568,535"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="264,582,390,544,424,536,425,541,391,549,266,587"/>
+<area shape="rect" id="Node000024" href="$ga__benchmarks_8cpp.html#a9f2280ffbdaa7d928b9444297cdfea86" title=" " alt="" coords="439,559,566,585"/>
+<area shape="poly" id="edge24_Node000015_Node000024" title=" " alt="" coords="339,584,425,576,426,582,339,590"/>
+<area shape="rect" id="Node000025" href="$ga__benchmarks_8cpp.html#ad60626f9237f6c8d14ca76d941e7a106" title=" " alt="" coords="445,609,560,634"/>
+<area shape="poly" id="edge30_Node000015_Node000025" title=" " alt="" coords="339,604,432,613,432,618,339,610"/>
+<area shape="rect" id="Node000026" href="$ga__benchmarks_8cpp.html#a42a954b4617dc2506af15c75dbfe1ce9" title=" " alt="" coords="405,658,600,683"/>
+<area shape="poly" id="edge36_Node000015_Node000026" title=" " alt="" coords="268,607,391,643,430,652,429,657,390,648,267,613"/>
+<area shape="rect" id="Node000032" href="$ga__benchmarks_8cpp.html#a67ef1f2938c24bacb1cfcee958a71386" title=" " alt="" coords="415,707,591,733"/>
+<area shape="poly" id="edge47_Node000015_Node000032" title=" " alt="" coords="245,608,308,649,349,672,392,692,418,701,416,706,390,697,346,677,305,654,242,612"/>
+<area shape="rect" id="Node000017" href="$classmc_1_1optim_1_1GA.html#a60d96a923e2ae97b7d6a9e569017133e" title="Run GA for max_generations." alt="" coords="687,461,867,486"/>
+<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="568,508,692,486,693,491,569,514"/>
+<area shape="rect" id="Node000019" href="$classmc_1_1optim_1_1GA.html#a3620b539800a6de4e052ca1755365d4a" title="Set lower/upper bounds of the search hyper&#45;rectangle." alt="" coords="681,559,872,585"/>
+<area shape="poly" id="edge19_Node000016_Node000019" title=" " alt="" coords="569,532,693,554,692,559,568,537"/>
+<area shape="rect" id="Node000020" href="$classmc_1_1optim_1_1GA.html#a9a23ff94c9500845326e1caad067f806" title="Register a callback invoked after each generation." alt="" coords="677,609,876,634"/>
+<area shape="poly" id="edge20_Node000016_Node000020" title=" " alt="" coords="569,528,616,544,632,557,641,570,650,582,664,594,681,602,679,607,661,598,646,586,637,573,628,560,613,549,567,533"/>
+<area shape="rect" id="Node000021" href="$classmc_1_1optim_1_1GA.html#a29b82f44af247fffb47055f2ff321b91" title="Set optimization mode (minimize or maximize)." alt="" coords="687,510,866,535"/>
+<area shape="poly" id="edge21_Node000016_Node000021" title=" " alt="" coords="568,520,674,520,674,525,568,525"/>
+<area shape="rect" id="Node000023" href="$classmc_1_1optim_1_1GA.html#ab782e318b0eb14592714bfdc51687967" title="Set the objective function to optimize." alt="" coords="674,659,879,699"/>
+<area shape="poly" id="edge23_Node000016_Node000023" title=" " alt="" coords="569,524,594,532,616,545,628,557,636,569,642,595,647,620,654,632,664,643,673,650,669,654,661,647,649,635,642,622,636,596,631,571,624,560,613,549,591,536,567,529"/>
+<area shape="rect" id="Node000018" href="$classmc_1_1optim_1_1GA.html#adc0dc7c216bdab52f273cbe2b181eced" title="Perform one generation: selection, crossover, mutation, evaluation, and serial update of the global b..." alt="" coords="943,461,1093,486"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="867,471,929,471,929,476,867,476"/>
+<area shape="rect" id="Node000022" href="$structmc_1_1optim_1_1Solution.html#a611a6651c3a8910e5b1d9c53d03dade6" title="Helper to create a worst&#45;case solution for initialization." alt="" coords="943,659,1093,699"/>
+<area shape="poly" id="edge22_Node000021_Node000022" title=" " alt="" coords="865,533,892,544,924,567,953,593,998,646,994,649,950,597,921,571,889,549,863,538"/>
+<area shape="poly" id="edge25_Node000024_Node000017" title=" " alt="" coords="565,562,590,555,613,544,628,533,636,520,646,507,661,495,675,488,678,493,664,500,650,511,641,523,632,537,616,549,592,560,567,567"/>
+<area shape="poly" id="edge26_Node000024_Node000019" title=" " alt="" coords="566,569,667,569,667,575,566,575"/>
+<area shape="poly" id="edge27_Node000024_Node000020" title=" " alt="" coords="567,581,692,604,691,609,566,586"/>
+<area shape="poly" id="edge28_Node000024_Node000021" title=" " alt="" coords="566,558,691,535,692,540,567,563"/>
+<area shape="poly" id="edge29_Node000024_Node000023" title=" " alt="" coords="567,576,592,583,616,594,632,606,641,619,650,631,664,643,679,651,677,656,661,648,646,635,637,622,628,610,613,598,590,588,565,581"/>
+<area shape="poly" id="edge31_Node000025_Node000017" title=" " alt="" coords="559,616,588,608,613,594,624,583,630,571,636,546,642,520,649,507,661,495,673,488,675,492,664,499,653,511,647,522,641,547,635,573,628,586,616,598,590,613,561,621"/>
+<area shape="poly" id="edge32_Node000025_Node000019" title=" " alt="" coords="560,608,691,585,692,590,561,614"/>
+<area shape="poly" id="edge33_Node000025_Node000020" title=" " alt="" coords="560,619,663,619,663,624,560,624"/>
+<area shape="poly" id="edge34_Node000025_Node000021" title=" " alt="" coords="560,612,587,605,613,594,628,582,636,570,646,557,661,544,675,538,678,543,664,549,650,560,641,573,632,586,616,598,589,610,561,617"/>
+<area shape="poly" id="edge35_Node000025_Node000023" title=" " alt="" coords="561,631,667,653,666,658,560,636"/>
+<area shape="poly" id="edge39_Node000026_Node000017" title=" " alt="" coords="595,656,613,643,627,626,634,608,636,571,638,533,646,514,661,495,673,487,676,491,664,499,650,516,643,534,641,571,639,610,632,629,616,647,598,660"/>
+<area shape="poly" id="edge43_Node000026_Node000019" title=" " alt="" coords="584,656,613,643,628,632,636,619,646,606,661,594,675,587,678,592,664,598,650,610,641,622,632,635,616,648,586,660"/>
+<area shape="poly" id="edge44_Node000026_Node000020" title=" " alt="" coords="573,655,691,634,692,639,574,661"/>
+<area shape="poly" id="edge45_Node000026_Node000021" title=" " alt="" coords="592,656,613,643,624,632,630,620,636,595,642,570,649,557,661,545,673,537,676,541,664,549,653,560,647,571,641,596,635,622,628,635,616,647,594,660"/>
+<area shape="poly" id="edge46_Node000026_Node000023" title=" " alt="" coords="600,671,660,673,660,678,600,676"/>
+<area shape="rect" id="Node000027" href="$namespacemc_1_1utils.html#a24624a54455188c8275afd053e1f1f01" title=" " alt="" coords="667,921,887,961"/>
+<area shape="poly" id="edge37_Node000026_Node000027" title=" " alt="" coords="601,681,617,693,636,719,645,746,645,774,642,801,639,828,639,854,647,880,665,906,670,911,666,915,661,910,642,882,634,855,634,827,637,800,640,773,639,747,631,722,613,697,598,686"/>
+<area shape="rect" id="Node000028" href="$classmc_1_1optim_1_1GA.html#af6df892181a8d13dcab0c23174052326" title="Access the current population." alt="" coords="670,773,883,798"/>
+<area shape="poly" id="edge38_Node000026_Node000028" title=" " alt="" coords="593,681,616,692,633,709,641,726,649,743,664,758,677,765,675,770,661,762,645,746,636,728,629,712,613,697,591,686"/>
+<area shape="rect" id="Node000029" href="$namespacemc_1_1utils.html#afcb6a4dfd509c3402d30bb17cc5b0ddf" title=" " alt="" coords="663,822,891,847"/>
+<area shape="poly" id="edge40_Node000026_Node000029" title=" " alt="" coords="598,681,616,693,629,707,637,722,641,752,646,781,652,794,664,807,673,813,670,818,661,811,648,797,641,782,636,752,632,723,625,710,613,697,595,686"/>
+<area shape="rect" id="Node000030" href="$ga__benchmarks_8cpp.html#ad6c040fe0123c5533d25a0042b0bcd54" title=" " alt="" coords="686,723,867,749"/>
+<area shape="poly" id="edge41_Node000026_Node000030" title=" " alt="" coords="569,681,615,692,663,708,701,718,700,723,662,713,614,697,568,686"/>
+<area shape="rect" id="Node000031" href="$ga__benchmarks_8cpp.html#a42a305c8b6ddf1e4da89be542dc2424b" title="Generate frame filename for GA population evolution." alt="" coords="949,798,1087,823"/>
+<area shape="poly" id="edge42_Node000030_Node000031" title=" " alt="" coords="848,746,891,757,978,790,976,795,890,763,846,751"/>
+<area shape="poly" id="edge50_Node000032_Node000017" title=" " alt="" coords="590,708,613,693,630,669,638,645,638,621,636,596,633,571,634,545,642,520,661,495,672,486,676,491,665,499,647,522,640,546,639,571,641,596,644,621,643,646,635,672,616,697,593,712"/>
+<area shape="poly" id="edge54_Node000032_Node000019" title=" " alt="" coords="590,706,613,693,624,681,630,670,636,645,642,619,649,606,661,594,668,589,671,594,664,598,653,609,647,621,641,646,635,672,628,685,616,697,592,711"/>
+<area shape="poly" id="edge55_Node000032_Node000020" title=" " alt="" coords="584,705,613,692,628,681,637,669,646,656,661,644,679,636,682,641,664,649,650,660,641,672,632,685,616,697,586,710"/>
+<area shape="poly" id="edge56_Node000032_Node000021" title=" " alt="" coords="590,707,613,693,627,675,634,658,636,620,638,582,646,563,661,545,673,536,677,540,664,549,650,566,643,583,641,621,639,659,632,678,616,697,593,712"/>
+<area shape="poly" id="edge57_Node000032_Node000023" title=" " alt="" coords="587,705,660,694,661,699,588,710"/>
+<area shape="poly" id="edge49_Node000032_Node000028" title=" " alt="" coords="554,730,663,757,705,767,704,772,662,763,552,735"/>
+<area shape="rect" id="Node000033" href="$namespacemc_1_1utils.html#a98bdac1483004ccb1bcc2c6a5cf89dc4" title=" " alt="" coords="667,1036,887,1076"/>
+<area shape="poly" id="edge48_Node000032_Node000033" title=" " alt="" coords="510,733,525,786,554,864,575,906,600,948,630,987,664,1021,673,1027,670,1031,661,1025,626,990,596,951,570,909,549,866,520,788,504,734"/>
+<area shape="rect" id="Node000034" href="$namespacemc_1_1utils.html#a3ceed4391bc5e0e913e571767f101d92" title=" " alt="" coords="677,986,876,1011"/>
+<area shape="poly" id="edge51_Node000032_Node000034" title=" " alt="" coords="511,732,528,778,559,844,604,913,632,944,664,971,675,978,673,983,661,975,629,948,600,916,554,846,523,780,506,734"/>
+<area shape="rect" id="Node000035" href="$ga__benchmarks_8cpp.html#af2eddacbb30b3b8380c8dbba248d486c" title="Save population snapshot for 2D visualization." alt="" coords="686,871,867,897"/>
+<area shape="poly" id="edge52_Node000032_Node000035" title=" " alt="" coords="517,731,575,792,617,827,664,856,683,865,681,869,661,861,614,831,572,796,513,735"/>
+<area shape="poly" id="edge53_Node000035_Node000031" title=" " alt="" coords="841,869,890,856,973,826,975,831,891,861,843,874"/>
+<area shape="rect" id="Node000037" href="$pso__benchmarks_8cpp.html#aed8e833766ec99ac81e3b882d7e80ba2" title="Test 2: Boundary Constraint Test Objective: Minimize f(x, y) = x + y This function is a constant incl..." alt="" coords="437,1298,568,1323"/>
+<area shape="poly" id="edge59_Node000036_Node000037" title=" " alt="" coords="313,1222,344,1235,360,1247,369,1260,378,1273,392,1284,425,1298,423,1302,389,1289,374,1277,364,1264,356,1251,341,1240,311,1227"/>
+<area shape="rect" id="Node000048" href="$pso__benchmarks_8cpp.html#a8bf4230aef81c3486ac6205a0e680e1c" title="Test 3: High&#45;Dimensional Rastrigin Function Objective: Minimize f(x) = 10n + sum(x_i^2 &#45; 10cos(2*pi*x..." alt="" coords="439,1347,566,1373"/>
+<area shape="poly" id="edge67_Node000036_Node000048" title=" " alt="" coords="323,1222,344,1235,356,1247,363,1260,369,1286,375,1311,381,1323,392,1334,409,1344,427,1351,425,1356,406,1349,389,1338,377,1326,370,1313,364,1287,358,1262,352,1251,341,1239,320,1227"/>
+<area shape="rect" id="Node000049" href="$pso__benchmarks_8cpp.html#a0a25d010243539e54b63519bcae7b8ab" title="Test 1: Sphere Function." alt="" coords="445,1249,560,1274"/>
+<area shape="poly" id="edge73_Node000036_Node000049" title=" " alt="" coords="298,1222,432,1246,431,1251,297,1227"/>
+<area shape="rect" id="Node000050" href="$pso__benchmarks_8cpp.html#ad17bff2aa47ecf2e709a1031ebcf8465" title=" " alt="" coords="402,1150,603,1175"/>
+<area shape="poly" id="edge79_Node000036_Node000050" title=" " alt="" coords="297,1197,417,1175,418,1180,298,1202"/>
+<area shape="rect" id="Node000053" href="$pso__benchmarks_8cpp.html#a4cbfe89ef2dc302f29f2843950537c7b" title=" " alt="" coords="411,1199,594,1225"/>
+<area shape="poly" id="edge89_Node000036_Node000053" title=" " alt="" coords="343,1209,398,1209,398,1215,343,1215"/>
+<area shape="rect" id="Node000038" href="$classmc_1_1optim_1_1PSO.html#a19b3b1fbd4b9386fbac33a9c80a0c0b9" title="Execute the optimization loop for max_iterations." alt="" coords="683,1363,870,1389"/>
+<area shape="poly" id="edge60_Node000037_Node000038" title=" " alt="" coords="564,1321,615,1333,663,1348,702,1358,701,1363,662,1353,614,1339,563,1326"/>
+<area shape="rect" id="Node000044" href="$classmc_1_1optim_1_1PSO.html#a35977dbdfdc2785234ec21cc2d0805d2" title="Set lower/upper bounds of the search hyper&#45;rectangle." alt="" coords="677,1413,876,1438"/>
+<area shape="poly" id="edge62_Node000037_Node000044" title=" " alt="" coords="569,1315,593,1322,616,1334,633,1350,641,1368,649,1384,664,1399,674,1405,672,1410,661,1403,644,1387,636,1370,628,1353,613,1338,591,1327,568,1320"/>
+<area shape="rect" id="Node000045" href="$classmc_1_1optim_1_1PSO.html#a4f32542124c5a7ed481ef72a50a3a3ea" title="Register a callback invoked after each step()." alt="" coords="673,1199,880,1225"/>
+<area shape="poly" id="edge63_Node000037_Node000045" title=" " alt="" coords="567,1301,613,1284,628,1273,637,1261,646,1247,661,1235,679,1227,681,1232,664,1240,650,1251,641,1264,632,1277,616,1289,569,1306"/>
+<area shape="rect" id="Node000046" href="$classmc_1_1optim_1_1PSO.html#acca4147bc9775630078d327d180b1a8e" title="Set optimization mode (minimize or maximize)." alt="" coords="683,1249,870,1274"/>
+<area shape="poly" id="edge64_Node000037_Node000046" title=" " alt="" coords="568,1296,692,1274,693,1279,569,1302"/>
+<area shape="rect" id="Node000047" href="$classmc_1_1optim_1_1PSO.html#a7b30ff4c321f120046b5552a85505378" title="Set the objective function to optimize." alt="" coords="671,1299,883,1339"/>
+<area shape="poly" id="edge66_Node000037_Node000047" title=" " alt="" coords="568,1310,657,1313,657,1318,568,1315"/>
+<area shape="rect" id="Node000039" href="$classmc_1_1optim_1_1PSO.html#ab0e385c2603febae1bf503d8f6e36803" title="Perform one PSO iteration: update velocity/position, evaluate, update personal and global bests." alt="" coords="939,1363,1097,1389"/>
+<area shape="poly" id="edge61_Node000038_Node000039" title=" " alt="" coords="870,1373,925,1373,925,1379,870,1379"/>
+<area shape="poly" id="edge65_Node000046_Node000022" title=" " alt="" coords="869,1250,889,1235,900,1220,908,1199,919,1148,923,1086,924,1019,923,885,926,828,936,784,959,743,986,707,990,711,963,745,941,786,932,829,928,885,929,1019,929,1086,924,1149,913,1201,904,1222,893,1239,872,1255"/>
+<area shape="poly" id="edge68_Node000048_Node000038" title=" " alt="" coords="566,1361,669,1367,669,1372,566,1366"/>
+<area shape="poly" id="edge69_Node000048_Node000044" title=" " alt="" coords="551,1370,663,1399,700,1407,699,1412,662,1404,550,1375"/>
+<area shape="poly" id="edge70_Node000048_Node000045" title=" " alt="" coords="566,1354,591,1347,613,1334,624,1323,630,1311,636,1286,642,1260,649,1247,661,1235,670,1229,673,1233,664,1239,653,1251,647,1262,641,1287,635,1313,628,1326,616,1338,593,1351,567,1359"/>
+<area shape="poly" id="edge71_Node000048_Node000046" title=" " alt="" coords="565,1351,590,1344,613,1334,628,1322,637,1310,646,1297,661,1284,679,1276,681,1281,664,1289,650,1300,641,1313,632,1326,616,1338,592,1349,567,1356"/>
+<area shape="poly" id="edge72_Node000048_Node000047" title=" " alt="" coords="566,1348,657,1334,657,1339,567,1353"/>
+<area shape="poly" id="edge74_Node000049_Node000038" title=" " alt="" coords="561,1264,589,1272,616,1284,633,1301,641,1318,649,1334,664,1349,677,1356,675,1360,661,1353,645,1337,636,1320,628,1304,613,1289,588,1277,560,1269"/>
+<area shape="poly" id="edge75_Node000049_Node000044" title=" " alt="" coords="561,1261,590,1269,616,1285,629,1299,637,1314,641,1344,646,1373,652,1386,664,1399,670,1404,667,1408,661,1403,648,1389,641,1374,636,1345,631,1315,625,1302,613,1289,588,1274,560,1267"/>
+<area shape="poly" id="edge76_Node000049_Node000045" title=" " alt="" coords="560,1248,691,1225,692,1230,561,1254"/>
+<area shape="poly" id="edge77_Node000049_Node000046" title=" " alt="" coords="560,1259,669,1259,669,1264,560,1264"/>
+<area shape="poly" id="edge78_Node000049_Node000047" title=" " alt="" coords="561,1271,667,1293,666,1298,560,1276"/>
+<area shape="poly" id="edge80_Node000050_Node000027" title=" " alt="" coords="509,1148,530,1113,564,1065,608,1015,661,971,672,965,674,970,664,976,612,1018,568,1069,535,1116,513,1151"/>
+<area shape="poly" id="edge83_Node000050_Node000029" title=" " alt="" coords="504,1149,518,1095,547,1015,568,972,594,929,625,890,661,857,668,852,671,856,664,861,629,894,598,932,573,974,552,1017,523,1096,509,1150"/>
+<area shape="poly" id="edge82_Node000050_Node000038" title=" " alt="" coords="600,1173,616,1185,633,1205,640,1226,641,1269,642,1310,649,1330,665,1349,673,1355,669,1359,661,1353,645,1332,637,1311,636,1269,635,1227,628,1208,613,1189,597,1178"/>
+<area shape="poly" id="edge85_Node000050_Node000044" title=" " alt="" coords="601,1173,617,1185,636,1212,644,1239,645,1267,641,1294,638,1322,638,1348,646,1374,665,1400,668,1403,664,1406,661,1403,641,1376,633,1349,633,1321,636,1294,639,1267,639,1240,631,1214,613,1189,598,1178"/>
+<area shape="poly" id="edge86_Node000050_Node000045" title=" " alt="" coords="574,1173,692,1194,691,1199,573,1178"/>
+<area shape="poly" id="edge87_Node000050_Node000046" title=" " alt="" coords="590,1173,616,1184,632,1197,641,1211,650,1223,664,1235,677,1242,675,1246,661,1240,646,1227,636,1214,628,1201,613,1189,588,1178"/>
+<area shape="poly" id="edge88_Node000050_Node000047" title=" " alt="" coords="597,1173,616,1185,628,1197,636,1210,642,1236,647,1261,654,1273,664,1285,671,1289,667,1294,661,1289,649,1276,642,1263,636,1237,631,1212,624,1200,613,1189,594,1178"/>
+<area shape="rect" id="Node000051" href="$classmc_1_1optim_1_1PSO.html#a2c1d42c2445660bcc7a423405221ea33" title="Access the current swarm state (particles)." alt="" coords="673,1150,880,1175"/>
+<area shape="poly" id="edge81_Node000050_Node000051" title=" " alt="" coords="603,1160,660,1160,660,1165,603,1165"/>
+<area shape="rect" id="Node000052" href="$namespacemc_1_1utils.html#af95b980269dd473eecdbd0bf55dbcae2" title=" " alt="" coords="675,1101,878,1126"/>
+<area shape="poly" id="edge84_Node000050_Node000052" title=" " alt="" coords="573,1147,691,1126,692,1131,574,1153"/>
+<area shape="poly" id="edge90_Node000053_Node000033" title=" " alt="" coords="592,1197,613,1185,624,1173,631,1162,636,1137,642,1111,649,1098,661,1086,667,1081,671,1085,664,1090,654,1102,647,1113,642,1138,635,1164,628,1177,616,1189,594,1202"/>
+<area shape="poly" id="edge93_Node000053_Node000034" title=" " alt="" coords="593,1198,613,1185,628,1166,635,1146,636,1105,637,1063,645,1042,661,1022,667,1017,671,1021,665,1026,649,1045,642,1064,641,1105,640,1147,633,1168,616,1189,596,1203"/>
+<area shape="poly" id="edge92_Node000053_Node000038" title=" " alt="" coords="596,1223,616,1235,629,1249,636,1264,641,1294,646,1322,652,1336,664,1349,673,1355,670,1359,661,1353,648,1339,641,1324,636,1294,631,1266,625,1252,613,1239,593,1227"/>
+<area shape="poly" id="edge95_Node000053_Node000044" title=" " alt="" coords="596,1221,616,1235,633,1256,640,1277,641,1319,642,1361,649,1380,665,1399,669,1403,666,1407,661,1403,645,1383,637,1362,636,1320,635,1278,628,1259,613,1239,593,1226"/>
+<area shape="poly" id="edge96_Node000053_Node000045" title=" " alt="" coords="594,1209,660,1209,660,1215,594,1215"/>
+<area shape="poly" id="edge97_Node000053_Node000046" title=" " alt="" coords="574,1222,692,1243,691,1249,573,1227"/>
+<area shape="poly" id="edge98_Node000053_Node000047" title=" " alt="" coords="586,1222,616,1235,632,1247,641,1260,650,1273,664,1284,676,1291,674,1296,661,1289,646,1276,637,1263,628,1251,613,1240,584,1227"/>
+<area shape="poly" id="edge91_Node000053_Node000051" title=" " alt="" coords="573,1197,691,1175,692,1181,574,1202"/>
+<area shape="poly" id="edge94_Node000053_Node000052" title=" " alt="" coords="584,1197,613,1184,628,1173,636,1160,646,1147,661,1135,675,1128,678,1133,664,1140,650,1151,641,1163,632,1177,616,1189,586,1202"/>
+</map>

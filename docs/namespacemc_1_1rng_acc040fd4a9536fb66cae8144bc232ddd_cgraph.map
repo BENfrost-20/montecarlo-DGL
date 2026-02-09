@@ -1,0 +1,12 @@
+<map id="mc::rng::make_engine" name="mc::rng::make_engine">
+<area shape="rect" id="Node000001" title="Create a deterministic RNG engine for a specific stream." alt="" coords="5,77,172,102"/>
+<area shape="rect" id="Node000002" href="$namespacemc_1_1rng_1_1detail.html#a38d2bbfd85016beeafdb31e4c1715477" title=" " alt="" coords="223,5,403,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,74,228,47,230,52,135,79"/>
+<area shape="rect" id="Node000004" href="$namespacemc_1_1rng_1_1detail.html#ab57e549b90087ff17a6516ced8a196ae" title="Create mt19937 from a 64&#45;bit seed." alt="" coords="230,69,395,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="172,87,217,87,217,92,172,92"/>
+<area shape="rect" id="Node000005" href="$namespacemc_1_1rng.html#ae8ce618a80ac94df709f1fd752932c0c" title="Get the current global seed." alt="" coords="220,134,405,159"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="140,99,250,128,249,133,138,105"/>
+<area shape="rect" id="Node000003" href="$namespacemc_1_1rng_1_1detail.html#afd7cf835af1e7345389b5497652dd399" title=" " alt="" coords="453,45,679,70"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="403,34,452,40,451,46,402,39"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="395,76,451,69,452,74,396,82"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="mc::utils::createGnuplotScript" name="mc::utils::createGnuplotScript">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,37,184,77"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1domains_1_1IntegrationDomain.html#a31ef4c76c6c87398eebbb660df203384" title="Get the axis&#45;aligned bounding box of the domain." alt="" coords="232,5,417,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,42,218,37,219,43,185,48"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1domains_1_1IntegrationDomain.html#a31b3f4605bad5c5c88c6df26d05b27e9" title="Test whether a point lies inside the domain." alt="" coords="232,69,417,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="185,67,219,72,218,77,184,72"/>
+</map>

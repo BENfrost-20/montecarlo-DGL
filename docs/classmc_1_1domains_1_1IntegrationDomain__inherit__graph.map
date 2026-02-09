@@ -1,0 +1,15 @@
+<map id="mc::domains::IntegrationDomain&lt; dim &gt;" name="mc::domains::IntegrationDomain&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="Abstract base class for N&#45;dimensional integration domains." alt="" coords="468,5,645,145"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1domains_1_1HyperCylinder.html" title="N&#45;dimensional hypercylinder." alt="" coords="5,208,204,348"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="456,113,340,156,216,210,206,216,203,211,214,206,338,151,454,108"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1domains_1_1HyperRectangle.html" title="Axis&#45;aligned hyperrectangular domain." alt="" coords="227,208,438,348"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="471,157,412,210,408,206,468,153"/>
+<area shape="rect" id="Node000004" href="$classmc_1_1domains_1_1Hypersphere.html" title="N&#45;dimensional ball (solid sphere)." alt="" coords="462,208,651,348"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="559,159,559,208,554,208,554,159"/>
+<area shape="rect" id="Node000005" href="$classmc_1_1domains_1_1PolyTope.html" title="Convex polytope (convex polyhedron) integration domain." alt="" coords="676,208,840,348"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="637,153,690,206,687,210,634,157"/>
+<area shape="rect" id="Node000006" href="$classmc_1_1domains_1_1IntegrationDomain.html" title=" " alt="" coords="864,208,1041,348"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="659,114,755,156,854,206,865,212,862,217,851,210,753,160,657,119"/>
+<area shape="rect" id="Node000007" href="$classDroneArmDomain.html" title=" " alt="" coords="875,397,1031,623"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="955,362,955,397,950,397,950,362"/>
+</map>

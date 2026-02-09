@@ -1,0 +1,23 @@
+<map id="src/montecarlo/proposals/uniformProposal.hpp" name="src/montecarlo/proposals/uniformProposal.hpp">
+<area shape="rect" id="Node000001" title="Uniform distribution proposal over integration domain." alt="" coords="208,5,395,45"/>
+<area shape="rect" id="Node000002" href="$proposal_8hpp.html" title="Abstract base for probability distributions used in importance sampling." alt="" coords="28,101,135,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="254,48,124,98,122,93,252,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,77,207"/>
+<area shape="poly" id="edge10_Node000001_Node000003" title=" " alt="" coords="208,39,150,47,94,60,47,76,30,85,18,95,11,112,12,131,28,168,23,171,7,132,6,111,14,92,26,80,45,71,92,54,149,42,207,33"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="248,255,304,280"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="317,44,329,67,339,93,342,113,339,134,318,195,293,244,288,242,313,193,333,133,336,113,333,94,324,69,312,47"/>
+<area shape="rect" id="Node000007" href="$integration__domain_8hpp.html" title="Abstract interface for N&#45;dimensional integration domains." alt="" coords="159,93,324,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="290,47,265,84,260,81,286,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="399,101,459,126"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="331,43,402,91,399,95,328,48"/>
+<area shape="rect" id="Node000009" href="$uniformProposal_8tpp.html" title=" " alt="" coords="484,101,639,126"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="359,43,515,94,513,99,358,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="78,127,56,170,51,168,73,125"/>
+<area shape="rect" id="Node000004" href="$geometry_8hpp.html" title="Core geometric types for Monte Carlo integration." alt="" coords="116,181,239,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="97,124,154,171,151,175,94,128"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="195,205,250,244,247,249,192,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="142,255,213,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="180,207,180,241,175,241,175,207"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="228,135,198,172,194,169,224,132"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="248,133,273,240,268,242,243,134"/>
+</map>

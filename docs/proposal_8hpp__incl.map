@@ -1,0 +1,11 @@
+<map id="src/montecarlo/proposals/proposal.hpp" name="src/montecarlo/proposals/proposal.hpp">
+<area shape="rect" id="Node000001" title="Abstract base for probability distributions used in importance sampling." alt="" coords="8,5,195,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,77,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,47,61,84,56,81,85,44"/>
+<area shape="rect" id="Node000003" href="$geometry_8hpp.html" title="Core geometric types for Monte Carlo integration." alt="" coords="101,93,224,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="118,44,147,81,143,84,114,47"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="91,167,147,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="158,120,135,156,131,154,153,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="171,167,242,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="172,118,195,154,190,156,168,120"/>
+</map>

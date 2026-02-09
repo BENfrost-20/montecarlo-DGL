@@ -1,0 +1,7 @@
+<map id="farmPowerGivenWind" name="farmPowerGivenWind">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,169,56"/>
+<area shape="rect" id="Node000002" href="$wind__farm__simulator_8cpp.html#af758d8893b8c7e8d9f5b9492e23af0b9" title=" " alt="" coords="217,5,348,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="169,30,203,26,204,31,170,35"/>
+<area shape="rect" id="Node000003" href="$wind__farm__simulator_8cpp.html#a50caf0a5cbc9348e481e310e8605a943" title=" " alt="" coords="236,55,329,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,51,223,57,222,63,169,56"/>
+</map>

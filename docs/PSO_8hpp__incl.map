@@ -1,0 +1,18 @@
+<map id="src/montecarlo/optimizers/PSO.hpp" name="src/montecarlo/optimizers/PSO.hpp">
+<area shape="rect" id="Node000001" title="Particle Swarm Optimization (PSO) interface and data structures." alt="" coords="38,5,230,45"/>
+<area shape="rect" id="Node000002" href="$optimizer_8hpp.html" title="Abstract optimizer interface for PSO, GA, and future algorithms." alt="" coords="79,93,189,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,46,137,79,131,79,131,46"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,240,68,265"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="110,47,87,69,68,95,54,129,46,164,39,227,34,226,41,163,49,127,64,92,83,65,106,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="214,93,286,119"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="164,43,223,83,220,88,161,48"/>
+<area shape="rect" id="Node000003" href="$types_8hpp.html" title="Core optimizer type definitions for the Monte Carlo toolkit." alt="" coords="92,167,179,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="137,119,138,153,132,153,132,119"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="121,194,65,234,62,230,118,190"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="92,240,179,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="138,192,138,226,133,226,133,192"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="203,240,262,265"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="153,190,207,229,204,234,149,194"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="286,240,366,265"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="167,190,283,232,281,237,165,195"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classmc_1_1integrators_1_1Integrator.html" title="Abstract base class for Monte Carlo integration in N dimensions." alt="" coords="5,69,199,109"/>
+<area shape="rect" id="Node000001" href="$classmc_1_1integrators_1_1ISMontecarloIntegrator.html" title="Importance sampling Monte Carlo integrator." alt="" coords="251,5,466,45"/>
+<area shape="poly" id="edge6_Node000000_Node000001" title=" " alt="" coords="195,63,277,43,279,48,197,69"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1integrators_1_1MHMontecarloIntegrator.html" title="Metropolis&#45;Hastings MCMC integrator for complex domains." alt="" coords="247,69,471,109"/>
+<area shape="poly" id="edge7_Node000000_Node000002" title=" " alt="" coords="213,87,246,87,246,92,213,92"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1integrators_1_1MontecarloIntegrator.html" title="Uniform&#45;sampling Monte Carlo integrator for N&#45;dimensional domains." alt="" coords="257,133,460,173"/>
+<area shape="poly" id="edge8_Node000000_Node000003" title=" " alt="" coords="197,110,279,131,277,136,195,115"/>
+</map>

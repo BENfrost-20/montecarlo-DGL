@@ -1,0 +1,27 @@
+<map id="src/montecarlo/proposals/gaussianProposal.hpp" name="src/montecarlo/proposals/gaussianProposal.hpp">
+<area shape="rect" id="Node000001" title="Diagonal multivariate Gaussian proposal (no domain truncation)." alt="" coords="303,5,489,45"/>
+<area shape="rect" id="Node000002" href="$proposal_8hpp.html" title="Abstract base for probability distributions used in importance sampling." alt="" coords="28,101,135,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="325,48,147,96,134,100,133,94,146,91,324,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,77,207"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="302,32,220,39,135,50,63,69,36,81,18,95,11,112,11,131,18,150,27,168,23,170,13,152,6,132,5,111,14,92,33,76,61,64,134,45,220,33,302,27"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="248,255,304,280"/>
+<area shape="poly" id="edge9_Node000001_Node000005" title=" " alt="" coords="389,47,290,243,286,241,384,44"/>
+<area shape="rect" id="Node000007" href="$integration__domain_8hpp.html" title="Abstract interface for N&#45;dimensional integration domains." alt="" coords="159,93,324,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="363,48,289,89,286,84,361,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="399,101,462,126"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="406,45,423,87,418,89,401,47"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="486,101,573,126"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="427,43,501,91,499,95,424,48"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="597,101,659,126"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="454,43,586,91,591,93,589,98,584,96,452,48"/>
+<area shape="rect" id="Node000011" href="$gaussianProposal_8tpp.html" title=" " alt="" coords="683,101,845,126"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="477,43,703,95,701,100,476,48"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="78,127,56,170,51,168,73,125"/>
+<area shape="rect" id="Node000004" href="$geometry_8hpp.html" title="Core geometric types for Monte Carlo integration." alt="" coords="116,181,239,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="97,124,154,171,151,175,94,128"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="195,205,250,244,247,249,192,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="142,255,213,280"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="180,207,180,241,175,241,175,207"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="228,135,198,172,194,169,224,132"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="248,133,273,240,268,242,243,134"/>
+</map>

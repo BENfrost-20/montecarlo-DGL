@@ -1,0 +1,27 @@
+<map id="runVisualGABenchmark" name="runVisualGABenchmark">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,218,181,243"/>
+<area shape="rect" id="Node000002" href="$namespacemc_1_1utils.html#a98bdac1483004ccb1bcc2c6a5cf89dc4" title=" " alt="" coords="229,5,449,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="99,216,117,184,145,140,183,94,228,55,237,49,240,54,231,59,186,98,150,143,121,186,103,219"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1optim_1_1GA.html#af6df892181a8d13dcab0c23174052326" title="Access the current population." alt="" coords="233,70,446,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="103,216,152,161,188,130,228,104,244,97,246,102,231,109,191,135,156,165,107,220"/>
+<area shape="rect" id="Node000004" href="$classmc_1_1optim_1_1GA.html#a60d96a923e2ae97b7d6a9e569017133e" title="Run GA for max_generations." alt="" coords="249,119,429,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="112,216,163,185,228,154,253,146,254,151,230,158,166,189,115,220"/>
+<area shape="rect" id="Node000006" href="$namespacemc_1_1utils.html#a3ceed4391bc5e0e913e571767f101d92" title=" " alt="" coords="240,169,439,194"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="157,215,262,194,263,199,158,221"/>
+<area shape="rect" id="Node000007" href="$ga__benchmarks_8cpp.html#af2eddacbb30b3b8380c8dbba248d486c" title="Save population snapshot for 2D visualization." alt="" coords="249,218,430,243"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="181,228,235,228,235,233,181,233"/>
+<area shape="rect" id="Node000009" href="$classmc_1_1optim_1_1GA.html#a3620b539800a6de4e052ca1755365d4a" title="Set lower/upper bounds of the search hyper&#45;rectangle." alt="" coords="244,267,435,293"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="158,241,263,262,262,267,157,246"/>
+<area shape="rect" id="Node000010" href="$classmc_1_1optim_1_1GA.html#a9a23ff94c9500845326e1caad067f806" title="Register a callback invoked after each generation." alt="" coords="240,317,439,342"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="115,241,166,271,230,302,258,311,257,316,228,306,164,276,113,246"/>
+<area shape="rect" id="Node000011" href="$classmc_1_1optim_1_1GA.html#a29b82f44af247fffb47055f2ff321b91" title="Set optimization mode (minimize or maximize)." alt="" coords="250,366,429,391"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="107,242,156,296,191,327,231,352,246,359,244,364,228,357,188,331,152,300,103,245"/>
+<area shape="rect" id="Node000013" href="$classmc_1_1optim_1_1GA.html#ab782e318b0eb14592714bfdc51687967" title="Set the objective function to optimize." alt="" coords="237,416,442,456"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="103,243,121,275,150,318,186,363,231,402,240,408,237,412,228,406,183,367,145,321,117,278,99,245"/>
+<area shape="rect" id="Node000005" href="$classmc_1_1optim_1_1GA.html#adc0dc7c216bdab52f273cbe2b181eced" title="Perform one generation: selection, crossover, mutation, evaluation, and serial update of the global b..." alt="" coords="497,119,648,145"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="430,129,483,129,483,135,430,135"/>
+<area shape="rect" id="Node000008" href="$ga__benchmarks_8cpp.html#a42a305c8b6ddf1e4da89be542dc2424b" title="Generate frame filename for GA population evolution." alt="" coords="503,218,642,243"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="431,228,490,228,490,233,431,233"/>
+<area shape="rect" id="Node000012" href="$structmc_1_1optim_1_1Solution.html#a611a6651c3a8910e5b1d9c53d03dade6" title="Helper to create a worst&#45;case solution for initialization." alt="" coords="498,359,647,399"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="429,376,484,376,484,381,429,381"/>
+</map>

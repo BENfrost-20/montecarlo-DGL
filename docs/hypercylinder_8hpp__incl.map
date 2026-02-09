@@ -1,0 +1,17 @@
+<map id="src/montecarlo/domains/hypercylinder.hpp" name="src/montecarlo/domains/hypercylinder.hpp">
+<area shape="rect" id="Node000001" title="N&#45;dimensional hypercylinder (infinite cylinder in discrete dimensions)." alt="" coords="166,5,345,45"/>
+<area shape="rect" id="Node000002" href="$integration__domain_8hpp.html" title="Abstract interface for N&#45;dimensional integration domains." alt="" coords="5,93,183,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,48,131,90,129,85,216,43"/>
+<area shape="rect" id="Node000004" href="$geometry_8hpp.html" title="Core geometric types for Monte Carlo integration." alt="" coords="131,167,254,192"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="250,47,205,155,200,153,245,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="259,93,321,119"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="266,44,282,79,277,82,261,47"/>
+<area shape="rect" id="Node000007" href="$hypercylinder_8tpp.html" title=" " alt="" coords="345,93,480,119"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="294,43,378,85,376,89,292,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="71,240,127,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,119,101,226,96,226,92,119"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="111,117,167,156,164,161,108,121"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="179,194,127,234,124,229,176,190"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="157,240,228,265"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="195,192,195,226,190,226,190,192"/>
+</map>

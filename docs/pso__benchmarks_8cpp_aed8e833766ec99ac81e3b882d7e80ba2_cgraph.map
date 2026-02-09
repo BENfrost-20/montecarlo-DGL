@@ -1,0 +1,28 @@
+<map id="runBoundaryTest" name="runBoundaryTest">
+<area shape="rect" id="Node000001" title="Test 2: Boundary Constraint Test Objective: Minimize f(x, y) = x + y This function is a constant incl..." alt="" coords="5,175,136,201"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1optim_1_1PSO.html#a19b3b1fbd4b9386fbac33a9c80a0c0b9" title="Execute the optimization loop for max_iterations." alt="" coords="197,77,383,102"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,173,128,142,183,111,203,103,205,108,185,116,131,146,89,177"/>
+<area shape="rect" id="Node000009" href="$classmc_1_1optim_1_1PSO.html#a35977dbdfdc2785234ec21cc2d0805d2" title="Set lower/upper bounds of the search hyper&#45;rectangle." alt="" coords="191,126,389,151"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="127,173,219,152,220,157,128,178"/>
+<area shape="rect" id="Node000010" href="$classmc_1_1optim_1_1PSO.html#a4f32542124c5a7ed481ef72a50a3a3ea" title="Register a callback invoked after each step()." alt="" coords="187,175,393,201"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="136,185,173,185,173,191,136,191"/>
+<area shape="rect" id="Node000011" href="$classmc_1_1optim_1_1PSO.html#acca4147bc9775630078d327d180b1a8e" title="Set optimization mode (minimize or maximize)." alt="" coords="197,225,383,250"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="128,198,220,219,219,224,127,203"/>
+<area shape="rect" id="Node000013" href="$classmc_1_1optim_1_1PSO.html#a7b30ff4c321f120046b5552a85505378" title="Set the objective function to optimize." alt="" coords="184,275,396,315"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="89,199,131,229,185,260,202,267,200,272,183,265,129,234,86,203"/>
+<area shape="rect" id="Node000003" href="$classmc_1_1optim_1_1PSO.html#ab0e385c2603febae1bf503d8f6e36803" title="Perform one PSO iteration: update velocity/position, evaluate, update personal and global bests." alt="" coords="444,77,603,102"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,87,431,87,431,92,384,92"/>
+<area shape="rect" id="Node000004" href="$namespacemc_1_1rng.html#acc040fd4a9536fb66cae8144bc232ddd" title="Create a deterministic RNG engine for a specific stream." alt="" coords="651,77,817,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="603,87,637,87,637,92,603,92"/>
+<area shape="rect" id="Node000005" href="$namespacemc_1_1rng_1_1detail.html#a38d2bbfd85016beeafdb31e4c1715477" title=" " alt="" coords="868,5,1048,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="779,74,873,47,875,52,780,79"/>
+<area shape="rect" id="Node000007" href="$namespacemc_1_1rng_1_1detail.html#ab57e549b90087ff17a6516ced8a196ae" title="Create mt19937 from a 64&#45;bit seed." alt="" coords="875,69,1041,109"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="818,87,862,87,862,92,818,92"/>
+<area shape="rect" id="Node000008" href="$namespacemc_1_1rng.html#ae8ce618a80ac94df709f1fd752932c0c" title="Get the current global seed." alt="" coords="865,134,1051,159"/>
+<area shape="poly" id="edge8_Node000004_Node000008" title=" " alt="" coords="785,99,895,128,894,133,784,105"/>
+<area shape="rect" id="Node000006" href="$namespacemc_1_1rng_1_1detail.html#afd7cf835af1e7345389b5497652dd399" title=" " alt="" coords="1099,45,1324,70"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="1048,34,1097,40,1097,46,1048,39"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="1040,76,1097,69,1097,74,1041,82"/>
+<area shape="rect" id="Node000012" href="$structmc_1_1optim_1_1Solution.html#a611a6651c3a8910e5b1d9c53d03dade6" title="Helper to create a worst&#45;case solution for initialization." alt="" coords="449,217,598,257"/>
+<area shape="poly" id="edge12_Node000011_Node000012" title=" " alt="" coords="384,235,435,235,435,240,384,240"/>
+</map>

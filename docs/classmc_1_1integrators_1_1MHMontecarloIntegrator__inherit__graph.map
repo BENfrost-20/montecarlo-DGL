@@ -1,0 +1,5 @@
+<map id="mc::integrators::MHMontecarloIntegrator&lt; dim &gt;" name="mc::integrators::MHMontecarloIntegrator&lt; dim &gt;">
+<area shape="rect" id="Node000001" title="Metropolis&#45;Hastings MCMC integrator for complex domains." alt="" coords="5,213,221,333"/>
+<area shape="rect" id="Node000002" href="$classmc_1_1integrators_1_1Integrator.html" title="Abstract base class for Monte Carlo integration in N dimensions." alt="" coords="21,5,206,165"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,179,116,213,111,213,111,179"/>
+</map>

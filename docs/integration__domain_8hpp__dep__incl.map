@@ -1,0 +1,79 @@
+<map id="src/montecarlo/domains/integration_domain.hpp" name="src/montecarlo/domains/integration_domain.hpp">
+<area shape="rect" id="Node000001" title="Abstract interface for N&#45;dimensional integration domains." alt="" coords="861,5,1042,45"/>
+<area shape="rect" id="Node000002" href="$wind__farm__simulator_8cpp.html" title="Wind Farm Layout Optimization using Hybrid MH&#45;Monte Carlo + PSO/GA." alt="" coords="137,357,286,397"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="847,33,682,40,488,53,305,71,230,83,174,96,122,110,82,123,48,144,18,183,9,210,12,236,26,261,48,284,76,306,107,325,166,355,164,360,104,330,73,310,45,288,22,264,7,238,3,209,13,180,45,140,80,118,121,105,172,91,229,77,304,66,487,48,682,35,847,27"/>
+<area shape="rect" id="Node000003" href="$hypercylinder_8hpp.html" title="N&#45;dimensional hypercylinder (infinite cylinder in discrete dimensions)." alt="" coords="1500,93,1678,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="1056,36,1254,60,1481,91,1500,94,1499,99,1481,96,1253,65,1056,41"/>
+<area shape="rect" id="Node000011" href="$integrator_8hpp.html" title="Abstract base class for numerical integration in N&#45;dimensional spaces." alt="" coords="918,181,1113,221"/>
+<area shape="poly" id="edge40_Node000001_Node000011" title=" " alt="" coords="974,56,993,92,1007,139,1015,180,1010,182,1002,141,988,94,969,59"/>
+<area shape="rect" id="Node000012" href="$ISintegrator_8hpp.html" title="Importance sampling Monte Carlo integration engine." alt="" coords="649,269,844,309"/>
+<area shape="poly" id="edge37_Node000001_Node000012" title=" " alt="" coords="848,47,790,66,731,93,704,111,679,132,658,155,641,182,635,201,641,220,664,247,696,267,693,271,661,251,636,223,629,201,636,180,653,152,675,128,700,107,728,88,788,61,847,42"/>
+<area shape="rect" id="Node000013" href="$MCintegrator_8hpp.html" title="Classic Monte Carlo integration engine." alt="" coords="1154,269,1349,309"/>
+<area shape="poly" id="edge38_Node000001_Node000013" title=" " alt="" coords="1056,33,1166,53,1223,69,1278,91,1315,108,1344,124,1368,146,1389,180,1395,202,1389,223,1376,239,1360,252,1325,272,1323,267,1357,248,1372,235,1384,220,1390,202,1384,182,1364,149,1341,128,1313,113,1276,96,1221,74,1164,58,1055,38"/>
+<area shape="rect" id="Node000014" href="$MHintegrator_8hpp.html" title="Metropolis&#45;Hastings MCMC Monte Carlo integration engine." alt="" coords="396,269,590,309"/>
+<area shape="poly" id="edge39_Node000001_Node000014" title=" " alt="" coords="848,38,706,56,548,85,475,104,411,127,361,153,343,168,330,183,324,197,324,210,330,222,341,233,374,252,414,267,412,272,372,257,338,237,326,225,319,211,319,196,325,180,339,164,358,149,409,122,473,99,547,80,705,51,847,33"/>
+<area shape="rect" id="Node000015" href="$hyperrectangle_8hpp.html" title="Axis&#45;aligned hyperrectangular domain in N dimensions." alt="" coords="800,93,978,133"/>
+<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="932,58,905,95,901,92,927,55"/>
+<area shape="rect" id="Node000016" href="$hypersphere_8hpp.html" title="N&#45;dimensional hypersphere (solid ball) domain." alt="" coords="1057,93,1236,133"/>
+<area shape="poly" id="edge26_Node000001_Node000016" title=" " alt="" coords="1008,48,1105,91,1103,96,1005,53"/>
+<area shape="rect" id="Node000017" href="$polytope_8hpp.html" title="N&#45;dimensional polytope (convex polyhedron) domain for Monte Carlo integration." alt="" coords="1828,269,2006,309"/>
+<area shape="poly" id="edge30_Node000001_Node000017" title=" " alt="" coords="1056,24,1221,28,1415,38,1509,47,1596,58,1669,73,1723,91,1755,109,1785,130,1838,179,1879,229,1907,268,1903,271,1875,232,1834,183,1782,134,1752,113,1721,96,1667,78,1595,63,1509,52,1414,43,1221,33,1056,30"/>
+<area shape="rect" id="Node000018" href="$VolumeEstimatorMC_8hpp.html" title="Hit&#45;or&#45;Miss Monte Carlo volume estimation." alt="" coords="650,181,843,221"/>
+<area shape="poly" id="edge33_Node000001_Node000018" title=" " alt="" coords="858,53,821,71,789,95,774,115,763,138,751,182,746,180,758,137,770,113,786,91,819,66,856,48"/>
+<area shape="rect" id="Node000019" href="$metropolisHastingsSampler_8hpp.html" title="Metropolis&#45;Hastings MCMC sampling engine." alt="" coords="340,181,574,221"/>
+<area shape="poly" id="edge41_Node000001_Node000019" title=" " alt="" coords="848,35,788,43,723,55,657,72,594,96,559,115,527,138,477,183,473,179,523,134,556,111,592,91,656,67,722,50,787,38,847,30"/>
+<area shape="rect" id="Node000020" href="$gaussianProposal_8hpp.html" title="Diagonal multivariate Gaussian proposal (no domain truncation)." alt="" coords="28,181,214,221"/>
+<area shape="poly" id="edge45_Node000001_Node000020" title=" " alt="" coords="847,31,693,36,516,46,350,66,284,79,234,96,204,114,176,137,136,183,132,179,173,133,200,110,232,91,282,74,349,61,515,41,693,30,847,25"/>
+<area shape="rect" id="Node000021" href="$uniformProposal_8hpp.html" title="Uniform distribution proposal over integration domain." alt="" coords="1188,181,1374,221"/>
+<area shape="poly" id="edge48_Node000001_Node000021" title=" " alt="" coords="1056,36,1170,58,1217,73,1249,91,1265,112,1275,136,1283,181,1278,182,1270,138,1261,115,1246,95,1215,78,1168,63,1055,42"/>
+<area shape="rect" id="Node000022" href="$plotter_8hpp.html" title=" " alt="" coords="1652,269,1803,309"/>
+<area shape="poly" id="edge52_Node000001_Node000022" title=" " alt="" coords="1056,27,1230,33,1428,45,1599,64,1658,76,1692,91,1709,111,1721,133,1734,183,1736,231,1733,269,1728,269,1731,231,1728,184,1716,135,1704,114,1689,95,1657,81,1598,69,1428,50,1229,38,1056,32"/>
+<area shape="rect" id="Node000004" href="$benchmarks_8hpp.html" title="Benchmarking framework for Monte Carlo integration algorithms." alt="" coords="1123,365,1311,390"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="1566,146,1489,226,1439,271,1384,312,1319,345,1258,367,1256,362,1316,340,1381,307,1435,267,1486,222,1562,142"/>
+<area shape="rect" id="Node000010" href="$drone__optimization_8cpp.html" title="Drone arm center of mass optimization using PSO with high&#45;precision verification." alt="" coords="1411,365,1644,390"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="1597,147,1600,223,1596,267,1585,310,1566,342,1543,366,1539,363,1561,339,1580,308,1591,266,1595,223,1591,148"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="1486,133,1114,188,1113,183,1486,127"/>
+<area shape="rect" id="Node000005" href="$benchmarks_8cpp.html" title="Implementation of shared benchmark utilities and global configuration." alt="" coords="1124,453,1310,478"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1220,404,1220,452,1214,452,1214,404"/>
+<area shape="rect" id="Node000006" href="$ga__benchmarks_8cpp.html" title="Genetic Algorithm benchmark suite with visualization." alt="" coords="1334,445,1494,485"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="1257,393,1372,443,1370,448,1255,398"/>
+<area shape="rect" id="Node000007" href="$integration__benchmarks_8cpp.html" title="Benchmark suite for Monte Carlo integration algorithms." alt="" coords="668,445,878,485"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="1145,395,871,448,870,443,1144,390"/>
+<area shape="rect" id="Node000008" href="$pso__benchmarks_8cpp.html" title="Particle Swarm Optimization benchmark suite." alt="" coords="937,445,1100,485"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="1179,398,1063,448,1061,443,1177,393"/>
+<area shape="rect" id="Node000009" href="$main_8cpp.html" title="Command&#45;line interface for Monte Carlo integration and benchmarking." alt="" coords="1580,453,1720,478"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="1289,390,1593,450,1592,455,1288,395"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="944,228,806,272,804,267,943,223"/>
+<area shape="poly" id="edge14_Node000011_Node000013" title=" " alt="" coords="1081,224,1201,267,1199,272,1079,229"/>
+<area shape="poly" id="edge18_Node000011_Node000014" title=" " alt="" coords="905,223,591,275,590,269,904,218"/>
+<area shape="poly" id="edge12_Node000012_Node000004" title=" " alt="" coords="858,308,1155,362,1154,367,857,313"/>
+<area shape="poly" id="edge13_Node000012_Node000007" title=" " alt="" coords="754,323,773,445,767,446,749,324"/>
+<area shape="poly" id="edge15_Node000013_Node000004" title=" " alt="" coords="1241,323,1224,365,1219,363,1236,321"/>
+<area shape="poly" id="edge17_Node000013_Node000009" title=" " alt="" coords="1284,316,1337,357,1401,395,1446,414,1493,429,1581,450,1580,455,1492,434,1444,419,1398,400,1334,361,1281,320"/>
+<area shape="poly" id="edge16_Node000013_Node000010" title=" " alt="" coords="1326,311,1492,362,1490,367,1324,316"/>
+<area shape="poly" id="edge20_Node000014_Node000002" title=" " alt="" coords="419,316,274,360,272,355,417,311"/>
+<area shape="poly" id="edge19_Node000014_Node000004" title=" " alt="" coords="604,303,637,307,1123,363,1122,368,637,312,604,308"/>
+<area shape="poly" id="edge24_Node000015_Node000002" title=" " alt="" coords="786,119,665,124,531,135,411,154,363,168,329,184,306,201,286,223,254,271,232,320,219,358,214,356,227,318,250,269,282,219,303,197,326,179,362,163,410,149,531,130,665,119,785,114"/>
+<area shape="poly" id="edge22_Node000015_Node000004" title=" " alt="" coords="889,147,893,184,899,203,908,220,934,249,964,275,997,297,1031,316,1101,344,1162,362,1160,367,1099,349,1029,320,994,301,961,279,930,253,904,223,894,205,888,185,884,148"/>
+<area shape="poly" id="edge23_Node000015_Node000010" title=" " alt="" coords="993,125,1240,157,1387,179,1422,212,1462,266,1523,363,1519,366,1457,269,1418,216,1385,184,1239,162,992,130"/>
+<area shape="poly" id="edge25_Node000015_Node000011" title=" " alt="" coords="930,139,989,179,986,183,927,144"/>
+<area shape="poly" id="edge27_Node000016_Node000004" title=" " alt="" coords="1140,147,1134,182,1130,223,1133,267,1145,308,1155,325,1168,340,1198,362,1195,367,1165,344,1151,328,1140,310,1128,268,1125,223,1128,181,1135,146"/>
+<area shape="poly" id="edge28_Node000016_Node000010" title=" " alt="" coords="1250,115,1296,122,1343,134,1390,153,1432,179,1454,200,1473,225,1501,278,1519,328,1528,364,1523,365,1514,330,1496,280,1468,228,1450,204,1429,183,1387,158,1342,139,1295,127,1249,120"/>
+<area shape="poly" id="edge29_Node000016_Node000011" title=" " alt="" coords="1107,143,1046,183,1043,179,1105,139"/>
+<area shape="poly" id="edge32_Node000017_Node000009" title=" " alt="" coords="1878,319,1670,455,1667,450,1875,315"/>
+<area shape="poly" id="edge31_Node000017_Node000010" title=" " alt="" coords="1819,315,1580,367,1579,362,1817,310"/>
+<area shape="poly" id="edge34_Node000018_Node000012" title=" " alt="" coords="749,235,749,269,744,269,744,235"/>
+<area shape="poly" id="edge35_Node000018_Node000013" title=" " alt="" coords="857,219,1155,269,1154,274,856,224"/>
+<area shape="poly" id="edge36_Node000018_Node000014" title=" " alt="" coords="679,228,549,272,548,267,677,223"/>
+<area shape="poly" id="edge42_Node000019_Node000012" title=" " alt="" coords="534,223,684,267,682,272,532,228"/>
+<area shape="poly" id="edge43_Node000019_Node000013" title=" " alt="" coords="589,214,1154,275,1154,280,588,219"/>
+<area shape="poly" id="edge44_Node000019_Node000014" title=" " alt="" coords="473,233,487,268,482,270,468,235"/>
+<area shape="poly" id="edge46_Node000020_Node000002" title=" " alt="" coords="139,232,204,356,199,358,135,235"/>
+<area shape="poly" id="edge47_Node000020_Node000012" title=" " alt="" coords="228,215,649,272,649,277,227,220"/>
+<area shape="poly" id="edge49_Node000021_Node000004" title=" " alt="" coords="1328,227,1348,245,1363,268,1370,290,1363,311,1346,331,1324,347,1277,367,1275,362,1322,342,1342,327,1359,308,1365,290,1358,270,1344,249,1324,231"/>
+<area shape="poly" id="edge50_Node000021_Node000012" title=" " alt="" coords="1174,222,844,275,844,270,1173,217"/>
+<area shape="poly" id="edge51_Node000021_Node000013" title=" " alt="" coords="1272,235,1261,270,1256,268,1267,234"/>
+<area shape="poly" id="edge53_Node000022_Node000004" title=" " alt="" coords="1639,308,1285,367,1284,362,1639,303"/>
+<area shape="poly" id="edge55_Node000022_Node000009" title=" " alt="" coords="1716,323,1658,453,1653,451,1711,321"/>
+<area shape="poly" id="edge54_Node000022_Node000010" title=" " alt="" coords="1672,317,1555,367,1553,362,1670,312"/>
+</map>
